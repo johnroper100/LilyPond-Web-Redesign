@@ -1,6 +1,0 @@
-%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
-  texidocit = "
-Il testo separato può essere disposto su varie colonne con i comandi di
-@code{\\markup}:
-"
-  doctitleit = "Testo separato su due colonne"

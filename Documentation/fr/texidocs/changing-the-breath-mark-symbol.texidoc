@@ -1,8 +1,0 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
-  texidocfr = "
-On peut choisir le glyphe imprimé par cette commande, en modifiant la
-propriété @code{text} de l'objet @code{BreathingSign}, pour lui affecter
-n'importe quelle indication textuelle.
-
-"
-  doctitlefr = "Modification de l'indicateur de respiration"

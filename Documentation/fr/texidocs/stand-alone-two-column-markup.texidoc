@@ -1,7 +1,0 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
-  texidocfr = "
-L'utilisation de la commande @code{\\markup} permet de distribuer un bloc
-de texte indépendant sur plusieurs colonnes.
-
-"
-  doctitlefr = "Bloc de texte indépendant sur deux colonnes"

@@ -1,9 +1,0 @@
-%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
-  texidocit = "
-Tutti gli oggetti @code{DynamicLineSpanner} (forcelle e testi di dinamica)
-sono posti a una distanza minima dal rigo determinata da @code{'staff-padding}.
-Se si imposta @code{'staff-padding} su un valore abbastanza grande,
-le dinamiche saranno allineate.
-
-"
-  doctitleit = "Dinamiche e segni testuali allineati verticalmente"

@@ -1,8 +1,0 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
-  texidocfr = "
-Il arrive, dans certaines partitions vocales, que quelques paroles
-soient communes à tous les couplets.  Cette partie commune peut peut se
-présenter verticalement centrée, comme dans l'exemple suivant.
-
-"
-  doctitlefr = "Centrage vertical de paroles communes"

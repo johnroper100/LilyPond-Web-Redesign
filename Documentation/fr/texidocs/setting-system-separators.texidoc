@@ -1,8 +1,0 @@
-%% Translation of GIT committish: 08c1ead90d9f49e66ce54208639fb9ef48ca52a6
-  texidocfr = "
-La séparation entre deux systèmes consécutifs peut être mise en
-évidence par n'importe quel @emph{markup}.  LilyPond dispose à cet effet
-d'une double oblique inversée : @code{\\slashSeparator}.
-
-"
-  doctitlefr = "Séparation visuelle entre les systèmes"

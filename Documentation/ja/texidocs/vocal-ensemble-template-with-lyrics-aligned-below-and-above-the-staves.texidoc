@@ -1,7 +1,0 @@
-%% Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
-  texidocja = "
-このテンプレートは基本的に単純な @qq{合唱} テンプレートと同じですが、歌詞が
-@code{alignAboveContext} と @code{alignBelowContext} を用いて配置@c
-されています。
-"
-  doctitleja = "上下に歌詞を配置した合唱譜テンプレート"

@@ -1,8 +1,0 @@
-%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
-  texidocit = "
-Le forcelle di dinamica possono essere rappresentate con ua punta
-tonda (notazione @qq{al niente}) impostando la proprietà @code{circled-tip}
-dell'oggetto @code{Hairpin} su @code{#t}.
-
-"
-  doctitleit = "Forcelle con notazione al niente"

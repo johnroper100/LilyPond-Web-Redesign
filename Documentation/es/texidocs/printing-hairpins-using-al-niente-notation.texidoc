@@ -1,8 +1,0 @@
-%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
-  texidoces = "
-Se pueden imprimir reguladores con un círculo en la punta (notación
-«al niente») estableciendo la propiedad @code{circled-tip} del objeto
-@code{Hairpin} al valor @code{#t}.
-
-"
-  doctitlees = "Impresión de reguladores utilizando la notación «al niente»"

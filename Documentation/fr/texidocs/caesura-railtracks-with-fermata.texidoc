@@ -1,8 +1,0 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
-  texidocfr = "
-Une césure peut parfois s'indiquer par une double respiration surmontée
-d'un point d'orgue.  Le code ci-dessous permet d'obtenir la combinaison
-répondant à cette esthétique.
-
-"
-  doctitlefr = "Césure en forme de « voie de chemin de fer » avec point d'orgue"

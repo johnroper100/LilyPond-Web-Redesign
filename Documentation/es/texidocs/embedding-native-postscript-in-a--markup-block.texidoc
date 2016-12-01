@@ -1,7 +1,0 @@
-%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
-  texidoces = "
-Se puede insertar códico PostScript directamente dentro de un
-bloque @code{\\markup}.
-
-"
-  doctitlees = "Empotrar PostScript nativo dentro de un bloque \\markup"

@@ -1,7 +1,0 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
-  texidocfr = "
-L'empilement des indications de doigté se fait par défaut à l'extérieur
-de la portée.  Il est néanmoins possible d'annuler ce comportement.
-
-"
-  doctitlefr = "Impression des doigtés à l'intérieur de la portée"

@@ -1,9 +1,0 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
-  texidocfr = "
-La syntaxe @code{s} qui permet de « faire un saut dans le temps » n'est
-disponible qu'en mode notes et en mode accords.  Dans les autres
-situations, comme en mode paroles par exemple, la commande @code{\\skip}
-produit les mêmes effets.
-
-"
-  doctitlefr = "Sauts de notes en mode paroles"

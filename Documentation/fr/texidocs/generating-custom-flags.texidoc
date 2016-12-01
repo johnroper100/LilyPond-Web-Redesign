@@ -1,8 +1,0 @@
-%% Translation of GIT committish: 08c1ead90d9f49e66ce54208639fb9ef48ca52a6
-  texidocfr = "
-Une fonction Scheme personnalisée permet de redéfinir la propriété
-@code{stencil} de l'objet @code{Flag}, de sorte à modifier le glyphe
-utilisé pour les crochets de croche.
-
-"
-  doctitlefr = "Génération de crochets personnalisés"

@@ -1,6 +1,0 @@
-%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
-  texidocit = "
-Per cambiare il tempo del file MIDI senza che appaia l'indicazione metronomica, basta renderla invisibile.
-
-"
-  doctitleit = "Modificare il tempo senza mostrare l'indicazione metronomica"

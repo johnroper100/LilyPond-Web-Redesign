@@ -1,9 +1,0 @@
-%% Translation of GIT committish: 9d1f4d4d16abf95cccf6bea9cf98c312e55a3ebf
-  texidocfr = "
-La fonction comprise dans l'extrait suivant permet d'ajouter du texte
--- comme « molto » ou « poco » -- en dessous d'un soufflet de
-(de)crescendo.  Cet exemple présente aussi comment, à l'aide de code
-Scheme, influencer la manière dont un objet est normalement imprimé.
-
-"
-  doctitlefr = "Texte centré sous un soufflet"

@@ -1,9 +1,0 @@
-%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
-  texidoces = "
-Se puede trazar un símbolo de arpegio entre notas de distintas
-voces que están sobre el mismo pentagrama si el grabador
-@code{Span_arpeggio_engraver} se traslada al contexto de
-@code{Staff} context:
-
-"
-  doctitlees = "Crear arpegios entre notas de voces distintas"

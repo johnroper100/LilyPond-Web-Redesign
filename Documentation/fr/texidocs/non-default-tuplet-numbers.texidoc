@@ -1,9 +1,0 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
-  texidocfr = "
-LilyPond sait aussi gérer des n-olets dont le chiffrage imprimé ne
-correspond pas exactement à la fraction de mesure à laquelle ils se
-réfèrent, tout comme ceux auxquels une valeur de note vient en
-complément du chiffre.
-
-"
-  doctitlefr = "N-olets au chiffrage inhabituel"

@@ -1,9 +1,0 @@
-%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
-  texidoces = "
-LilyPond también proporciona funciones de formato para imprimir
-números de grupo especial diferentes a la propia fracción, así
-como para añadir una figura al número o a la fracción de la
-agrupación.
-
-"
-  doctitlees = "Números de agrupación especial distintos a los predeterminados"

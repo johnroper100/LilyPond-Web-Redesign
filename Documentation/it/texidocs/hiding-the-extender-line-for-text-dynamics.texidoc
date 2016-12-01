@@ -1,8 +1,0 @@
-%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
-  texidocit = "
-I cambi di dinamica in stile testuale (come cresc. e dim.) appaiono con
-una linea tratteggiata che mostra la loro estensione.  Questa linea
-può essere soppressa nel modo seguente:
-
-"
-  doctitleit = "Nascondere la linea di estensione per le dinamiche testuali"
