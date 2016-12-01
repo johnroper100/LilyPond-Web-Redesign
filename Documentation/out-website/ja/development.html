@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2003-2015 by the authors.
+
+このファイルは LilyPond Web サイトのドキュメントです。
+
+GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によって
+発行されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更する
+許可を与えます。
+変更不可部分はありません。
+この利用許諾契約書のコピーは "GNU フリー文書利用許諾契約書" という章に含まれて
+います。
+
+ -->
+<!-- Created on 11 月 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; みんなの楽譜作成: 開発</title>
+
+<meta name="description" content="LilyPond &ndash; みんなの楽譜作成: 開発">
+<meta name="keywords" content="LilyPond &ndash; みんなの楽譜作成: 開発">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... みんなの楽譜作成">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="目次">
+<link href="index_abt.html#SEC_About" rel="help" title="このドキュメントについて">
+<link href="community.html#community" rel="up" title="コミュニティ">
+<link href="attic.html#attic" rel="next" title="物置">
+<link href="sponsoring.html#sponsoring" rel="previous" title="スポンサー">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="ja" class="web devStatus">
+
+<div id="main">
+<a name="g_t_958b_767a"></a>
+
+<a name="development"></a>
+<h2 class="unnumberedsec">開発</h2>
+
+<div class="heading-center">  <a name="LilyPond-2_002e19_002e51-noKai-Fa-"></a>
+<h2 class="heading">LilyPond 2.19.51 の開発</h2>
+
+
+<div class="warning"><p><strong>Note:</strong> <em>不安定な開発</em> バージョンです。LilyPond の使い方やインストールの仕方に少しでも疑問を持つのであれば、<a href="download.html">安定版のダウンロード</a> を使い、<a href="manuals.html">安定版のマニュアル</a> を読むことをお勧めします。
+</p>
+</div>
+
+</div>
+<div class="column-center-top"><a name="ririsuFan-Hao-"></a>
+<h3 class="subheading">リリース番号</h3>
+
+<p>LilyPond には 2 セットのリリースがあります:
+安定版リリースと不安定な開発リリースです。安定バージョンは偶数の &lsquo;マイナー&rsquo; バージョン番号
+(例えば 2.8, 2.10, 2.12) を持ち、開発バージョンは奇数の  &lsquo;マイナー&rsquo; バージョン番号
+(例えば 2.7, 2.9, 2.11) を持ちます。
+</p>
+
+</div>
+
+<div class="column-left-top"><a name="daunrodo-4"></a>
+<h3 class="subheading">ダウンロード</h3>
+
+<p>git とコンパイルについての説明は貢献者向けガイドにあります。
+</p>
+<blockquote><p><a href="http://git.sv.gnu.org/gitweb/?p=lilypond.git">lilypond git リポジトリ</a>
+</p></blockquote>
+
+<p>ドキュメント作成者とテスターはたいてい最新のバイナリをダウンロードしようとします:
+</p>
+<blockquote>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/linux-x86/lilypond-2.19.51-1.linux-x86.sh">GNU/Linux x86: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/linux-64/lilypond-2.19.51-1.linux-64.sh">GNU/Linux 64: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/linux-ppc/lilypond-2.19.51-1.linux-ppc.sh">GNU/Linux PPC: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/freebsd-x86/lilypond-2.19.51-1.freebsd-x86.sh">FreeBSD i386: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/freebsd-64/lilypond-2.19.51-1.freebsd-64.sh">FreeBSD amd64: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/darwin-x86/lilypond-2.19.51-1.darwin-x86.tar.bz2">MacOS X x86: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/darwin-ppc/lilypond-2.19.51-1.darwin-ppc.tar.bz2">MacOS X PPC: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-2.19.51-1.mingw.exe">Windows: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/sources/v2.19/lilypond-2.19.51.tar.gz">Source: lilypond-2.19.51.tar.gz</a>
+</p>
+</blockquote>
+
+
+</div>
+
+<div class="column-right-top"><a name="Gong-Xian-Zhe-Xiang-kegaido"></a>
+<h3 class="subheading">貢献者向けガイド</h3>
+
+<p>LilyPond の開発手法はかなり複雑です。新しい貢献者を助けるために、そしてシステム全体の安定を保つために、開発作業のマニュアルを作成しました。
+</p>
+
+<div class="keep-bullets"><ul>
+<li>       <a href="../doc/v2.19/Documentation/contributor/index.html">Contributor (split HTML)</a>
+   -
+  このマニュアルはいくつもの HTML ページに分割されています。
+  <br>&nbsp;&nbsp;<em>(ページ毎の小さなダウンロード)</em>
+
+</li><li>       <a href="../doc/v2.19/Documentation/contributor-big-page.html">Contributor (big HTML)</a>
+   -
+  このマニュアルは 1 つの巨大な HTML ページです。
+  <br>&nbsp;&nbsp;<em>(大きな単一のダウンロード, 500 kB)</em>
+
+</li><li>       <a href="../doc/v2.19/Documentation/contributor.pdf">Contributor.pdf</a>
+   -
+  日本語では PDF 形式での提供はありません。
+  <br>&nbsp;&nbsp;<em>(大きな単一のダウンロード, 2.8 MB)</em>
+
+</li></ul>
+
+
+</div>
+
+
+</div>
+
+<div class="column-center-top"><a name="Hui-Gui-tesuto"></a>
+<h3 class="subheading">回帰テスト</h3>
+
+<div class="keep-bullets">
+
+<a name="Kai-Fa-baziyon"></a>
+<h4 class="subsubheading">開発バージョン</h4>
+
+<ul>
+<li> <a href="../doc/v2.19/input/regression/collated-files.html">Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/collated-files.pdf">PDF of regtests for 2.19.51</a>)
+
+</li><li> <a href="../doc/v2.19/input/regression/musicxml/collated-files.html">MusicXML Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/musicxml/collated-files.pdf">PDF of MusicXML regtests for 2.19.51</a>)
+
+</li><li> <a href="../doc/v2.19/input/regression/abc2ly/collated-files.html">abc2ly Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/abc2ly/collated-files.pdf">PDF of abc2ly regtests for 2.19.51</a>)
+
+</li><li> <a href="../doc/v2.19/input/regression/lilypond-book/collated-files.html">lilypond-book Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/lilypond-book/collated-files.pdf">PDF of lilypond-book regtests for 2.19.51</a>)
+</li></ul>
+
+<a name="An-Ding-baziyon"></a>
+<h4 class="subsubheading">安定バージョン</h4>
+
+<ul>
+<li> <a href="../doc/v2.18/input/regression/collated-files.html">Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/collated-files.pdf">PDF of regtests for 2.18.2</a>)
+
+</li><li> <a href="../doc/v2.18/input/regression/musicxml/collated-files.html">MusicXML Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/musicxml/collated-files.pdf">PDF of MusicXML regtests for 2.18.2</a>)
+
+</li><li> <a href="../doc/v2.18/input/regression/abc2ly/collated-files.html">abc2ly Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/abc2ly/collated-files.pdf">PDF of abc2ly regtests for 2.18.2</a>)
+
+</li><li> <a href="../doc/v2.18/input/regression/lilypond-book/collated-files.html">lilypond-book Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/lilypond-book/collated-files.pdf">PDF of lilypond-book regtests for 2.18.2</a>)
+</li></ul>
+
+
+<a name="subetenobaziyon-1"></a>
+<h4 class="subsubheading">すべてのバージョン</h4>
+
+<ul>
+<li> <a href="http://lilypond.org/test">バージョン間での回帰テストの比較</a>
+
+</li><li> <a href="http://lilypond.org/downloads/binaries/test-output">すべての回帰テストのアーカイブ</a>
+
+</li></ul>
+
+
+</div>
+</div>
+
+
+<div class="column-center-bottom"><a name="maniyuaru-1"></a>
+<h3 class="subheading">マニュアル</h3>
+
+
+<div class="normal-table"><table>
+<thead><tr><th width="30%">導入部</th></tr></thead>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/learning/index.ja.html">学習 (ページ毎に分割された HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/learning-big-page.ja.html">学習 (1 つの大きな HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/learning.pdf">Learning.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/music-glossary/index.html">Music glossary (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/music-glossary-big-page.html">Music glossary (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/music-glossary.pdf">Music glossary.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/essay/index.html">Essay (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/essay-big-page.html">Essay (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/essay.pdf">Essay.pdf</a></td></tr>
+</table>
+
+<table>
+<thead><tr><th width="30%">常用マニュアル</th></tr></thead>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/notation/index.ja.html">記譜法 (ページ毎に分割された HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/notation-big-page.ja.html">記譜法 (1 つの大きな HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/notation.pdf">Notation.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/usage/index.ja.html">使用方法 (ページ毎に分割された HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/usage-big-page.ja.html">使用方法 (1 つの大きな HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/usage.pdf">Usage.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/snippets/index.html">Snippets (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/snippets-big-page.html">Snippets (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/snippets.pdf">Snippets.pdf</a></td></tr>
+</table>
+
+<table>
+<thead><tr><th width="30%">時々使用するマニュアル</th></tr></thead>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/web/index.ja.html">Web (ページ毎に分割された HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/web-big-page.ja.html">Web (1 つの大きな HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/web.pdf">Web.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/changes/index.html">Changes (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/changes-big-page.html">Changes (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/changes.pdf">Changes.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/extending/index.html">Extending (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/extending-big-page.html">Extending (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/extending.pdf">Extending.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/internals/index.html">Internals (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/internals-big-page.html">Internals (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/internals.pdf">Internals.pdf</a></td></tr>
+</table>
+
+<table>
+<thead><tr><th width="30%">Downloadable</th></tr></thead>
+<tr><td width="30%"><a href="../downloads/binaries/documentation/lilypond-2.19.51-1.documentation.tar.bz2">Doc tarball for 2.19.51</a></td></tr>
+</table>
+
+
+
+</div>
+</div>
+
+
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p><code>lilypond.org</code> をホスティングしてくれている <a href="http://www.webdev.nl/">webdev.nl</a> に感謝します。
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Dao-Ru-Bu-" href="introduction.html">導入部</a>  </li>
+  <li class=""><a name="toc-daunrodo" href="download.html">ダウンロード</a>  </li>
+  <li class=""><a name="toc-maniyuaru" href="manuals.html">マニュアル</a>  </li>
+  <li class=" toc_current"><a name="toc-komiyunitei" href="community.html">コミュニティ</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-komiyunitei" href="community.html">コミュニティ</a></li>
+    <li class=""><a name="toc-kontakuto" href="contact.html">コンタクト</a>    </li>
+    <li class=""><a name="toc-Zui-Xiao-Hua-Li-" href="tiny-examples.html">最小化例</a>    </li>
+    <li class=""><a name="toc-baguBao-Gao-" href="bug-reports.html">バグ報告</a>    </li>
+    <li class=""><a name="toc-Yuan-Zhu-gaBi-Yao-desu" href="help-us.html">援助が必要です</a>    </li>
+    <li class=""><a name="toc-suponsa" href="sponsoring.html">スポンサー</a>    </li>
+    <li class=" toc_current"><a name="toc-Kai-Fa-" href="development.html">開発</a>    </li>
+    <li class=""><a name="toc-Google-Summer-of-Code-1" href="google-summer-of-code.html">Google Summer of Code</a>    </li>
+    <li class=""><a name="toc-Zhu-Zhe-" href="authors.html">著者</a>    </li>
+    <li class=""><a name="toc-Xie-Ci-" href="acknowledgements.html">謝辞</a>    </li>
+    <li class=""><a name="toc-Chu-Ban-Wu-" href="publications.html">出版物</a>    </li>
+    <li class=""><a name="toc-niyusu" href="news.html">ニュース</a>    </li>
+    <li class=""><a name="toc-Wu-Zhi-" href="attic.html">物置</a>    </li>
+  </ul>
+  </li>
+<li>
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Google Search">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Search">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

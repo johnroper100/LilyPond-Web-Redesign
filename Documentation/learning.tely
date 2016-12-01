@@ -1,0 +1,88 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@setfilename lilypond-learning.info
+@settitle LilyPond Learning Manual
+@documentencoding UTF-8
+@documentlanguage en
+@afourpaper
+
+@macro manualIntro
+This file provides an introduction to LilyPond version
+@version{}.
+@end macro
+
+@c `Learning Manual' was born 1998-08-14 with this commit:
+@c release: 1.0.2
+@c author: Han-Wen Nienhuys
+@c commit: a3a44f9f3c581b6824b3a65f9039656693e09bbf
+@c   file: Documentation/tex/tutorial.yo
+
+@macro copyrightDeclare
+Copyright @copyright{} 1998--2015 by the authors.
+@end macro
+
+@set FDL
+@include macros.itexi
+
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription Learning Manual of the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage English
+@end ignore
+
+
+@lilyTitlePage{Learning Manual}
+
+@c TOC -- non-tex
+@ifnottex
+
+@menu
+* Tutorial::                       Basics of typesetting with LilyPond.
+* Common notation::                Writing very common notation.
+* Fundamental concepts::           Basic concepts required for reading the rest of the manuals.
+* Tweaking output::                Introduction to modifying output.
+
+Appendices
+
+* Templates::                      Ready-made templates.
+* GNU Free Documentation License:: License of this document.
+* LilyPond index::
+@end menu
+
+@docMain
+@end ifnottex
+
+
+@c TOC - tex
+@contents
+
+@allowcodebreaks false
+
+@c INCLUDES
+
+@include learning/tutorial.itely
+@include learning/common-notation.itely
+@include learning/fundamental.itely
+@include learning/tweaks.itely
+
+@include learning/templates.itely
+@include fdl.itexi
+
+
+@node LilyPond index
+@appendix LilyPond index
+
+@printindex cp
+
+@bye

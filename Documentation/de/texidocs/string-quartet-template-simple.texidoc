@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Dieses Beispiel demonstriert die Partitur für ein Streichquartett. Hier
+wird auch eine @qq{@code{\global}}-Variable für Taktart und
+Vorzeichen benutzt.
+"
+
+  doctitlede = "Vorlage für Streichquartett (einfach)"
+

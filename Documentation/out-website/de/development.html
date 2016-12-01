@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 by the authors.
+
+Diese Datei dokumentiert den Internetauftritt von LilyPond.
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on 30. November 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; Notation für Jedermann: Entwicklung</title>
+
+<meta name="description" content="LilyPond &ndash; Notation für Jedermann: Entwicklung">
+<meta name="keywords" content="LilyPond &ndash; Notation für Jedermann: Entwicklung">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... Notensatz für Jedermann">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="Inhaltsverzeichnis">
+<link href="index_abt.html#SEC_About" rel="help" title="&Uuml;ber dieses Dokument">
+<link href="community.html#community" rel="up" title="Gemeinschaft">
+<link href="attic.html#attic" rel="next" title="Abstellkammer">
+<link href="sponsoring.html#sponsoring" rel="previous" title="Sponsoren">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="de" class="web devStatus">
+
+<div id="main">
+<a name="Entwicklung"></a>
+
+<a name="development"></a>
+<h2 class="unnumberedsec">Entwicklung</h2>
+
+<div class="heading-center">  <a name="Entwicklung-fur-LilyPond-2_002e19_002e51"></a>
+<h2 class="heading">Entwicklung für LilyPond 2.19.51</h2>
+
+
+<div class="warning"><p><strong>Achtung:</strong> Hier handelt es sich um <em>möglicherweise instabile</em> Entwicklerversionen.
+Wenn Sie nicht genau wissen, wie man LilyPond installiert und
+benutzt, empfehlen wir ausdrücklich, die <a href="download.html">stabile Download</a>-Version
+zu benutzen und die <a href="manuals.html">stabilen Handbücher</a> zu lesen.
+</p>
+</div>
+
+</div>
+<div class="column-center-top"><a name="Veroffentlichungsnummern"></a>
+<h3 class="subheading">Veröffentlichungsnummern</h3>
+
+<p>Es gibt zwei Veröffentlichungsreihen für LilyPond: stabile Versionen
+und die instabilen Entwicklerversionen.  Stabile Versionen haben eine
+gerade zweite Versionsnummer (also etwa 2.8, 2.10, 2.12).
+Entwicklerversionen haben eine ungerade zweite Versionsnummer
+(also 2.7, 2.9, 2.11).
+</p>
+
+</div>
+
+<div class="column-left-top"><a name="Download-3"></a>
+<h3 class="subheading">Download</h3>
+
+<p>Anleitungen zu git und der Kompilierung finden sich im Contributor&rsquo;s Guide (nur auf Englisch).
+</p>
+<blockquote><p><a href="http://git.sv.gnu.org/gitweb/?p=lilypond.git">lilypond git-Repositorium</a>
+</p></blockquote>
+
+<p>Schreiber der Dokumentation und Tester sollten die neuesten
+Binärpakete herunterladen:
+</p>
+<blockquote>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/linux-x86/lilypond-2.19.51-1.linux-x86.sh">GNU/Linux x86: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/linux-64/lilypond-2.19.51-1.linux-64.sh">GNU/Linux 64: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/linux-ppc/lilypond-2.19.51-1.linux-ppc.sh">GNU/Linux PPC: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/freebsd-x86/lilypond-2.19.51-1.freebsd-x86.sh">FreeBSD i386: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/freebsd-64/lilypond-2.19.51-1.freebsd-64.sh">FreeBSD amd64: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/darwin-x86/lilypond-2.19.51-1.darwin-x86.tar.bz2">MacOS X x86: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/darwin-ppc/lilypond-2.19.51-1.darwin-ppc.tar.bz2">MacOS X PPC: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-2.19.51-1.mingw.exe">Windows: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/sources/v2.19/lilypond-2.19.51.tar.gz">Source: lilypond-2.19.51.tar.gz</a>
+</p>
+</blockquote>
+
+
+</div>
+
+<div class="column-right-top"><a name="Handbuch-fur-Entwicklungsarbeiten-_0028Contributor_0027s-guide_0029"></a>
+<h3 class="subheading">Handbuch für Entwicklungsarbeiten (Contributor&rsquo;s guide)</h3>
+
+<p>Die Entwicklung von LilyPond ist eine ziemlich komplizierte Angelegenheit.
+Um neuen Mitarbeitern zu helfen und das ganze System (ziemlich)
+stabil zu halten, haben wir ein Handbuch für Entwicklungsarbeiten
+geschrieben (nur auf Englisch).
+</p>
+
+<div class="keep-bullets"><ul>
+<li>       <a href="../doc/v2.19/Documentation/contributor/index.html">Contributor (split HTML)</a>
+   -
+  das Handbuch wird in viele HTML-Seiten aufgeteilt.
+  <br>&nbsp;&nbsp;<em>(kleiner Download für jede Seite)</em>
+
+</li><li>       <a href="../doc/v2.19/Documentation/contributor-big-page.html">Contributor (big HTML)</a>
+   -
+  das Handbuch als eine großen HTML-Seite.
+  <br>&nbsp;&nbsp;<em>(großer einmaliger Download, 500 kB)</em>
+
+</li><li>       <a href="../doc/v2.19/Documentation/contributor.pdf">Contributor.pdf</a>
+   -
+  das Handbuch als PDF-Datei.
+  <br>&nbsp;&nbsp;<em>(großer einmaliger Download, 2.8 MB)</em>
+
+</li></ul>
+
+
+</div>
+
+
+</div>
+
+<div class="column-center-top"><a name="Regressionstests"></a>
+<h3 class="subheading">Regressionstests</h3>
+
+<div class="keep-bullets">
+
+<a name="Entwicklungsversion"></a>
+<h4 class="subsubheading">Entwicklungsversion</h4>
+
+<ul>
+<li> <a href="../doc/v2.19/input/regression/collated-files.html">Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/collated-files.pdf">PDF of regtests for 2.19.51</a>)
+
+</li><li> <a href="../doc/v2.19/input/regression/musicxml/collated-files.html">MusicXML Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/musicxml/collated-files.pdf">PDF of MusicXML regtests for 2.19.51</a>)
+
+</li><li> <a href="../doc/v2.19/input/regression/abc2ly/collated-files.html">abc2ly Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/abc2ly/collated-files.pdf">PDF of abc2ly regtests for 2.19.51</a>)
+
+</li><li> <a href="../doc/v2.19/input/regression/lilypond-book/collated-files.html">lilypond-book Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/lilypond-book/collated-files.pdf">PDF of lilypond-book regtests for 2.19.51</a>)
+</li></ul>
+
+<a name="Stabile-Version"></a>
+<h4 class="subsubheading">Stabile Version</h4>
+
+<ul>
+<li> <a href="../doc/v2.18/input/regression/collated-files.html">Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/collated-files.pdf">PDF of regtests for 2.18.2</a>)
+
+</li><li> <a href="../doc/v2.18/input/regression/musicxml/collated-files.html">MusicXML Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/musicxml/collated-files.pdf">PDF of MusicXML regtests for 2.18.2</a>)
+
+</li><li> <a href="../doc/v2.18/input/regression/abc2ly/collated-files.html">abc2ly Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/abc2ly/collated-files.pdf">PDF of abc2ly regtests for 2.18.2</a>)
+
+</li><li> <a href="../doc/v2.18/input/regression/lilypond-book/collated-files.html">lilypond-book Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/lilypond-book/collated-files.pdf">PDF of lilypond-book regtests for 2.18.2</a>)
+</li></ul>
+
+
+<a name="Alle-Versionen"></a>
+<h4 class="subsubheading">Alle Versionen</h4>
+
+<ul>
+<li> <a href="http://lilypond.org/test">Vergleiche zweier Versionen</a>:
+
+</li><li> <a href="http://lilypond.org/downloads/binaries/test-output">Archiv aller Regressionstests</a>
+
+</li></ul>
+
+
+</div>
+</div>
+
+
+<div class="column-center-bottom"><a name="Handbucher-1"></a>
+<h3 class="subheading">Handbücher</h3>
+
+
+<div class="normal-table"><table>
+<thead><tr><th width="30%">Einleitung</th></tr></thead>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/learning/index.de.html">Einführung (geteiltes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/learning-big-page.de.html">Einführung (großes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/learning.de.pdf">Einführung.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/music-glossary/index.html">Music glossary (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/music-glossary-big-page.html">Music glossary (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/music-glossary.pdf">Music glossary.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/essay/index.de.html">Aufsatz (geteiltes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/essay-big-page.de.html">Aufsatz (großes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/essay.de.pdf">Aufsatz.pdf</a></td></tr>
+</table>
+
+<table>
+<thead><tr><th width="30%">Häufig benötigte Handbücher</th></tr></thead>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/notation/index.de.html">Notation (geteiltes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/notation-big-page.de.html">Notation (großes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/notation.de.pdf">Notation.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/usage/index.de.html">Benutzung (geteiltes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/usage-big-page.de.html">Benutzung (großes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/usage.de.pdf">Benutzung.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/snippets/index.html">Snippets (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/snippets-big-page.html">Snippets (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/snippets.pdf">Snippets.pdf</a></td></tr>
+</table>
+
+<table>
+<thead><tr><th width="30%">Seltener benötigte Handbücher</th></tr></thead>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/web/index.de.html">Web (geteiltes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/web-big-page.de.html">Web (großes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/web.de.pdf">Web.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/changes/index.html">Changes (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/changes-big-page.html">Changes (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/changes.pdf">Changes.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/extending/index.de.html">Erweitern (geteiltes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/extending-big-page.de.html">Erweitern (großes HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/extending.de.pdf">Erweitern.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/internals/index.html">Internals (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/internals-big-page.html">Internals (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/internals.pdf">Internals.pdf</a></td></tr>
+</table>
+
+<table>
+<thead><tr><th width="30%">Zum Herunterladen</th></tr></thead>
+<tr><td width="30%"><a href="../downloads/binaries/documentation/lilypond-2.19.51-1.documentation.tar.bz2">Doc tarball for 2.19.51</a></td></tr>
+</table>
+
+
+
+</div>
+</div>
+
+
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Thanks to <a href="http://www.webdev.nl/">webdev.nl</a> for hosting <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Einleitung-1" href="introduction.html">Einleitung</a>  </li>
+  <li class=""><a name="toc-Download-1" href="download.html">Download</a>  </li>
+  <li class=""><a name="toc-Handbucher" href="manuals.html">Handbücher</a>  </li>
+  <li class=" toc_current"><a name="toc-Gemeinschaft-1" href="community.html">Gemeinschaft</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Gemeinschaft-1" href="community.html">Gemeinschaft</a></li>
+    <li class=""><a name="toc-Kontakt-1" href="contact.html">Kontakt</a>    </li>
+    <li class=""><a name="toc-Minimalbeispiele-1" href="tiny-examples.html">Minimalbeispiele</a>    </li>
+    <li class=""><a name="toc-Fehlerberichte-1" href="bug-reports.html">Fehlerberichte</a>    </li>
+    <li class=""><a name="toc-Helfen-Sie-uns-1" href="help-us.html">Helfen Sie uns</a>    </li>
+    <li class=""><a name="toc-Sponsoren-1" href="sponsoring.html">Sponsoren</a>    </li>
+    <li class=" toc_current"><a name="toc-Entwicklung-1" href="development.html">Entwicklung</a>    </li>
+    <li class=""><a name="toc-Google-Summer-of-Code-1" href="google-summer-of-code.html">Google Summer of Code</a>    </li>
+    <li class=""><a name="toc-Autoren-1" href="authors.html">Autoren</a>    </li>
+    <li class=""><a name="toc-Danksagungen-1" href="acknowledgements.html">Danksagungen</a>    </li>
+    <li class=""><a name="toc-Veroffentlichungen" href="publications.html">Veröffentlichungen</a>    </li>
+    <li class=""><a name="toc-Altere-Neuigkeiten" href="news.html">Ältere Neuigkeiten</a>    </li>
+    <li class=""><a name="toc-Abstellkammer-1" href="attic.html">Abstellkammer</a>    </li>
+  </ul>
+  </li>
+<li>
+<!--
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+-->
+
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Mit Google suchen">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Suche">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

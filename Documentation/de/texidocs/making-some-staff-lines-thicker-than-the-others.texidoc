@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Für den pädagogischen Einsatz kann eine Linie des Notensystems dicker
+gezeichnet werden (z. B. die Mittellinie, oder um den Schlüssel hervorzuheben).
+Das ist möglich, indem man zusätzliche Linien sehr nahe an der Linie, die
+dicker erscheinen soll, einfügt.  Dazu wird die @code{line-positions}-Eigenschaft
+herangezogen.
+
+"
+  doctitlede = "Eine Linie des Notensystems dicker als die anderen machen"

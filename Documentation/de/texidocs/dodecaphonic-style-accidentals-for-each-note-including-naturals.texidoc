@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+ In Werken des frühen 20. Jahrhundert, angefangen mit Schönberg, Berg
+ und Webern (die zweite Wiener Schule), wird jeder Ton der
+ Zwölftonleiter als gleichwertig erachtet, ohne hierarchische
+ Ordnung.  Deshalb wird in dieser Musik für jede Note ein Versetzungszeichen
+ ausgegeben, auch für unalterierte Tonhöhen, um das neue Verständnis
+ der Musiktheorie und Musiksprache zu verdeutlichen.
+
+ Dieser Schnipsel zeigt, wie derartige Notationsregeln zu erstellen sind.
+ "
+  doctitlede = "Versetzungszeichen für jede Note im Stil der Zwölftonmusik"

@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2003-2015 by the authors.
+
+This file documents the LilyPond website.
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on November 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; Music notation for everyone: Tiny examples</title>
+
+<meta name="description" content="LilyPond &ndash; Music notation for everyone: Tiny examples">
+<meta name="keywords" content="LilyPond &ndash; Music notation for everyone: Tiny examples">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... music notation for everyone">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index_abt.html#SEC_About" rel="help" title="About This Document">
+<link href="community.html#community" rel="up" title="Community">
+<link href="attic.html#attic" rel="next" title="Attic">
+<link href="contact.html#contact" rel="previous" title="Contact">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="en" class="web devStatus">
+
+<div id="main">
+<a name="Tiny-examples"></a>
+
+<a name="tiny-examples"></a>
+<h2 class="unnumberedsec">Tiny examples</h2>
+
+<div class="column-center-top"><a name="What-are-_201cTiny-examples_201d_003f"></a>
+<h3 class="subheading">What are &ldquo;Tiny examples&rdquo;?</h3>
+
+<p>A tiny example is an example from which <strong>nothing</strong> can be removed.
+</p>
+</div>
+<div class="column-left-bottom"><a name="Why-create-them_003f"></a>
+<h3 class="subheading">Why create them?</h3>
+
+<div class="keep-bullets"><ul>
+<li>
+The simpler the example is, the quicker potential helpers can
+understand it and help you.
+
+</li><li>
+A tiny example demonstrates that you have put effort towards
+solving the problem yourself.  When people send huge portions of
+input, it looks like they don&rsquo;t care if we help them or not.
+
+</li><li>
+Creating a tiny example helps you to understand what is
+happening.  Many false problem reports can be avoided by
+attempting to create a tiny example; if you cannot replicate a
+&ldquo;bug&rdquo; in a tiny example, then the problem was probably an
+insufficient understanding of LilyPond, not an actual bug!
+
+</li></ul>
+
+</div>
+
+</div>
+
+<div class="column-right-bottom"><a name="How-to-create-them_003f"></a>
+<h3 class="subheading">How to create them?</h3>
+
+<div class="keep-bullets"><ul>
+<li>
+Include the <code>\version</code> number.
+
+</li><li>
+Make it small!  Examples about spacing or page layout might
+require many bars of music, but most issues can be reproduced
+using less than a single measure.
+
+</li><li>
+When trying to create an example, try commenting out (<code>%</code>
+or <code>%{ &hellip; %}</code>) sections of your file.  If you
+can comment something while still demonstrating the main idea,
+then remove the commented-material.
+
+</li><li>
+Avoid using complicated notes, keys or time signatures, unless
+the bug is about the behavior of those items.
+
+</li><li>
+Do not use <code>\override</code> or <code>\set</code> commands unless the bug
+is about those specific commands.
+
+</li><li>
+Optionally, attach an image showing the desired graphical output.
+
+</li></ul>
+
+</div>
+
+</div>
+<div class="column-center-bottom"><a name="How-tiny-should-they-be_003f"></a>
+<h3 class="subheading">How tiny should they be?</h3>
+
+<p>Is the code below a minimal example?
+</p>
+<blockquote><pre class="example">\version &quot;2.14.1&quot;
+\include &quot;english.ly&quot;
+
+\score {
+  \new Staff {
+    \key d \major
+    \numericTimeSignature
+    \time 2/4
+    &lt;cs' d'' b''&gt;16 &lt;cs' d'' b''&gt;8.
+    %% Here: the tie on the D's looks funny
+    %% Too tall? Left-hand endpoint is not aligned with the B tie?
+    ~
+    &lt;cs' d'' b''&gt;8 [ &lt;b d'' a''&gt; ]
+  }
+}
+</pre></blockquote>
+
+<p>Well, it is not very big, but a truly minimal example is here:
+</p>
+<blockquote><pre class="example">\version &quot;2.14.1&quot;
+{
+  % middle tie looks funny here:
+  &lt;c' d'' b''&gt;8. ~ &lt;c' d'' b''&gt;8
+}
+</pre></blockquote>
+
+<p>Very few tiny examples exceed 10 lines of code -
+quite often 4 lines are enough to demonstrate the problem!
+</p>
+
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Thanks to <a href="http://www.webdev.nl/">webdev.nl</a> for hosting <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Introduction-1" href="introduction.html">Introduction</a>  </li>
+  <li class=""><a name="toc-Download-1" href="download.html">Download</a>  </li>
+  <li class=""><a name="toc-Manuals-1" href="manuals.html">Manuals</a>  </li>
+  <li class=" toc_current"><a name="toc-Community-1" href="community.html">Community</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Community-1" href="community.html">Community</a></li>
+    <li class=""><a name="toc-Contact-1" href="contact.html">Contact</a>    </li>
+    <li class=" toc_current"><a name="toc-Tiny-examples-1" href="tiny-examples.html">Tiny examples</a>    </li>
+    <li class=""><a name="toc-Bug-reports-1" href="bug-reports.html">Bug reports</a>    </li>
+    <li class=""><a name="toc-Help-us-1" href="help-us.html">Help us</a>    </li>
+    <li class=""><a name="toc-Sponsoring-1" href="sponsoring.html">Sponsoring</a>    </li>
+    <li class=""><a name="toc-Development-1" href="development.html">Development</a>    </li>
+    <li class=""><a name="toc-Google-Summer-of-Code-1" href="google-summer-of-code.html">Google Summer of Code</a>    </li>
+    <li class=""><a name="toc-Authors-1" href="authors.html">Authors</a>    </li>
+    <li class=""><a name="toc-Acknowledgements-1" href="acknowledgements.html">Acknowledgements</a>    </li>
+    <li class=""><a name="toc-Publications-1" href="publications.html">Publications</a>    </li>
+    <li class=""><a name="toc-News-1" href="news.html">News</a>    </li>
+    <li class=""><a name="toc-Attic-1" href="attic.html">Attic</a>    </li>
+  </ul>
+  </li>
+<li>
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Google Search">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Search">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

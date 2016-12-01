@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Normalerweise werden Textzeichen nur über dem obersten Notensystem gesetzt.  Sie
+können aber auch über jedem System ausgegeben werden.
+
+"
+  doctitlede = "Zeichen über jedem System ausgeben"

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+ texidocde = "
+Zäsurzeichen können erstellt werden, indem die @code{'text}-Eigenschaft
+des @code{BreathingSign}-Objektes verändert wird.  Ein gekrümmtes
+Zäsurzeichen ist auch möglich.
+"
+  doctitlede = "Eine Zäsur einfügen"

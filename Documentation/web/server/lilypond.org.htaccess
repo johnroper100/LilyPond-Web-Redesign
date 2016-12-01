@@ -1,0 +1,147 @@
+# htaccess for root dir of lilypond.org
+# ----------------------------------------------------
+#   The file comes from git master:
+#   Documentation/web/server/lilypond.org.htaccess
+#
+#   Please do not edit it directly (unless something
+#   is critically broken); instead, change it in git
+#   and then do the:
+#     update-git.sh
+#     check-git.sh
+#     copy-git.sh
+#     make-website.sh
+#  as discussed in:
+#    Contributor 5.2 Uploading and security
+# ----------------------------------------------------
+
+RewriteEngine On
+
+# Permanent redirect from www.lilypond.org to lilypond.org
+RewriteCond "%{HTTP_HOST}" "^www\.(.+)$" [NC]
+RewriteRule "^/?(.*)$"     "http://%1/$1" [R=301,L,NE]
+
+# Deny following of symlinks by robots.
+# HTTrack is a known offender.
+# better yet, to redirect this to page that tells adminstrator
+# about brokenness
+RewriteCond %{HTTP_USER_AGENT} httrack [NC]
+RewriteRule ^.*/source/.*$ /please-respect-robots.txt.html [L]
+
+# Deny rogue crawler
+RewriteCond %{HTTP_USER_AGENT} ^(.*)AhrefsBot(.*) [NC]
+RewriteRule .* - [F,L]
+
+# Permanent top level entry points -- ./doc
+RedirectMatch ^/music-glossary /glossary
+RedirectMatch ^/tutorial /learning
+RedirectMatch ^/documentation/$ /doc
+# Possibly resurrect this with new web site
+# This breaks the documentation index with old site
+# RedirectMatch ^/documentation$ /doc
+#
+RedirectMatch ^/bugs	/bug-reports
+#RedirectMatch ^/bugs	http://code.google.com/p/lilypond/issues/list
+# the new website already has an /authors
+#RedirectMatch ^/authors /doc/Documentation/topdocs/AUTHORS
+RedirectMatch ^/stable    /doc/stable
+# the new website has a dedicated page for development.
+#RedirectMatch ^/development    /doc/development
+
+# Main doc URL redirects
+RedirectMatch ^/doc/?$ /manuals
+RedirectMatch ^/doc/stable/?$ /manuals
+RedirectMatch ^/doc/development/?$ /development
+
+# Allow to use deep links to latest stable or development docs
+RedirectMatch ^/doc//*latest/*(.*)$ /doc/v2.19/$1
+RedirectMatch ^/doc//*development/*(.*)$ /doc/v2.19/$1
+RedirectMatch ^/doc//*stable/*(.*)$ /doc/v2.18/$1
+RedirectMatch ^/doc//*([^v].*)$ /doc/v2.18/$1
+RedirectMatch ^(/Documentation.*)$ /doc/v2.18$1
+RedirectMatch ^/index$ /
+
+# fix root calculation: no double slashes
+# RedirectMatch ^(.*/)/+(.*)$ $1$2
+
+###########################################
+
+## Rewrite all non-existing files at toplevel to the /website/ dir, so our
+## internal structure for rsync doesn't have to be changed.
+## This works for the current/old site as well as the new one.
+
+RewriteEngine on
+RewriteBase /
+
+SetEnvIf REQUEST_URI .* WEB=/website
+
+# Rewrite empty to /website
+RewriteCond %{REQUEST_URI} ^/*$
+RewriteRule ^(/*)$ %{ENV:WEB}/ [QSA,L]
+
+# css Request without directory part
+RewriteCond %{REQUEST_URI} ^/?[^/]+[.]css$
+# ...that does not match match an existing file
+RewriteCond %{REQUEST_FILENAME} !-f
+# ...and does not match an existing directory
+RewriteCond %{REQUEST_FILENAME} !-d
+# ...prefix with website
+RewriteRule ^(.+)$ %{ENV:WEB}/$1 [QSA,L]
+
+# Request without trailing slash
+RewriteCond %{REQUEST_URI} !.*/$
+# ...that would access a directory in /website
+RewriteCond %{DOCUMENT_ROOT}%{ENV:WEB}%{REQUEST_URI} -d
+# ...and does not start with /web
+RewriteCond %{REQUEST_URI} !^%{ENV:WEB}
+RewriteCond %{REQUEST_URI} !^/website
+# ...and does not start with /doc$
+RewriteCond %{REQUEST_URI} !^/doc$
+# ...add trailing slash for [menu] and to avoid /web/ in browser url
+RewriteRule ^(.+)$ http://%{HTTP_HOST}/$1/ [R,QSA,L]
+
+# Request that does not start with /website
+RewriteCond %{REQUEST_URI} !^/website
+RewriteCond %{REQUEST_URI} !^%{ENV:WEB}
+# ...and does not start with /doc/
+RewriteCond %{REQUEST_URI} !^/doc/
+# ...and is not /doc$
+RewriteCond %{REQUEST_URI} !^/doc$
+# ...and does not match match an existing file
+RewriteCond %{REQUEST_FILENAME} !-f
+# ...and does not match an existing directory
+RewriteCond %{REQUEST_FILENAME} !-d
+# ..prefix with /web
+RewriteRule ^(.+)$ %{ENV:WEB}/$1 [QSA,L]
+
+## Redirect the old web/ to the homepage
+RedirectMatch 301 ^/web/.* /
+
+###########################################
+
+# latin1 version copied to web and doc/2.x
+AddDefaultCharset utf-8
+AddCharset utf-8 .html
+AddCharset utf-8 .de
+AddCharset utf-8 .en
+AddCharset utf-8 .es
+AddCharset utf-8 .fr
+AddCharset utf-8 .nl
+AddCharset utf-8 .txt
+
+# Add extensions for language negotiation
+# See: https://www.w3.org/International/questions/qa-apache-lang-neg
+AddLanguage ca .ca
+AddLanguage cs .cs
+AddLanguage de .de
+AddLanguage es .es
+AddLanguage fr .fr
+AddLanguage hu .hu
+AddLanguage it .it
+AddLanguage ja .ja
+AddLanguage nl .nl
+AddLanguage zh .zh
+
+
+# FIXME: separate this from the main "root" .htaccess material
+DirectoryIndex index
+

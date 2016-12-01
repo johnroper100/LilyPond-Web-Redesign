@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 por los autores.
+
+This file documents the LilyPond website.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled "GNU
+Free Documentation License".
+
+ -->
+<!-- Created on el 30 noviembre 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond: notación musical para todos: Entrada de texto</title>
+
+<meta name="description" content="LilyPond: notación musical para todos: Entrada de texto">
+<meta name="keywords" content="LilyPond: notación musical para todos: Entrada de texto">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.es.html#top" rel="start" title="LilyPond... notación musical para todos">
+<link href="index_toc.es.html#SEC_Contents" rel="contents" title="&Iacute;ndice General">
+<link href="index_abt.es.html#SEC_About" rel="help" title="Acerca de este documento">
+<link href="introduction.es.html#introduction" rel="up" title="Introducción">
+<link href="attic.es.html#attic" rel="next" title="Desván">
+<link href="reviews.es.html#reviews" rel="previous" title="Reseñas">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+<!-- Google tracking !-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68969-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body lang="es" class="web devStatus">
+
+<div id="main">
+<a name="Entrada-de-texto"></a>
+
+<a name="text-input"></a>
+<h2 class="unnumberedsec">Entrada de texto</h2>
+
+
+<div class="column-center-top"><a name="g_t_201cCompilar_201d-la-musica"></a>
+<h3 class="subheading">&ldquo;Compilar&rdquo; la música</h3>
+
+<div class="float-right">
+  <a class="clickable" href="pictures/nereid-shot.png">
+    <img src="pictures/nereid-shot-small.png" alt="nereid-shot-small">
+  </a>
+  <p style="text-align: center">
+    (pulse para ver una imagen más grande)
+  </p>
+</div>
+<p>LilyPond es un sistema <em>compilado</em>: se ejecuta sobre un
+archivo de texto que describe la música.  El resultado se puede
+ver en la pantalla o imprimirse.  En cierto modo, LilyPond se
+parece más a un lenguaje de programación que a los programas de
+edición gráfica de partituras.
+</p>
+<p>No escribimos la música por el procedimiento de coger las notas de
+una barra de herramientas gráfica y arrastrarlas a una partitura
+que se refresca de forma dinámica; escribimos la música tecleando
+un texto.  Este texto es interpretado (o &ldquo;compilado&rdquo;) por parte
+de LilyPond, que a su vez produce una hermosa música impresa.
+</p>
+<p>Es posible que las personas acostumbradas a interfaces gráficos de
+usuario tengan que aprender una forma de trabajo nueva, pero ¡los
+resultados, sin duda alguna, merecen la pena!
+</p>
+<div class="warning"><p><strong>Nota:</strong> Presentamos aquí una panorámica de nuestro paradigma de
+entrada de texto: ¡no es tan complicado como suena!  No se
+preocupe ahora por comprender todos y cada uno de los detalles de
+estos ejemplos; nuestra documentación para principiantes se ocupa
+de todo ello a un ritmo mucho más progresivo.
+</p>
+</div>
+
+<a name="La-ele-con-la-a_002c-_0022La_0022"></a>
+<h4 class="subsubheading">La ele con la a, &quot;La&quot;</h4>
+
+<p>Las notas se codifican mediante letras y números.  Las
+instrucciones especiales se introducen mediante barras invertidas.
+</p>
+<img class="float-center" src="pictures/text-input-1-annotate-es.png" alt="text-input-1-annotate-es"><img class="float-center" src="pictures/text-input-1-output.png" alt="text-input-1-output">
+<p>Las alteraciones se hacen con nombres distintos: añada
+<code>-is</code> para obtener un sostenido, y <code>-es</code> para un
+bemol (son los nombres de las notas en holandés, pero están
+disponibles otros idiomas).  LilyPond averigua dónde hay que
+imprimir las alteraciones.
+</p>
+<img class="float-center" src="pictures/text-input-2-annotate-es.png" alt="text-input-2-annotate-es"><img class="float-center" src="pictures/text-input-2-output.png" alt="text-input-2-output">
+
+<a name="Musica-pop"></a>
+<h4 class="subsubheading">Música pop</h4>
+
+<p>Junte acordes y letra para obtener una hoja guía de acordes:
+</p>
+<img class="float-center" src="pictures/text-input-pop-annotate-es.png" alt="text-input-pop-annotate-es"><img class="float-center" src="pictures/text-input-pop-output.png" alt="text-input-pop-output">
+
+
+<a name="Particellas-de-orquesta"></a>
+<h4 class="subsubheading">Particellas de orquesta</h4>
+
+<p>El archivo de entrada contiene las notas de la pieza musical.  La
+partitura y las particellas se pueden hacer a partir de un solo
+archivo de entrada, de manera que un cambio en una nota siempre
+afecta tanto a las particellas como a la partitura general.  Para
+poder incluir la misma música en varios lugares, asignamos la
+música a una &ldquo;variable&rdquo; (un nombre):
+</p>
+<img class="float-center" src="pictures/text-input-parts-both-annotate-es.png" alt="text-input-parts-both-annotate-es">
+
+<p>Esta variable se usa entonces en una sola parte instrumental (aquí
+transportada, con los silencios de varios compases agrupados):
+</p>
+<img class="float-center" src="pictures/text-input-parts-single-annotate-es.png" alt="text-input-parts-single-annotate-es"><img class="float-center" src="pictures/text-input-parts-single-output.png" alt="text-input-parts-single-output">
+
+<p>La misma variable se utiliza en la partitura general (aquí en tono
+de concierto):
+</p>
+<img class="float-center" src="pictures/text-input-score-annotate-es.png" alt="text-input-score-annotate-es"><img class="float-center" src="pictures/text-input-score-output.png" alt="text-input-score-output">
+
+<a name="Documentacion-para-el-principiante"></a>
+<h4 class="subsubheading">Documentación para el principiante</h4>
+
+<p>Nos damos cuenta de que muchos usuarios ven un poco extraña esta
+forma de introducir la música.  Por este motivo, hemos escrito una
+amplia documentación de ayuda a los nuevos usuarios, comenzando
+con <a href="learning.es.html">Aprendizaje</a>.  El Manual de aprendizaje es el mejor sitio
+para empezar, porque allí se responden muchas preguntas antes de
+que se formulen.
+</p>
+<p>De manera ocasional, los usuarios nuevos resultan innecesariamente
+confundidos por ciertos aspectos del comportamiento de LilyPond.
+Le rogamos que lea este manual antes de poner en duda si LilyPond
+está funcionando correctamente.
+</p>
+<p>Tiene a su disposición una documentación mucho más profunda en la
+sección <a href="manuals.es.html">Manuales</a>.
+</p>
+<p>Ben Lemon, usuario de LilyPond, ha creado y publicado una
+colección de
+<a href="http://benlemon.me/blog/music/lilypond/operation-lilypond">tutoriales en vídeo</a> en su blog, dirigidos a nuevos usuarios.
+</p>
+<a name="Entornos-de-edicion-facilitados"></a>
+<h4 class="subsubheading">Entornos de edición facilitados</h4>
+
+<div class="float-right">
+  <a class="clickable" href="pictures/lilykde-screenshot.png">
+    <img src="pictures/lilykde-screenshot-small.png" alt="lilykde-screenshot-small">
+  </a>
+  <p style="text-align: center">
+    (puse para ver una imagen más grande)
+  </p>
+</div>
+<p>La preocupación de LilyPond está en primer lugar en la producción
+de música tipografiada con la máxima calidad; la creación de una
+interfaz gráfica de usuario (un GUI) nos habría distraído de esta
+meta.  Sin embargo, existen otros proyectos cuyo propósito es
+hacer más fácil la creación de archivos de entrada de LilyPond.
+</p>
+<p>Ciertos entornos de edición incluyen el coloreado sintáctico,
+compleción automática de instrucciones y plantillas preelaboradas.
+Otros programas ofrecen realmente un GUI que permite la
+manipulación directa de una partitura gráfica.  Para ver más
+información, consulte <a href="easier-editing.es.html">Entornos mejorados</a>.
+</p>
+
+</div>
+<div class="column-center-bottom"><a name="Y-ahora-_00bfque_003f-5"></a>
+<h3 class="subheading">Y ahora ¿qué?</h3>
+
+<p>Ya está preparado para <a href="download.es.html">Descargar LilyPond</a>.  ¿Aún
+no está convencido?  Lea algo sobre los entornos de edición en
+<a href="easier-editing.es.html">Entornos mejorados</a>.
+</p>
+
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="footer">
+<p id="languages">
+<!-- These links were autogenerated by /home/johnroper100/lilypond-git/scripts/build/website_post.py -->
+Otros idiomas: <a href="text-input.html">English</a>, <a href="text-input.ca.html">Català</a>, <a href="text-input.cs.html">Česky</a>, <a href="text-input.de.html">Deutsch</a>, <a href="text-input.fr.html">Français</a>, <a href="text-input.hu.html">Magyar</a>, <a href="text-input.it.html">Italiano</a>, <a href="text-input.ja.html">日本語</a>, <a href="text-input.nl.html">Nederlands</a>, <a href="text-input.zh.html">中文</a>.
+<br>
+About <a href="http://www.lilypond.org/website/misc/browser-language">automatic language selection</a>.
+</p>
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Agradecemos a <a href="http://www.webdev.nl/">webdev.nl</a> el alojamiento de <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.es.html"><span>LilyPond</span></a></li>
+  <li class=" toc_current"><a name="toc-Introduccion" href="introduction.es.html">Introducción</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Introduccion" href="introduction.es.html">Introducción</a></li>
+    <li class=""><a name="toc-Posibilidades-1" href="features.es.html">Posibilidades</a>    </li>
+    <li class=""><a name="toc-Ejemplos-1" href="examples.es.html">Ejemplos</a>    </li>
+    <li class=""><a name="toc-Libertad-1" href="freedom.es.html">Libertad</a>    </li>
+    <li class=""><a name="toc-Trasfondo-1" href="background.es.html">Trasfondo</a>    </li>
+    <li class=""><a name="toc-Producciones-1" href="productions.es.html">Producciones</a>    </li>
+    <li class=""><a name="toc-Resenas" href="reviews.es.html">Reseñas</a>    </li>
+    <li class=" toc_current"><a name="toc-Entrada-de-texto-1" href="text-input.es.html">Entrada de texto</a>    </li>
+    <li class=""><a name="toc-Entornos-mejorados-1" href="easier-editing.es.html">Entornos mejorados</a>    </li>
+  </ul>
+  </li>
+  <li class=""><a name="toc-Descarga-1" href="download.es.html">Descarga</a>  </li>
+  <li class=""><a name="toc-Manuales-1" href="manuals.es.html">Manuales</a>  </li>
+  <li class=""><a name="toc-Comunidad-1" href="community.es.html">Comunidad</a>  </li>
+<li>
+<!--
+    Translation of GIT committish: 1df9fc42197a6b2931f448cfba717527aead5e5a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Búsqueda de Google">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Buscar">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@node Compiling
+@chapter Compiling
+
+This chapter describes the process of compiling the LilyPond
+program from source files.
+
+@include included/compile.itexi

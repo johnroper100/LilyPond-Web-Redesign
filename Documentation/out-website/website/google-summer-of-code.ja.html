@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2003-2015 by the authors.
+
+このファイルは LilyPond Web サイトのドキュメントです。
+
+GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー ソフトウェア財団によって
+発行されたその後のバージョンの約定に従う限り、このドキュメントを複製、変更する
+許可を与えます。
+変更不可部分はありません。
+この利用許諾契約書のコピーは "GNU フリー文書利用許諾契約書" という章に含まれて
+います。
+
+ -->
+<!-- Created on 11 月 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; みんなの楽譜作成: Google Summer of Code</title>
+
+<meta name="description" content="LilyPond &ndash; みんなの楽譜作成: Google Summer of Code">
+<meta name="keywords" content="LilyPond &ndash; みんなの楽譜作成: Google Summer of Code">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.ja.html#top" rel="start" title="LilyPond... みんなの楽譜作成">
+<link href="index_toc.ja.html#SEC_Contents" rel="contents" title="目次">
+<link href="index_abt.ja.html#SEC_About" rel="help" title="このドキュメントについて">
+<link href="community.ja.html#community" rel="up" title="コミュニティ">
+<link href="attic.ja.html#attic" rel="next" title="物置">
+<link href="development.ja.html#development" rel="previous" title="開発">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+<!-- Google tracking !-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68969-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body lang="ja" class="web devStatus">
+
+<div id="main">
+<a name="Google-Summer-of-Code"></a>
+
+<a name="google-summer-of-code"></a>
+<h2 class="unnumberedsec">Google Summer of Code</h2>
+
+
+<div class="column-center-top"><a name="What-is-Google-Summer-of-Code_003f"></a>
+<h3 class="subheading">What is Google Summer of Code?</h3>
+
+<p><a href="https://developers.google.com/open-source/gsoc">GSoC</a> is a global
+program that offers students stipends to write code for free software
+and open source projects during the summer.  It is an excellent
+opportunity for students to gain experience with real-world software
+development and make a contribution that benefits everyone.  It brings
+new contributors to LilyPond and enables students who are already
+involved to become more involved.  LilyPond participates in GSoC as part
+of the <a href="http://www.gnu.org">GNU project</a>.
+</p>
+<p>We have had GSoC participants in 2012 and 2015 and encourage students to
+apply for future summers.
+</p>
+<p>If you have questions or would like to apply, send us an email on our
+developer mailing list (see <a href="contact.ja.html">コンタクト</a>).
+</p>
+
+</div>
+<div class="column-center-middle-color2"><a name="Project-Ideas-List"></a>
+<h3 class="subheading">Project Ideas List</h3>
+
+<p>Below is a list of suggested projects for GSoC or for anyone who is
+interested in helping to improve LilyPond. (Last updated: February 2016)
+</p>
+<p>Mentor availability varies from project to project and from year to year.
+Send us an email on our developer mailing list (see <a href="contact.ja.html">コンタクト</a>), and
+we will help you find a mentor for a project that fits your interests
+and skills.
+</p>
+<p>If you have ideas for a GSoC project that is not listed below you can
+send us an email as well.  There are a number of areas where LilyPond
+could be improved, and our development team is always willing to help
+those who would like to tackle a project like those listed below.
+</p>
+<p>A full list of all the current open issues can be found
+<a href="http://sourceforge.net/p/testlilyissues/issues">here</a>.
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="Improve-internal-chord-structure"></a>
+<h3 class="subheading">Improve internal chord structure</h3>
+
+<p>The internal representation of LilyPond chords is not powerful enough
+to capture the nomenclature of jazz chords.  Currently the chord has
+a root, a bass and an inversion.  It would be nice to be able to handle
+stacked or polychords, minor/major, etc.  In order to do this, an
+internal representation with the ability to capture the essence of
+complex chords must be developed.  As a bonus, once the internal
+representation is developed, the output formatting of chord names can
+be improved.
+</p>
+<p><strong>Difficulty:</strong> Easy/medium
+<strong>Requirements:</strong> Scheme (Guile), but the level necessary can be
+easily learned
+<strong>Recommended:</strong> Chord theory and naming
+<strong>Mentor:</strong> Carl Sorensen
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="ScholarLY"></a>
+<h3 class="subheading">ScholarLY</h3>
+
+<p>ScholarLY is a library in
+<a href="https://openlilylib.org">openLilyLib</a> that provides functionality
+for annotating scores, making it possible to manage scholarly workflows
+completely in the context of the score document.  So far it is possible
+to enter annotations of different types, produce clickable messages in
+the console output and export to text and LaTeX files.
+</p>
+<p>There are numerous feature requests to turn this library into an
+even more powerful and comprehensive tool.  Some examples: Inserting
+music examples, producing footnotes, automatically applying styles
+to the annotated item (e.g. dash a slur, parenthesize an accidental),
+creating reports with point-and-click entries.  For a full description
+of this project suggestion please visit
+<a href="https://github.com/openlilylib/scholarly/wiki/GSoC">this Wiki page</a>.
+</p>
+<p><strong>Difficulty:</strong> medium
+<strong>Requirements:</strong> Scheme, possibly LaTeX, (optionally Python)
+<strong>Recommended:</strong> Experience with or interest in scholarly
+edition and collaborative workflows.
+<strong>Mentor:</strong> Urs Liska
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="Adding-variants-of-font-glyphs"></a>
+<h3 class="subheading">Adding variants of font glyphs</h3>
+
+<div class="keep-bullets"><ul>
+<li>
+Adding &lsquo;on&rsquo; and &lsquo;between&rsquo; staff-line variants.
+
+</li><li>
+Shorter and narrower variants of some glyphs for example, accidentals.
+Another, more specific example could be an ancient notation breve
+notehead coming in two variants one with a small or big &lsquo;hole&rsquo; within
+it.
+
+</li></ul>
+
+</div>
+<p><strong>Difficulty:</strong> easy
+<strong>Requirements:</strong> MetaFont, C++, good eye for details
+<strong>Recommended knowledge:</strong> basic LilyPond knowledge
+<strong>Mentor:</strong> Werner Lemberg
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="Grace-notes"></a>
+<h3 class="subheading">Grace notes</h3>
+
+<p>Fix problems with synchronization of grace notes.  Grace notes can
+interfere with LilyPond&rsquo;s timing and cause odd effects, especially when
+multiple staffs are used where some have grace notes and others don&rsquo;t.
+This is one of the longest-standing and one of the more embarrassing
+<a href="https://sourceforge.net/p/testlilyissues/issues/34">bugs</a> in
+LilyPond.
+</p>
+<p><strong>Difficulty:</strong> medium
+<strong>Requirements:</strong> C++, MIDI
+<strong>Recommended:</strong> familiarity with LilyPond internals
+<strong>Potential Mentors:</strong> Mike Solomon (not available for GSoC 2016),
+Carl Sorensen
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="Improve-default-beam-positioning"></a>
+<h3 class="subheading">Improve default beam positioning</h3>
+
+<p>For regular, cross-staff, broken and kneed beams.  Beaming should depend
+on context and neighbor notes (see section 2.2 of
+<a href="http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29">this book</a>).  If possible also reduce beaming-computation time.
+</p>
+<p><strong>Difficulty:</strong> medium
+<strong>Requirements:</strong> C++, experience with writing heuristics
+<strong>Recommended knowledge:</strong> aesthetic sense
+<strong>Potential Mentors:</strong> Mike Solomon (not available for GSoC 2016),
+Carl Sorensen
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="Allow-spanners-to-cross-voices"></a>
+<h3 class="subheading">Allow spanners to cross voices</h3>
+
+<p>Currently all sorts of spanners (ties, slurs, dynamics, text spanners,
+trills etc.) have to be ended in the context they were started.  However,
+this doesn&rsquo;t reflect the reality of notation in most polyphonic settings.
+Awkward workarounds with hidden voices are currently necessary to achieve
+cross-voice spanners.
+</p>
+<p>New ways of addressing this issue should be explored, for example by
+</p>
+<div class="keep-bullets"><ul>
+<li> specifying a “target context” where the end of the spanner is
+expected
+
+</li><li> explicitly specifying the ending object with an ID
+
+</li></ul>
+
+</div>
+<p>This feature would solve many problems that are commonly faced with
+piano music and combined parts. 
+</p>
+<p><strong>Difficulty:</strong> medium (?)
+<strong>Requirements:</strong> C++, Scheme
+<strong>Potential Mentor:</strong> Urs Liska
+</p>
+</div>
+<div class="column-center-middle-color3"><a name="Help-improve-compilation-behavior"></a>
+<h3 class="subheading">Help improve compilation behavior</h3>
+
+<p>Automatic code analysis tools, like valgrind memory leak detection or
+callgrind code profilers, provide valuable information about possible
+flaws in our C++ code.  Cleaning up warnings would allow us to automate
+the rejection of any patch which introduced extra warnings.
+</p>
+<p><strong>Difficulty:</strong> medium
+<strong>Requirements:</strong> C++
+<strong>Potential Mentors:</strong> Reinhold Kainhofer (not available for GSoC
+2016), Joe Neeman
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="MusicXML"></a>
+<h3 class="subheading">MusicXML</h3>
+
+<p>Improving MusicXML import and export functions:
+</p>
+<div class="keep-bullets"><ul>
+<li>
+Handle basic musical content export like the MIDI export (i.e. using
+dedicated exporter classes, derived from the translator class).
+
+</li><li>
+Build the XML tree of the basic musical content, add a connection from
+music event to XML tag.
+
+</li><li>
+Let all LilyPond engravers do their job.
+
+</li><li>
+Link each output object (i.e. each stencil or group of stencils) to the
+music cause (and thus to the XML tag in the XML tree).
+
+</li><li>
+Add an XML output backend, which can then add layout information for
+each output object to the XML tags.
+
+</li></ul>
+
+</div>
+<p>There are several possibilities for this project, including building upon
+the MusicXML export project from GSoC 2015.
+</p>
+<p><strong>Difficulty:</strong> medium
+<strong>Requirements:</strong> MusicXML, Python, Scheme, basic LilyPond knowledge
+<strong>Potential Mentors:</strong> Reinhold Kainhofer, Mike Solomon (both not
+available for GSoC 2016)
+</p>
+<p>Familiarity with other scorewriters (for cross-testing) would also help.
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="Improve-slurs-and-ties"></a>
+<h3 class="subheading">Improve slurs and ties</h3>
+
+<p>The engraving quality of slurs and ties is often unsatisfactory. Ties
+&lsquo;broken&rsquo; by clef or staff changes are not handled well.  The project
+could include collecting and sorting examples of bad output, deciding on
+the intended output and writing code to improve them.
+</p>
+<p><strong>Difficulty:</strong> hard
+<strong>Requirements:</strong> C++, experience with writing heuristics
+<strong>Recommended knowledge:</strong> LilyPond knowledge, aesthetic sense
+<strong>Potential Mentors:</strong> Mike Solomon, Janek Warchoł (both not available for
+GSoC 2016)
+</p>
+
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="footer">
+<p id="languages">
+<!-- These links were autogenerated by /home/johnroper100/lilypond-git/scripts/build/website_post.py -->
+他の言語: <a href="google-summer-of-code.html">English</a>, <a href="google-summer-of-code.ca.html">Català</a>, <a href="google-summer-of-code.cs.html">Česky</a>, <a href="google-summer-of-code.de.html">Deutsch</a>, <a href="google-summer-of-code.es.html">Español</a>, <a href="google-summer-of-code.fr.html">Français</a>, <a href="google-summer-of-code.hu.html">Magyar</a>, <a href="google-summer-of-code.it.html">Italiano</a>, <a href="google-summer-of-code.nl.html">Nederlands</a>, <a href="google-summer-of-code.zh.html">中文</a>.
+<br>
+About <a href="http://www.lilypond.org/website/misc/browser-language">automatic language selection</a>.
+</p>
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p><code>lilypond.org</code> をホスティングしてくれている <a href="http://www.webdev.nl/">webdev.nl</a> に感謝します。
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.ja.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Dao-Ru-Bu-" href="introduction.ja.html">導入部</a>  </li>
+  <li class=""><a name="toc-daunrodo" href="download.ja.html">ダウンロード</a>  </li>
+  <li class=""><a name="toc-maniyuaru" href="manuals.ja.html">マニュアル</a>  </li>
+  <li class=" toc_current"><a name="toc-komiyunitei" href="community.ja.html">コミュニティ</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-komiyunitei" href="community.ja.html">コミュニティ</a></li>
+    <li class=""><a name="toc-kontakuto" href="contact.ja.html">コンタクト</a>    </li>
+    <li class=""><a name="toc-Zui-Xiao-Hua-Li-" href="tiny-examples.ja.html">最小化例</a>    </li>
+    <li class=""><a name="toc-baguBao-Gao-" href="bug-reports.ja.html">バグ報告</a>    </li>
+    <li class=""><a name="toc-Yuan-Zhu-gaBi-Yao-desu" href="help-us.ja.html">援助が必要です</a>    </li>
+    <li class=""><a name="toc-suponsa" href="sponsoring.ja.html">スポンサー</a>    </li>
+    <li class=""><a name="toc-Kai-Fa-" href="development.ja.html">開発</a>    </li>
+    <li class=" toc_current"><a name="toc-Google-Summer-of-Code-1" href="google-summer-of-code.ja.html">Google Summer of Code</a>    </li>
+    <li class=""><a name="toc-Zhu-Zhe-" href="authors.ja.html">著者</a>    </li>
+    <li class=""><a name="toc-Xie-Ci-" href="acknowledgements.ja.html">謝辞</a>    </li>
+    <li class=""><a name="toc-Chu-Ban-Wu-" href="publications.ja.html">出版物</a>    </li>
+    <li class=""><a name="toc-niyusu" href="news.ja.html">ニュース</a>    </li>
+    <li class=""><a name="toc-Wu-Zhi-" href="attic.ja.html">物置</a>    </li>
+  </ul>
+  </li>
+<li>
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Google Search">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Search">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</div>
+</body>
+</html>

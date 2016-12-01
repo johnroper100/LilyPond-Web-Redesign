@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+texidocde = "
+Einige Komponisten schreiben doppelte Bögen, wenn Legato-Akkorde notiert
+werden.  Das kann mit der Eigenschaft @code{doubleSlurs} erreicht werden.
+
+"
+  doctitlede = "Doppelte Bögen für Legato-Akkorde benutzen"

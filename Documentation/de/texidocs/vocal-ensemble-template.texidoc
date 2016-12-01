@@ -1,0 +1,10 @@
+%% Translation of GIT committish: bfc88203ac2572737480e78ef2635ed35b458441
+  texidocde = "
+Dieses Beispiel ist für vierstimmigen Gesang (SATB). Bei größeren
+Stücken ist es oft sinnvoll, eine allgemeine Variable zu bestimmen,
+die in allen Stimmen eingefügt wird. Taktart und Vorzeichen etwa
+sind fast immer gleich in allen Stimmen.
+"
+
+  doctitlede = "Vorlage für Vokalensemble"
+

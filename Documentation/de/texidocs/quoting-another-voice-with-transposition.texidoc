@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Zitate berücksichtigen sowohl die Transposition der Quelle als auch
+des Zielinstruments.  In diesem Beispiel spielen alle Instrumente
+klingendes C, das Zielinstrument ist in F.  Die Noten für das
+Zielinstrument können mit @code{\\transpose} transponiert werden,
+in diesem Fall werden alle Noten (auch die zitierten) transponiert.
+
+"
+  doctitlede = "Eine Stimme mit Transposition zitieren"

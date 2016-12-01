@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 par les auteurs.
+
+This file documents the LilyPond website.
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on le 30 novembre 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; la notation musicale pour tous: Unix</title>
+
+<meta name="description" content="LilyPond &ndash; la notation musicale pour tous: Unix">
+<meta name="keywords" content="LilyPond &ndash; la notation musicale pour tous: Unix">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... la notation musicale pour tous">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="Table des mati&egrave;res">
+<link href="index_abt.html#SEC_About" rel="help" title="A propos de ce document">
+<link href="download.html#download" rel="up" title="Téléchargement">
+<link href="attic.html#attic" rel="next" title="Grenier">
+<link href="download.html#download" rel="previous" title="Téléchargement">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="fr" class="web devStatus">
+
+<div id="main">
+<a name="Unix"></a>
+
+<a name="unix"></a>
+<h2 class="unnumberedsec">Unix</h2>
+
+<div class="heading-center"><div class="warning"><p><strong>Note :</strong> LilyPond travaille sur des <strong>fichiers textuels</strong>.  Il
+s&rsquo;apparente plus à un langage de programmation plutôt qu&rsquo;à un éditeur de
+partition en mode graphique.  Avant de télécharger LilyPond, veuillez
+lire <a href="text-input.html">Entrée sous forme de texte</a>.
+</p>
+</div>
+</div>
+<div class="column-center-top"><a name="Paquetage-generique-ou-paquetage-specifique-a-la-distribution"></a>
+<h3 class="subheading">Paquetage générique ou paquetage spécifique à la distribution</h3>
+
+<p>De nombreuses distributions incluent LilyPond dans le choix de
+paquetages de leurs dépôts, à des niveaux de version bien antérieurs à
+celui de la version stable en cours.  Bien que ces versions sont plus
+faciles à installer ou désinstaller, nous ne saurions que trop vous
+engager à utiliser le paquetage générique que vous trouverez ici.
+Veillez toutefois à ce que votre éditeur de fichiers LilyPond fasse
+appel à la version correcte de lilypond &ndash; voir
+<a href="easier-editing.html">Facilités d&rsquo;édition</a>.
+</p>
+
+</div>
+
+<div class="column-left-top"><a name="Paquetages-generiques"></a>
+<h3 class="subheading">Paquetages génériques</h3>
+
+<a name="Telechargement-3"></a>
+<h4 class="subsubheading">Téléchargement</h4>
+
+<ul>
+<li>
+<img src="pictures/logo-linux.png" alt="pictures/logo-linux">
+<a href="http://download.linuxaudio.org/lilypond/binaries/linux-x86/lilypond-2.18.2-1.linux-x86.sh">GNU/Linux x86: LilyPond 2.18.2-1</a>
+pour système 32 bits.
+
+</li><li>
+<img src="pictures/logo-linux.png" alt="pictures/logo-linux">
+<a href="http://download.linuxaudio.org/lilypond/binaries/linux-64/lilypond-2.18.2-1.linux-64.sh">GNU/Linux 64: LilyPond 2.18.2-1</a>
+pour système 64 bits.
+
+</li><li>
+<img src="pictures/logo-linux.png" alt="pictures/logo-linux">
+<a href="http://download.linuxaudio.org/lilypond/binaries/linux-ppc/lilypond-2.18.2-1.linux-ppc.sh">GNU/Linux PPC: LilyPond 2.18.2-1</a>
+
+</li><li>
+<img src="pictures/logo-freebsd.png" alt="pictures/logo-freebsd">
+<a href="http://download.linuxaudio.org/lilypond/binaries/freebsd-x86/lilypond-2.18.2-1.freebsd-x86.sh">FreeBSD i386: LilyPond 2.18.2-1</a>
+pour système 32 bits.
+
+</li><li>
+<img src="pictures/logo-freebsd.png" alt="pictures/logo-freebsd">
+<a href="http://download.linuxaudio.org/lilypond/binaries/freebsd-64/lilypond-2.18.2-1.freebsd-64.sh">FreeBSD amd64: LilyPond 2.18.2-1</a>
+pour système 64 bits.
+
+</li></ul>
+
+
+<a name="Installation"></a>
+<h4 class="subsubheading">Installation</h4>
+
+<p>Dans un terminal, tapez :
+</p>
+<blockquote><pre class="example">cd CHEMIN_DU_RÉPERTOIRE_DE_TÉLÉCHARGEMENT
+sh lilypond-2.18.2-OS-TYPE.sh
+</pre></blockquote>
+
+<a name="Desinstallation"></a>
+<h4 class="subsubheading">Désinstallation</h4>
+
+<p>Dans un terminal, tapez :
+</p>
+<blockquote><pre class="example">uninstall-lilypond
+</pre></blockquote>
+
+<a name="Aide"></a>
+<h4 class="subsubheading">Aide</h4>
+
+<p>Dans un terminal, tapez :
+</p>
+<blockquote><pre class="example">sh lilypond-2.18.2-OS-TYPE.sh --help
+</pre></blockquote>
+
+
+</div>
+
+<div class="column-right-top"><a name="Compilation-d_0027un-fichier-1"></a>
+<h3 class="subheading">Compilation d&rsquo;un fichier</h3>
+
+<div class="warning"><p><strong>Note :</strong> Les instructions qui suivent supposent que vous êtes familier
+de la ligne de commande.  Si vous utilisez l&rsquo;un des programmes
+répertoriés dans <a name="index-Facilites-d_0027edition"></a>
+<a href="../../doc/v2.19/Documentation/web/../web/easier-editing.html">Facilités d'édition</a>, référez-vous à leur
+documentation respective en cas de problème.
+</p>
+</div>
+
+<a name="Etape-1_002e-Creation-d_0027un-fichier-_002ely-1"></a>
+<h4 class="subsubheading">Étape 1. Création d&rsquo;un fichier &lsquo;<tt>.ly</tt>&rsquo;</h4>
+
+<p>Créez un fichier texte du nom de &lsquo;<tt>test.ly</tt>&rsquo; et saisissez :
+</p>
+<blockquote><pre class="example">\version &quot;2.18.2&quot;
+{
+&nbsp;&nbsp;c' e' g' e'
+}
+</pre></blockquote>
+
+
+<a name="Etape-2_002e-Compilation-en-ligne-de-commande"></a>
+<h4 class="subsubheading">Étape 2. Compilation en ligne de commande</h4>
+
+<p>Pour traiter le fichier &lsquo;<tt>test.ly</tt>&rsquo;, tapez ce qui suit à l&rsquo;invite de
+commande :
+</p>
+<blockquote><pre class="example">lilypond test.ly
+</pre></blockquote>
+
+<p>Vous verrez alors quelque chose qui ressemblera à :
+</p>
+<blockquote><pre class="example">GNU LilyPond 2.18.2
+Traitement de « test.ly »
+Analyse...
+Interprétation en cours de la musique...
+Pré-traitement des éléments graphiques...
+Détermination du nombre optimal de pages...
+Répartition de la musique sur une page...
+Dessin des systèmes...
+Sortie mise en page vers « test.ps »...
+Conversion à « ./test.pdf »...
+Résultat : Compilation menée à son terme, avec succès.
+</pre></blockquote>
+
+<p>Suivant votre installation, ces messages peuvent être traduits ou
+non.
+</p>
+<a name="Etape-3_002e-Visualisation-du-resultat"></a>
+<h4 class="subsubheading">Étape 3. Visualisation du résultat</h4>
+
+<p>Vous pouvez à présent visualiser ou imprimer &lsquo;<tt>test.pdf</tt>&rsquo;.
+</p>
+
+
+</div>
+
+<div class="column-center-bottom"><a name="Mention-legale-3"></a>
+<h3 class="subheading">Mention légale</h3>
+
+<div class="legal"><p>Tous les logos et images des produits sont des marques déposées ou sont
+protégés par le droit d’auteur.
+</p>
+<p>Tux le pingouin Linux a été créé par
+<a href="mailto:lewing@isc.tamu.edu">lewing@isc.tamu.edu</a> avec
+<a href="http://www.isc.tamu.edu/~lewing/gimp">GIMP</a>.
+</p>
+
+<p>Le logo FreeBSD logo est une marque déposée par la
+<a href="http://www.freebsd.org">Fondation FreeBSD</a>.
+</p>
+
+
+</div>
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Remerciements à <a href="http://www.webdev.nl/">webdev.nl</a> pour l'hébergement de <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Introduction-1" href="introduction.html">Introduction</a>  </li>
+  <li class=" toc_current"><a name="toc-Telechargement" href="download.html">Téléchargement</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Telechargement" href="download.html">Téléchargement</a></li>
+    <li class=" toc_current"><a name="toc-Unix-1" href="unix.html">Unix</a>    </li>
+    <li class=""><a name="toc-MacOS-X-1" href="macos-x.html">MacOS X</a>    </li>
+    <li class=""><a name="toc-Windows-1" href="windows.html">Windows</a>    </li>
+    <li class=""><a name="toc-Sources-1" href="source.html">Sources</a>    </li>
+    <li class=""><a name="toc-Anciennes-versions-1" href="old-downloads.html">Anciennes versions</a>    </li>
+    <li class=""><a name="toc-GPL-1" href="gpl.html">GPL</a>    </li>
+  </ul>
+  </li>
+  <li class=""><a name="toc-Manuels-1" href="manuals.html">Manuels</a>  </li>
+  <li class=""><a name="toc-Communaute" href="community.html">Communauté</a>  </li>
+<li>
+<!--
+    Translation of GIT committish: febe2e4ff91dda9227e85274ae045e23c6b4ec28
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+-->
+
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Recherche sur Google">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Rechercher">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

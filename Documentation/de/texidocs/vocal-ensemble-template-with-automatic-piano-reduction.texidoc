@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+In diesem Beispiel wird ein automatischer Klavierauszug zu der
+Chorpartitur hinzugefügt. Das zeigt eine der Stärken von LilyPond
+-- man kann eine Variable mehr als einmal benutzen. Wenn Sie
+irgendeine Änderung an einer Chorstimme vornehmen, (etwa
+tenorMusic), verändert sich auch der Klavierauszug entsprechend.
+"
+

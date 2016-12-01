@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 por los autores.
+
+This file documents the LilyPond website.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled "GNU
+Free Documentation License".
+
+ -->
+<!-- Created on el 30 noviembre 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond: notación musical para todos: Posibilidades</title>
+
+<meta name="description" content="LilyPond: notación musical para todos: Posibilidades">
+<meta name="keywords" content="LilyPond: notación musical para todos: Posibilidades">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.es.html#top" rel="start" title="LilyPond... notación musical para todos">
+<link href="index_toc.es.html#SEC_Contents" rel="contents" title="&Iacute;ndice General">
+<link href="index_abt.es.html#SEC_About" rel="help" title="Acerca de este documento">
+<link href="introduction.es.html#introduction" rel="up" title="Introducción">
+<link href="attic.es.html#attic" rel="next" title="Desván">
+<link href="introduction.es.html#introduction" rel="previous" title="Introducción">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+<!-- Google tracking !-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68969-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body lang="es" class="web devStatus">
+
+<div id="main">
+<a name="Posibilidades"></a>
+
+<a name="features"></a>
+<h2 class="unnumberedsec">Posibilidades</h2>
+<div class="column-center-top">
+
+<a name="Excelencia-en-grabado-clasico"></a>
+<h3 class="subheading">Excelencia en grabado clásico</h3>
+
+<img class="float-right" src="pictures/flat-design.png" alt="flat-design">
+<p>LilyPond permite a los músicos producir partituras elegantes que
+sean fáciles de leer.  Su comunidad de desarrolladores ha empleado
+miles de horas en desarrollar un programa de grabado musical que
+produce como resultado música impresa de forma hermosa.  Todos los
+ajustes de estilo de LilyPond, el diseño de las fuentes y los
+algoritmos se han inspirado en la mejor música grabada a mano.  La
+salida de LilyPond tiene el mismo aspecto robusto, equilibrado y
+elegante que las partituras clásicas mejor grabadas.  Todo esto se
+explica con detalle en nuestro <a href="essay.es.html">Ensayo</a>.
+</p>
+
+</div>
+<div class="column-center-top"><a name="Entrada-de-texto-2"></a>
+<h3 class="subheading">Entrada de texto</h3>
+
+<a name="Todo-es-explicito"></a>
+<h4 class="subsubheading">Todo es explícito</h4>
+
+<p>LilyPond procesa la entrada de texto, que contiene toda la
+información acerca del <em>contenido</em> de su partitura y puede
+leerse fácilmente por un humano o por otro programa.  No existe
+ningún ajuste extraño oculto detrás de enrevesados menús o de
+archivos de documento binarios.
+</p>
+<p>Lea más acerca de este concepto en <a href="text-input.es.html">Entrada de texto</a>.
+</p>
+
+<a name="Los-trucos-son-robustos-y-transparentes"></a>
+<h4 class="subsubheading">Los trucos son robustos y transparentes</h4>
+
+<p>Si tiene que modificar algún aspecto de la disposición sobre la
+página, esta modificación se verá explícitamente en una forma
+legible por el ser humano, por lo que siempre se puede seguir la
+pista de lo que se ha hecho.  Si &lsquo;rompe&rsquo; algo accidentalmente,
+puede revertir o modificar fácilmente cualquier decisión sin estar
+a merced de la función de <em>Deshacer</em>.
+</p>
+
+<a name="Los-archivos-de-texto-son-a-prueba-de-fallo-y-duraderos"></a>
+<h4 class="subsubheading">Los archivos de texto son a prueba de fallo y duraderos</h4>
+
+<p>Los archivos de texto presentan una gran robustez frente a la
+corrupción de su contenido.  Además, como son legibles por parte
+del ser humano, siempre podemos interpretarlos incluso aunque no
+tengamos acceso a los programas que los crearon.
+</p>
+
+<a name="Gestione-sus-partituras-con-control-de-versiones"></a>
+<h4 class="subsubheading">Gestione sus partituras con control de versiones</h4>
+
+<p>Los archivos de texto son idóneos para su gestión mediante el
+cotnnrol de versiones.  Acérquese a esta técnica y disfrute de la
+experiencia de tener mecanismos de hacer y deshacer infinitos y
+selectivos y la historia completa del desarrollo de sus
+partituras.  El control de versiones puede también abrir nuevos
+modelos de trabajo (p.ej. colaborativos) para usted.
+</p>
+
+</div>
+<div class="column-center-top"><a name="Usabilidad"></a>
+<h3 class="subheading">Usabilidad</h3>
+
+<img class="float-right" src="pictures/lilypond-book.png" alt="lilypond-book">
+
+<a name="Opciones-de-aspecto-efectivas"></a>
+<h4 class="subsubheading">Opciones de aspecto efectivas</h4>
+
+<p>Pierda menos tiempo en los ajustes de la salida; LilyPond consigue
+el formateado más correcto desde el principio.  Determina el
+espaciado por sí solo y parte las líneas y las páginas de forma
+que ofrece una disposición compacta y uniforme.  Los choques entre
+la letra de las canciones, las notas y los acordes se resuelven, y
+las ligaduras y las barras se inclinan ¡automáticamente!
+</p>
+
+<a name="Combinar-musica-y-texto"></a>
+<h4 class="subsubheading">Combinar música y texto</h4>
+
+<p>Coloque fragmentos de música dentro de textos sin cortar y pegar
+imágenes.  Integre música dentro de LaTeX o de HTML de forma
+sencilla, o añada música a documentos de OpenOffice.org y
+LibreOffice mediante
+<a href="http://extensions.services.openoffice.org/en/project/OOoLilyPond">OOoLilypond</a>.
+También hay plugins o complementos disponibles para permitir
+código de LilyPond dentro de diversos blogs y wikis, haciendo
+posible la colaboración en línea.
+</p>
+
+<a name="Accesibilidad"></a>
+<h4 class="subsubheading">Accesibilidad</h4>
+
+<p>La entrada basada en texto también hace posible la escritura de
+partituras para usuarios con deficiencias físicas.  Los usuarios
+con alguna dificultad manual que no pueden teclear o manejar un
+ratón de ordenador pueden usar software de reconocimiento de voz
+para editar los archivos de LilyPond.  Incluso las personas
+totalmente ciegas pueden usar lectores de pantalla para escribir
+los archivos de LilyPond (una tarea imposible en los programas de
+edición de partituras basados en gráficos).
+</p>
+<a name="Diversidad-de-editores"></a>
+<h4 class="subsubheading">Diversidad de editores</h4>
+
+<p>Varios desarrolladores que son asimismo usuarios activos del
+programa LilyPond, han escrito herramientas dirigidas
+específicamente a hacer más rápido y efectivo el proceso de
+edición de los archivos de código de LilyPond; usted no está atado
+a una sola interfaz de usuario sino que puede usar distintas
+herramientas para distintas tareas.  Incluso puede usar un
+completo editor en casa y emplear la aplicación de notas de su
+teléfono móvil para editar los archivos mientras está de viaje.
+Para ver algunos ejemplos, consulte <a href="easier-editing.es.html">Entornos mejorados</a>.
+</p>
+
+
+</div>
+<div class="column-center-top">
+<a name="Diseno-ampliable"></a>
+<h3 class="subheading">Diseño ampliable</h3>
+
+<a name="Gestion-sencilla-de-las-hojas-de-estilo"></a>
+<h4 class="subsubheading">Gestión sencilla de las hojas de estilo</h4>
+
+<p>Todos los ajustes de disposición se pueden modificar para que
+encajen con su gusto tipográfico personal.  Así, puede escribir
+fácilmente hojas de estilo capaces de modificar todos y cada uno
+de los aspectos predeterminados de las partituras de LilyPond.
+Como estas hojas están asimismo escritas como texto y se pueden
+guardar como archivos separados, puede cambiar de una hoja a otra
+de forma sencilla para producir partituras que tienen un aspecto
+completamente diferente.  ¿Quiere imprimir una partitura en papel
+A4 y proyectarla con un cañón de vídeo, a un sistema por página?
+El motor de recomposición de LilyPond producirá ambas sin esfuerzo
+alguno a partir del mismo código de entrada.
+</p>
+<a name="Escriba-sus-propias-funciones"></a>
+<h4 class="subsubheading">Escriba sus propias funciones</h4>
+
+<p>Si eso no es suficiente, siempre nos queda el lenguaje de guiones
+Scheme incorporado, un dialecto del potente lenguaje LISP.  Todos
+los ajustes, variables y funciones están documentados en el
+completo manual de referencia del programa.
+</p>
+<a name="Processe-las-partituras-programaticamente"></a>
+<h4 class="subsubheading">Processe las partituras programáticamente</h4>
+
+<p>Los archivos de entrada de LilyPond se pueden editar completamente
+o incluso ser generados por otros programas y guiones propios.
+Esto se puede usar, por ejemplo, para la composición algorítmica.
+Pero también puede acceder al contenidmo musical para su análisis,
+o tratar fragmentos de la entrada en una base de datos.  No hay
+ninguna limitación, a no ser su propia imaginación.
+</p>
+
+<a name="Produzca-herramientas-nuevas-usando-LilyPond"></a>
+<h4 class="subsubheading">Produzca herramientas nuevas usando LilyPond</h4>
+
+<p>No siendo LilyPond un monolítico programa interfaz gráfica sino
+una herramienta de la línea de órdenes, puede usarse también desde
+dentro de otras aplicaciones.  De esta manera es posible equipar
+herramientas como aplicaciones web, con todo el poder de la
+tipografía musical de LilyPond.  De hecho ya existen varias
+herramientas online que utilizan LilyPond.
+</p>
+
+
+
+</div>
+<div class="column-center-top">
+<a name="Entorno"></a>
+<h3 class="subheading">Entorno</h3>
+
+<img class="float-right" src="pictures/frescobaldi-lilypond-editor-small.png" alt="frescobaldi-lilypond-editor-small">
+
+
+<a name="Soporte-excelente"></a>
+<h4 class="subsubheading">Soporte excelente</h4>
+
+<p>LilyPond funciona en todas las plataformas populares: GNU/Linux,
+MacOS X y Windows.  LilyPond viene con una completa documentación
+y cientos de archivos de ejemplo.  Existe una activa comunidad de
+usuarios dispuesta a responder dudas y cuestiones en la lista de
+distribución de correo de usuarios de LilyPond,
+<code>lilypond-user</code>, que le ofrece una amigable ayuda.  El tiempo
+de respuesta suele ser muy corto, y con frecuencia se ofrecen
+brillantes soluciones a los problemas que se plantean en ella.
+Gracias a la estrecha interacción con el equipo de desarrollo,
+estas soluciones se incluyen en el propio programa LilyPond de
+forma regular.  Siga leyendo en <a href="community.es.html">Comunidad</a>.
+</p>
+
+<a name="Software-libre-1"></a>
+<h4 class="subsubheading">Software libre</h4>
+
+<p>¡LilyPond se puede descargar sin coste! Sí: es gratis.  Obténgalo
+de la página de descarga.
+</p>
+<p>También es software libre, como la libertad de expresión.  Se
+ofrece con el código fuente con el permiso para modificarlo y
+copiarlo.  Así pues, ¿está cansado de algún fallo o suplica una
+determinada funcionalidad?  Tan sólo añádala por sí mismo, o pague
+a alguien para que lo haga.  Siga leyendo en <a href="freedom.es.html">Libertad</a>.
+</p>
+
+</div><div class="column-center-bottom"><a name="g_t_00bfAhora-que_003f-1"></a>
+<h3 class="subheading">¿Ahora qué?</h3>
+
+<p>¿Aún no está convencido?  Eche un vistazo a algunos <a href="examples.es.html">Ejemplos</a>
+concretos.  Si ya está decidido a probar LilyPond, en primer lugar
+infórmese de nuestra <a href="text-input.es.html">Entrada de texto</a>.
+</p>
+</div>
+
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="footer">
+<p id="languages">
+<!-- These links were autogenerated by /home/johnroper100/lilypond-git/scripts/build/website_post.py -->
+Otros idiomas: <a href="features.html">English</a>, <a href="features.ca.html">Català</a>, <a href="features.cs.html">Česky</a>, <a href="features.de.html">Deutsch</a>, <a href="features.fr.html">Français</a>, <a href="features.hu.html">Magyar</a>, <a href="features.it.html">Italiano</a>, <a href="features.ja.html">日本語</a>, <a href="features.nl.html">Nederlands</a>, <a href="features.zh.html">中文</a>.
+<br>
+About <a href="http://www.lilypond.org/website/misc/browser-language">automatic language selection</a>.
+</p>
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Agradecemos a <a href="http://www.webdev.nl/">webdev.nl</a> el alojamiento de <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.es.html"><span>LilyPond</span></a></li>
+  <li class=" toc_current"><a name="toc-Introduccion" href="introduction.es.html">Introducción</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Introduccion" href="introduction.es.html">Introducción</a></li>
+    <li class=" toc_current"><a name="toc-Posibilidades-1" href="features.es.html">Posibilidades</a>    </li>
+    <li class=""><a name="toc-Ejemplos-1" href="examples.es.html">Ejemplos</a>    </li>
+    <li class=""><a name="toc-Libertad-1" href="freedom.es.html">Libertad</a>    </li>
+    <li class=""><a name="toc-Trasfondo-1" href="background.es.html">Trasfondo</a>    </li>
+    <li class=""><a name="toc-Producciones-1" href="productions.es.html">Producciones</a>    </li>
+    <li class=""><a name="toc-Resenas" href="reviews.es.html">Reseñas</a>    </li>
+    <li class=""><a name="toc-Entrada-de-texto-1" href="text-input.es.html">Entrada de texto</a>    </li>
+    <li class=""><a name="toc-Entornos-mejorados-1" href="easier-editing.es.html">Entornos mejorados</a>    </li>
+  </ul>
+  </li>
+  <li class=""><a name="toc-Descarga-1" href="download.es.html">Descarga</a>  </li>
+  <li class=""><a name="toc-Manuales-1" href="manuals.es.html">Manuales</a>  </li>
+  <li class=""><a name="toc-Comunidad-1" href="community.es.html">Comunidad</a>  </li>
+<li>
+<!--
+    Translation of GIT committish: 1df9fc42197a6b2931f448cfba717527aead5e5a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Búsqueda de Google">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Buscar">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</div>
+</body>
+</html>

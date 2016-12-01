@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 by the authors.
+
+Diese Datei dokumentiert den Internetauftritt von LilyPond.
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on 30. November 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; Notation für Jedermann: Windows</title>
+
+<meta name="description" content="LilyPond &ndash; Notation für Jedermann: Windows">
+<meta name="keywords" content="LilyPond &ndash; Notation für Jedermann: Windows">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.de.html#top" rel="start" title="LilyPond... Notensatz für Jedermann">
+<link href="index_toc.de.html#SEC_Contents" rel="contents" title="Inhaltsverzeichnis">
+<link href="index_abt.de.html#SEC_About" rel="help" title="&Uuml;ber dieses Dokument">
+<link href="download.de.html#download" rel="up" title="Download">
+<link href="attic.de.html#attic" rel="next" title="Abstellkammer">
+<link href="macos-x.de.html#macos-x" rel="previous" title="MacOS X">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+<!-- Google tracking !-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68969-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body lang="de" class="web devStatus">
+
+<div id="main">
+<a name="Windows"></a>
+
+<a name="windows"></a>
+<h2 class="unnumberedsec">Windows</h2>
+
+<div class="heading-center"><div class="warning"><p><strong>Achtung:</strong> LilyPond ist ein <strong>textbasiertes</strong> Notationsprogramm,
+es ähnelt eher einer Programmiersprache als einem graphischen
+Programm zum Notensatz.  Bevor Sie LilyPond herunterladen, lesen
+Sie bitte über unsere <a href="text-input.de.html">Texteingabe</a>.
+</p>
+</div>
+</div>
+<div class="column-left-top"><a name="Pakete-1"></a>
+<h3 class="subheading">Pakete</h3>
+
+<a name="Download-5"></a>
+<h4 class="subsubheading">Download</h4>
+
+<ul>
+<li>
+<img src="pictures/logo-windows.png" alt="pictures/logo-windows">
+<a href="http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-2.18.2-1.mingw.exe">Windows: LilyPond 2.18.2-1</a>
+Für Windows 2000, XP, Vista, Windows 7 und 8.
+
+</li></ul>
+
+<a name="Installieren-2"></a>
+<h4 class="subsubheading">Installieren</h4>
+
+<ol>
+<li>
+Suchen Sie die heruntergeladene Datei und klicken Sie sie doppelt
+um den Installer zu starten.  Folgen Sie den Anweisung, die der
+Installer gibt; wir empfehlen, dass Sie alle Installationsoptionen
+annehmen und den Standardordner für die Installation akzeptieren.
+Klicken Sie auf &bdquo;Fertigstellen&ldquo; wenn der Installer fertig
+ist.  LilyPond ist jetzt installiert.
+
+</li></ol>
+
+<a name="Entfernen-1"></a>
+<h4 class="subsubheading">Entfernen</h4>
+
+<p>Um LilyPond zu entfernen, können Sie entweder
+</p>
+<ol>
+<li>
+den LilyPond-Ordner im Startmenü aufsuchen und auf&bdquo;Uninstall&ldquo;
+klicken.  Klicken Sie &bdquo;Fertigstellen&ldquo; wenn der Deinstaller fertig
+ist
+
+</li><li>
+oder Sie gehen über die Systemsteuerung zu Software, suchen den
+Eintrag LilyPond und wählen die Option Entfernen.  Klicken Sie auf
+&bdquo;Fertigstellen&ldquo;, wenn der Deinstaller fertig ist.
+
+</li></ol>
+
+
+</div>
+
+<div class="column-right-top"><a name="Benutzung-auf-der-Kommandozeile-1"></a>
+<h3 class="subheading">Benutzung auf der Kommandozeile</h3>
+
+<div class="warning"><p><strong>Achtung:</strong> Wenn Sie mit der GUI Hinweisen weiter unten zufrieden sind, dann ignorieren Sie
+bitte diese Anweisungen.
+</p>
+</div>
+<a name="Windows-auf-der-Kommandozeile"></a>
+<h4 class="subsubheading">Windows auf der Kommandozeile</h4>
+
+<p>Die einfachste Art LilyPond zu benutzen ist, den Installationsordner
+zur Umgebungsvariable &bdquo;Path&ldquo; hinzuzufügen.
+</p>
+
+<ol>
+<li>
+Öffnen Sie &bdquo;System&ldquo; aus der Systemsteuerung, wählen Sie den
+Reiter &bdquo;Erweitert&ldquo; und klicken Sie auf Umgebungsvariablen.
+
+</li><li>
+Wählen Sie die Variable &bdquo;Path&ldquo; aus der Umgebungsvariablenliste und klicken Sie auf Bearbeiten.  Sie erhalten ein Fenster mit
+der Überschrift &bdquo;Systemvariable bearbeiten&ldquo;, fügen Sie zum Feld
+&bdquo;Wert der Variablen&ldquo; den Namen des Programmverzeichnisses
+hinzu, ewta so:
+
+<blockquote><pre class="example">[<var>voreingestellter PATH</var>];<var>VERZ</var>\LilyPond\usr\bin
+</pre></blockquote>
+
+<div class="warning"><p><strong>Achtung:</strong> <var>VERZ</var> ist üblicherweise <code>C:\Program Files</code>.
+</p>
+</div>
+<p>und klicken Sie auf &bdquo;OK&ldquo; um das Fenster zu schließen.
+</p>
+</li></ol>
+
+<a name="Einzelne-Programme-ausfuhren"></a>
+<h4 class="subsubheading">Einzelne Programme ausführen</h4>
+
+<p>LilyPond-Programme
+&ndash; wie lilypond, lilypond-book, convert-ly und so weiter &ndash;
+können von der Kommandozeile aus aufgerufen werden:
+</p>
+<blockquote><pre class="example">lilypond test.ly
+</pre></blockquote>
+
+
+</div>
+
+<div class="column-center-top"><a name="Eine-Datei-Ubersetzen"></a>
+<h3 class="subheading">Eine Datei Übersetzen</h3>
+
+<div class="warning"><p><strong>Achtung:</strong> Diese Anweisungen gehen davon aus, dass Sie den installierten
+LilyPad-Editor benutzen.  Wenn Sie eins der Programme benutzen, die in
+<a name="index-Leichteres-Editieren-2"></a>
+<a href="../../doc/v2.19/Documentation/web/../web/easier-editing.de.html">Leichteres Editieren</a> beschrieben sind, schauen
+Sie bitte in der Dokumentation nach, wenn Sie Probleme damit haben,
+eine Datei zu kompilieren.
+</p>
+</div>
+
+<a name="g_t1_002e-Schritt_003a-Erstellen-Sie-eine-_002ely_002dDatei-1"></a>
+<h4 class="subsubheading">1. Schritt: Erstellen Sie eine &lsquo;<tt>.ly</tt>&rsquo;-Datei</h4>
+
+<p>Wenn sie auf das LilyPond-Symbol auf dem Desktop doppelklicken,
+öffnet sich ein einfacher Texteditor mit einer Beispieldatei.
+</p>
+<img src="pictures/LilyPad.png" alt="pictures/LilyPad">
+
+<p>Aus dem Menü über der Beispieldatei wählen Sie <code>File &gt; Save as</code>.
+Benutzen Sie nicht <code>File &gt; Save</code> für die Beispieldatei,
+weil die Datei nicht funktioniert, bis Sie sie mit einem eigenen
+Namen gespeichert haben.
+</p>
+<img src="pictures/FileSave.png" alt="pictures/FileSave">
+
+<p>Wählen Sie einen Namen für Ihre Datei, etwa &lsquo;<tt>test.ly</tt>&rsquo;.
+</p>
+<img src="pictures/SaveAs.png" alt="pictures/SaveAs">
+
+
+<a name="Schritt-2a_003a-Kompilieren-_0028mit-drag_002dand_002ddrop_0029"></a>
+<h4 class="subsubheading">Schritt 2a: Kompilieren (mit drag-and-drop)</h4>
+
+<p>Sie können nach Belieben die Kompilation starten, indem Sie
+entweder:
+</p>
+<p>Die Datei auf das LilyPond-Symbol ziehen.
+</p>
+<img src="pictures/DragDrop.png" alt="pictures/DragDrop">
+
+<p>Oder Sie klicken mit der rechten Maustaste auf die Datei und wählen
+Sie aus dem Menü <code>Open with &gt; LilyPond</code>.
+</p>
+<img src="pictures/GenPDF.png" alt="pictures/GenPDF">
+
+
+<a name="Schritt-2b_003a-Kompilieren-_0028mit-Doppelklick_0029"></a>
+<h4 class="subsubheading">Schritt 2b: Kompilieren (mit Doppelklick)</h4>
+
+<p>Sie können auch einfach die Datei &lsquo;<tt>test.ly</tt>&rsquo; doppelt anklicken.
+</p>
+
+<a name="g_t3_002e-Schritt_003a-Ausgabe-anschauen-2"></a>
+<h4 class="subsubheading">3. Schritt: Ausgabe anschauen</h4>
+
+<p>Während der Kompilation von &lsquo;<tt>test.ly</tt>&rsquo; öffnet sich ein
+Kommandofenster sehr schnell und schließt sich wieder.  Drei
+zusätzliche Dateien werden in diesem Schritt erstellt.
+</p>
+<p>Das PDF enthält den Notensatz aus der Datei &lsquo;<tt>test.ly</tt>&rsquo;.
+</p>
+<img src="pictures/PDFRead.png" alt="pictures/PDFRead">
+
+
+<a name="Andere-Befehle-1"></a>
+<h4 class="subsubheading">Andere Befehle</h4>
+
+<p>Um eine neue Datei zu erstellen, wählen Sie <code>File &gt; New</code>
+aus irgendeiner schon erstellten Datei oder <code>File &gt; Open</code>,
+um eine Datei zu öffnen und zu bearbeiten, die Sie schon vorher
+gespeichert hatten.
+</p>
+<img src="pictures/EditFile.png" alt="pictures/EditFile">
+
+<p>Sie müssen jede neue Änderung erst speichern, bevor Sie die Datei
+kompilieren.  Wenn kein PDF erstellt wird, öffnen Sie die Log-Datei
+und schauen Sie nach Fehlern.
+</p>
+<img src="pictures/BadLog.png" alt="pictures/BadLog">
+
+<p>Die Log-Datei wird jedes Mal überschrieben, wenn Sie Ihre
+LilyPond-Datei kompilieren.
+</p>
+<p>Die PS-Datei wird intern von LilyPond benutzt um das PDF zu erstellen
+und kann ignoriert werden.  Sie wird auch jedes Mal neu überschrieben.
+</p>
+<p>Wenn Sie das PDF in einem PDF-Programm anschauen, müssen Sie es
+zuerst schließen, bevor Sie eine neue Kompilation durchführen
+können, denn es kann einen Fehler bei der Erstellung des neuen
+PDFs geben, wenn das alte noch geöffnet ist.
+</p>
+
+
+
+
+
+</div>
+
+<div class="column-center-bottom"><a name="Legales-2"></a>
+<h3 class="subheading">Legales</h3>
+
+<div class="legal"><p>Alle Logos und Produktabbildungen werden unter ausdrücklicher Anerkennug des Copyright und Trademark
+der Rechteinhaber verwendet.
+</p>
+<p>The &bdquo;four colored rectangles image&ldquo; is not a registered
+trademark.  It was created by
+<a href="http://en.wikipedia.org/wiki/User:Rohitbd">Rohitbd</a> and
+placed under the GNU Free Documentation License version 1.2.  We
+found the image on
+<a href="http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos">this Wikipedia Commons page</a>.
+</p>
+
+
+</div>
+</div>
+
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="footer">
+<p id="languages">
+<!-- These links were autogenerated by /home/johnroper100/lilypond-git/scripts/build/website_post.py -->
+Andere Sprachen: <a href="windows.html">English</a>, <a href="windows.ca.html">Català</a>, <a href="windows.cs.html">Česky</a>, <a href="windows.es.html">Español</a>, <a href="windows.fr.html">Français</a>, <a href="windows.hu.html">Magyar</a>, <a href="windows.it.html">Italiano</a>, <a href="windows.ja.html">日本語</a>, <a href="windows.nl.html">Nederlands</a>, <a href="windows.zh.html">中文</a>.
+<br>
+About <a href="http://www.lilypond.org/website/misc/browser-language">automatic language selection</a>.
+</p>
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Thanks to <a href="http://www.webdev.nl/">webdev.nl</a> for hosting <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.de.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Einleitung-1" href="introduction.de.html">Einleitung</a>  </li>
+  <li class=" toc_current"><a name="toc-Download-1" href="download.de.html">Download</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Download-1" href="download.de.html">Download</a></li>
+    <li class=""><a name="toc-Unix-1" href="unix.de.html">Unix</a>    </li>
+    <li class=""><a name="toc-MacOS-X-1" href="macos-x.de.html">MacOS X</a>    </li>
+    <li class=" toc_current"><a name="toc-Windows-1" href="windows.de.html">Windows</a>    </li>
+    <li class=""><a name="toc-Quellen-1" href="source.de.html">Quellen</a>    </li>
+    <li class=""><a name="toc-Alte-Downloads-1" href="old-downloads.de.html">Alte Downloads</a>    </li>
+    <li class=""><a name="toc-GPL-1" href="gpl.de.html">GPL</a>    </li>
+  </ul>
+  </li>
+  <li class=""><a name="toc-Handbucher" href="manuals.de.html">Handbücher</a>  </li>
+  <li class=""><a name="toc-Gemeinschaft-1" href="community.de.html">Gemeinschaft</a>  </li>
+<li>
+<!--
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+-->
+
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Mit Google suchen">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Suche">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</div>
+</body>
+</html>

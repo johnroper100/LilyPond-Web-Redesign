@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+
+  texidocde = "
+Dieses Beispiel zeigt eine moderne Transkription des Gregorianischen
+Chorals. Hier gibt es keine Takte, keine Notenhälse und es werden nur
+halbe und Viertelnoten verwendet. Zusätzliche Zeichen zeigen die
+Länge von Pausen an.
+"
+
+ doctitlede = "Vorlage für Alte Notation -- moderne Transkription des gregorianischen Chorals"

@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 by the authors.
+
+LilyPond 网站由本文件归档。
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on 11 月 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; 人人的乐谱软件: 文本输入</title>
+
+<meta name="description" content="LilyPond &ndash; 人人的乐谱软件: 文本输入">
+<meta name="keywords" content="LilyPond &ndash; 人人的乐谱软件: 文本输入">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... 人人的乐谱软件">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="目录">
+<link href="index_abt.html#SEC_About" rel="help" title="关于本文档">
+<link href="introduction.html#introduction" rel="up" title="简介">
+<link href="attic.html#attic" rel="next" title="Attic">
+<link href="reviews.html#reviews" rel="previous" title="评价">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="zh" class="web devStatus">
+
+<div id="main">
+<a name="g_t_6587_672c_8f93_5165"></a>
+
+<a name="text-input"></a>
+<h2 class="unnumberedsec">文本输入</h2>
+
+
+<a name="g_t_201cBian-Yi-_201d-Yin-Le-"></a>
+<h3 class="subheading">&ldquo;编译&rdquo; 音乐</h3>
+
+<div class="float-right">
+  <a class="clickable" href="pictures/nereid-shot.png">
+    <img src="pictures/nereid-shot-small.png" alt="nereid-shot-small">
+  </a>
+  <p style="text-align: center">
+    (click to enlarge)
+  </p>
+</div>
+<p>LilyPond is a <em>compiled</em> system: it is run on a text file
+describing the music.  The resulting output is viewed on-screen or
+printed.  In some ways, LilyPond is more similar to a programming
+language than graphical score editing software.
+</p>
+<p>You do not write music by dragging notes from a graphical toolbar
+and placing them on a dynamically refreshing score; you write
+music by typing text.  This text is interpreted (or &ldquo;compiled&rdquo;)
+by LilyPond, which produces beautifully engraved sheet music.
+</p>
+<p>People accustomed to graphical user interfaces might need to learn
+a new way of working, but the results are definitely worth it!
+</p>
+<div class="warning"><p><strong>注意：</strong>We present a quick overview of our text input &ndash; it&rsquo;s not
+as complicated as it sounds!  Don&rsquo;t worry about understanding
+every detail in these examples; our beginner documentation covers
+everything at a much more gradual pace.
+</p>
+</div>
+
+<a name="Jiu-Xiang--A-B-C-Yi-Yang-Jian-Dan-"></a>
+<h4 class="subsubheading">就像 A B C 一样简单</h4>
+
+<p>Notes are encoded with letters and numbers.  Special commands are
+entered with backslashes.
+</p>
+<img class="float-center" src="pictures/text-input-1-annotate.png" alt="text-input-1-annotate"><img class="float-center" src="pictures/text-input-1-output.png" alt="text-input-1-output">
+<p>Alterations are made with different names: add <code>-is</code> for
+sharp, and <code>-es</code> for flat (these are Dutch note names, other
+languages are available).  LilyPond figures out where to put
+accidentals.
+</p>
+<img class="float-center" src="pictures/text-input-2-annotate.png" alt="text-input-2-annotate"><img class="float-center" src="pictures/text-input-2-output.png" alt="text-input-2-output">
+
+<a name="Liu-Xing-Yin-Le--1"></a>
+<h4 class="subsubheading">流行音乐</h4>
+
+<p>Put chords and lyrics together to get a lead sheet:
+</p>
+<img class="float-center" src="pictures/text-input-pop-annotate.png" alt="text-input-pop-annotate"><img class="float-center" src="pictures/text-input-pop-output.png" alt="text-input-pop-output">
+
+
+<a name="Pei-Qi-Bu-Fen-"></a>
+<h4 class="subsubheading">配器部分</h4>
+
+<p>The input file contains the notes of piece of music.  Score and
+parts can be made from a single input file, so that changing a
+note always affects the score and parts.  To be able to include
+the same music in multiple places, the music is assigned to a
+&ldquo;variable&rdquo; (a name).
+</p>
+<img class="float-center" src="pictures/text-input-parts-both-annotate.png" alt="text-input-parts-both-annotate">
+
+<p>This variable is then used in a single part (here transposed, with
+condensed rests spanning several measures):
+</p>
+<img class="float-center" src="pictures/text-input-parts-single-annotate.png" alt="text-input-parts-single-annotate"><img class="float-center" src="pictures/text-input-parts-single-output.png" alt="text-input-parts-single-output">
+
+<p>The same variable is used in the full score (here in concert
+pitch):
+</p>
+<img class="float-center" src="pictures/text-input-score-annotate.png" alt="text-input-score-annotate"><img class="float-center" src="pictures/text-input-score-output.png" alt="text-input-score-output">
+
+<a name="Chu-Xue-Zhe-De-Wen-Dang-"></a>
+<h4 class="subsubheading">初学者的文档</h4>
+
+<p>We realize that many users find this way of entering music a bit
+odd.  For this reason, we have written extensive documentation to
+help new users, beginning with <a href="learning.html">学习</a>.  The Learning
+Manual is the best place to start, as many questions are answered
+before they come up!
+</p>
+<p>Please read the Learning Manual before complaining about bugs!
+New users occasionally believe that LilyPond is not working
+correctly, when in fact it is working precisely as designed.
+</p>
+<p>More in-depth information is available in <a href="manuals.html">手册</a>.
+</p>
+
+<a name="Geng-Jian-Dan-De-Bian-Ji-Huan-Jing-"></a>
+<h4 class="subsubheading">更简单的编辑环境</h4>
+
+<div class="float-right">
+  <a class="clickable" href="pictures/lilykde-screenshot.png">
+    <img src="pictures/lilykde-screenshot-small.png" alt="lilykde-screenshot-small">
+  </a>
+  <p style="text-align: center">
+    (click to enlarge)
+  </p>
+</div>
+<p>LilyPond is primarily concerned with producing top-quality
+engraved sheet music; creating a Graphical User Interface (GUI)
+would distract us from this goal.  However, there are other
+projects aimed at making it easier to create LilyPond input files.
+</p>
+<p>Some editing environments include syntax highlighting, automatic
+command completion, and pre-made templates.  Other programs
+actually provide a GUI which allows direct manipulation of a
+graphical score.  For more information, see <a href="easier-editing.html">编辑更简单</a>.
+</p>
+
+
+<div class="column-center-bottom"><a name="Ran-Hou-Ni-_003f"></a>
+<h3 class="subheading">然后呢？</h3>
+
+<p>您现在可以随时 <a href="download.html">下载 LilyPond</a>
+了。还没动心吗？那就请您关注如何 <a href="easier-editing.html">编辑更简单</a> 吧！
+</p>
+
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>非常感谢 <a href="http://www.webdev.nl/">webdev.nl</a> 提供 <code>lilypond.org</code> 的主机空间。
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=" toc_current"><a name="toc-Jian-Jie-" href="introduction.html">简介</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Jian-Jie-" href="introduction.html">简介</a></li>
+    <li class=""><a name="toc-Te-Se-" href="features.html">特色</a>    </li>
+    <li class=""><a name="toc-Li-Zi-" href="examples.html">例子</a>    </li>
+    <li class=""><a name="toc-Zi-You-" href="freedom.html">自由</a>    </li>
+    <li class=""><a name="toc-Bei-Jing-" href="background.html">背景</a>    </li>
+    <li class=""><a name="toc-Zhi-Zuo-" href="productions.html">制作</a>    </li>
+    <li class=""><a name="toc-Ping-Jie-" href="reviews.html">评价</a>    </li>
+    <li class=" toc_current"><a name="toc-Wen-Ben-Shu-Ru-" href="text-input.html">文本输入</a>    </li>
+    <li class=""><a name="toc-Bian-Ji-Geng-Jian-Dan-" href="easier-editing.html">编辑更简单</a>    </li>
+  </ul>
+  </li>
+  <li class=""><a name="toc-Xia-Zai-" href="download.html">下载</a>  </li>
+  <li class=""><a name="toc-Shou-Ce-" href="manuals.html">手册</a>  </li>
+  <li class=""><a name="toc-She-Qu-" href="community.html">社区</a>  </li>
+<li>
+<!--
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Google 搜索">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="搜索">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

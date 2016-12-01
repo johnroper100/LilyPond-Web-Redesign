@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 pels autors
+
+This file documents the LilyPond website.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled "GNU
+Free Documentation License".
+
+ -->
+<!-- Created on Novembre 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond: notació musical per a tots: Entrada de text</title>
+
+<meta name="description" content="LilyPond: notació musical per a tots: Entrada de text">
+<meta name="keywords" content="LilyPond: notació musical per a tots: Entrada de text">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... notació musical per a tots">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="Taula de contingus">
+<link href="index_abt.html#SEC_About" rel="help" title="Quant a aquest document">
+<link href="introduction.html#introduction" rel="up" title="Introducció">
+<link href="attic.html#attic" rel="next" title="Golfes">
+<link href="reviews.html#reviews" rel="previous" title="Ressenyes">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="ca" class="web devStatus">
+
+<div id="main">
+<a name="Entrada-de-text"></a>
+
+<a name="text-input"></a>
+<h2 class="unnumberedsec">Entrada de text</h2>
+
+
+<a name="g_t_201cCompilar_201d-la-musica"></a>
+<h3 class="subheading">&ldquo;Compilar&rdquo; la música</h3>
+
+<div class="float-">
+  <a class="clickable" href="pictures/png).right">
+    <img src="pictures/nereid-shot-small.png" alt="nereid-shot-small">
+  </a>
+  <p style="text-align: center">
+    (cliqueu per veure  imatge més gran
+ereid-shot
+  </p>
+</div>
+<p>El LilyPond és un sistema <em>compilat</em>: s&rsquo;executa sobre un
+arxiu de text que descriu la música. El resultat es pot veure a la
+pantalla o imprimir-se. De certa manera, el LilyPond se sembla més
+a un llenguatge de programació que als programes d&rsquo;edició gràfica
+de partitures.
+</p>
+<p>No escrivim la música pel procediment d&rsquo;agafar les notes d&rsquo;una
+barra d&rsquo;eines gràfica i arrossegar-les a una partitura que es
+refresca de forma dinàmica; escrivim la música teclejant un
+text. Aquest text és interpretat (o &ldquo;compilat&rdquo;) per part del
+LilyPond, que al seu torn produeix una bella música impresa.
+</p>
+<p>És possible que les persones acostumades a interfícies gràfiques
+d&rsquo;usuari hagin d&rsquo;aprendre una forma de treball nova, però els
+resultats, sense cap mena de dubte, mereixen la pena!
+</p>
+<div class="warning"><p><strong>Nota:</strong> Presentem aquí una panoràmica del nostre paradigma
+d&rsquo;entrada de tex: no és tan complicat com sona! No us amoïneu ara
+per comprendre tots i cadascú dels detalls d&rsquo;aquests exemples; la
+nostra documentació per a principiants s&rsquo;ocupa de tot això a un
+ritme molt més progressiu.
+</p>
+</div>
+<a name="L_0027ela-amb-l_0027ela_002c-_0022La_0022"></a>
+<h4 class="subsubheading">L&rsquo;ela amb l&rsquo;ela, &quot;La&quot;</h4>
+
+<p>Les notes es codifiquen mitjançant lletres i números.  Les
+instruccions especials s&rsquo;introdueixen mitjançant barres invertides.
+</p>
+<img class="float-center" src="pictures/text-input-1-annotate-ca.png" alt="text-input-1-annotate-ca"><img class="float-center" src="pictures/text-input-1-output.png" alt="text-input-1-output">
+<p>Les alteracions es fan amb noms diferents: afegiu <code>-is</code>
+per obtenir un sostingut, i <code>-es</code> per a un bemoll (són els
+noms de les notes en holandès, però estan disponibles en altres
+idiomes). El LilyPond esbrina on s&rsquo;han d&rsquo;imprimir les alteracions.
+</p>
+<img class="float-center" src="pictures/text-input-2-annotate-ca.png" alt="text-input-2-annotate-ca"><img class="float-center" src="pictures/text-input-2-output.png" alt="text-input-2-output">
+
+<a name="Musica-pop"></a>
+<h4 class="subsubheading">Música pop</h4>
+
+<p>Aplegui acords i lletra per obtenir un full guia d&rsquo;acords:
+</p>
+<img class="float-center" src="pictures/text-input-pop-annotate-ca.png" alt="text-input-pop-annotate-ca"><img class="float-center" src="pictures/text-input-pop-output.png" alt="text-input-pop-output">
+
+
+<a name="Particel_002ales-d_0027orquestra"></a>
+<h4 class="subsubheading">Particel·les d&rsquo;orquestra</h4>
+
+<p>El fitxer d&rsquo;entrada conté les notes d&rsquo;una peça musical  La
+partitura i les particel·les es poden fer a partir d&rsquo;un sol fitxer
+d&rsquo;entrada, de manera que un canvi en una nota sempre afecta tant a
+les particel·les com a la partitura general.  Per poder incloure la
+mateixa música en diversos llocs, assignem la música a una
+&ldquo;variable&rdquo; (un nom):
+</p>
+<img class="float-center" src="pictures/text-input-parts-both-annotate-ca.png" alt="text-input-parts-both-annotate-ca">
+<p>Aquesta variable s&rsquo;usa aleshores a una sola part instrumental
+(aquí transportada, amb els silencis de diversos compassos agrupats):
+</p>
+<img class="float-center" src="pictures/text-input-parts-single-annotate-ca.png" alt="text-input-parts-single-annotate-ca"><img class="float-center" src="pictures/text-input-parts-single-output.png" alt="text-input-parts-single-output">
+
+<p>La mateixa variable s&rsquo;utilitza a la partitura general (aquí en to
+de concert):
+</p>
+<img class="float-center" src="pictures/text-input-score-annotate-es.png" alt="text-input-score-annotate-es"><img class="float-center" src="pictures/text-input-score-output.png" alt="text-input-score-output">
+
+<a name="Documentacio-per-al-principiant"></a>
+<h4 class="subsubheading">Documentació per al principiant</h4>
+
+<p>Ens adonem que molts usuaris veuen una mica estranya aquesta forma
+d&rsquo;introduir la música.  Per aquest motiu, hem escrit una àmplia
+documentació d&rsquo;ajuda als nous usuaris, començant amb
+<a href="learning.html">Aprenentage</a>.  El manual d&rsquo;aprenentatge és el millor per
+començar, perquè allí es responen moltes preguntes abans que es
+formulin.
+</p>
+<p>Us preguem que llegeixi el Manual d&rsquo;Aprenentatge abans de
+queixar-vos de possibles fallades del programa!  Amb freqüència,
+els usuaris novells creuen que el LilyPond no funciona, quan de
+fet està funcionant exactament tal i com està dissenyat per fer-lo.
+</p>
+<p>Teniu a la vostra disposició una documentació molt més profunda a
+la secció <a href="manuals.html">Manuals</a>.
+</p>
+<p>Ben Lemon, usuari del LilyPond, ha creat i publicat una
+col·lecció de
+<a href="http://benlemon.me/blog/music/lilypond/operation-lilypond">tutorials en vídeo</a> al seu blog, dirigits a nous usuaris.
+</p>
+<a name="Entorns-d_0027edicio-facilitats"></a>
+<h4 class="subsubheading">Entorns d&rsquo;edició facilitats</h4>
+
+<div class="float-right">
+  <a class="clickable" href="pictures/lilykde-screenshot.png">
+    <img src="pictures/lilykde-screenshot-small.png" alt="lilykde-screenshot-small">
+  </a>
+  <p style="text-align: center">
+    (cliqueu per veure una imatge més gran)
+  </p>
+</div>
+<p>L&rsquo;èmfasi del LilyPond està en primer lloc en la producció de
+música escrita amb la màxima qualitat; la creació d&rsquo;una
+interfície gràfica d&rsquo;usuari (un GUI) ens hauria distret d&rsquo;aquesta
+meta. Malgrat això, hi ha altres projectes els propòsits dels
+quals és fer més fàcil la creació de fitxers d&rsquo;entrada del LilyPond.
+</p>
+<p>Alguns entorns d&rsquo;edició inclouen el acolorit sintàctic, compleció
+automàtica d&rsquo;instruccions i plantilles pre-elaborades. D&rsquo;altres
+programes ofereixen realment un GUI que permet la manipulació
+directa d&rsquo;una partitura gràfica.  Per veure més informació, consulteu
+<a href="easier-editing.html">Entorns millorats</a>.
+</p>
+
+<div class="column-center-bottom"><a name="I-ara-que_003f-4"></a>
+<h3 class="subheading">I ara què?</h3>
+
+<p>Ja teniu la preparació per <a href="download.html">Descarregar el LilyPond</a>.
+Encara no esteu convençut? Llegiu quelcom sobre els entorns
+d&rsquo;edició a
+<a href="easier-editing.html">Entorns millorats</a>.
+</p>
+
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Agraïm a <a href="http://www.webdev.nl/">webdev.nl</a> l'allotjament de <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=" toc_current"><a name="toc-Introduccio" href="introduction.html">Introducció</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Introduccio" href="introduction.html">Introducció</a></li>
+    <li class=""><a name="toc-Possibilitats-1" href="features.html">Possibilitats</a>    </li>
+    <li class=""><a name="toc-Exemples-1" href="examples.html">Exemples</a>    </li>
+    <li class=""><a name="toc-Llibertat-1" href="freedom.html">Llibertat</a>    </li>
+    <li class=""><a name="toc-Rerefons-1" href="background.html">Rerefons</a>    </li>
+    <li class=""><a name="toc-Produccions-1" href="productions.html">Produccions</a>    </li>
+    <li class=""><a name="toc-Ressenyes-1" href="reviews.html">Ressenyes</a>    </li>
+    <li class=" toc_current"><a name="toc-Entrada-de-text-1" href="text-input.html">Entrada de text</a>    </li>
+    <li class=""><a name="toc-Entorns-millorats-1" href="easier-editing.html">Entorns millorats</a>    </li>
+  </ul>
+  </li>
+  <li class=""><a name="toc-Descarrega" href="download.html">Descàrrega</a>  </li>
+  <li class=""><a name="toc-Manuals-1" href="manuals.html">Manuals</a>  </li>
+  <li class=""><a name="toc-Comunitat-1" href="community.html">Comunitat</a>  </li>
+<li>
+<!--
+    Translation of GIT committish: 9d074d78d7c25852afa87005e21c118630f4f83b
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Cerca a Google">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Buscar">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

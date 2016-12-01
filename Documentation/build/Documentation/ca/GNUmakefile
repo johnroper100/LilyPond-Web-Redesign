@@ -1,0 +1,4 @@
+depth=../../../
+include $(depth)/config$(if $(conf),-$(conf),).make
+include $(configure-srcdir)/./build/Documentation/ca/GNUmakefile
+MODULE_INCLUDES += $(src-dir)/$(outbase)

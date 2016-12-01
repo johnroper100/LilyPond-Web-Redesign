@@ -1,0 +1,226 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.16.0"
+
+
+@node Contemporary music
+@section Contemporary music
+
+From the beginning of the 20th Century there has been a massive
+expansion of compositional style and technique.  New harmonic
+and rhythmic developments, an expansion of the pitch spectrum
+and the development of a wide range of new instrumental
+techniques have been accompanied by a parallel evolution and
+expansion of musical notation.  The purpose of this section is
+to provide references and information relevant to working with
+these new notational techniques.
+
+@menu
+* Pitch and harmony in contemporary music::
+* Contemporary approaches to rhythm::
+* Graphical notation::
+* Contemporary scoring techniques::
+* New instrumental techniques::
+* Further reading and scores of interest::
+@end menu
+
+
+@node Pitch and harmony in contemporary music
+@subsection Pitch and harmony in contemporary music
+
+This section highlights issues that are relevant to notating
+pitch and harmony in contemporary music.
+
+@menu
+* References for pitch and harmony in contemporary music::
+* Microtonal notation::
+* Contemporary key signatures and harmony::
+@end menu
+
+
+@node References for pitch and harmony in contemporary music
+@unnumberedsubsubsec References for pitch and harmony in contemporary music
+
+@itemize
+@item Standard quarter-tone notation is addressed in
+@ref{Note names in other languages}.
+
+@item Non-standard key signatures are addressed in
+@ref{Key signature}.
+
+@item Contemporary practises in displaying accidentals are
+addressed in @ref{Automatic accidentals}.
+
+@end itemize
+
+
+@node Microtonal notation
+@unnumberedsubsubsec Microtonal notation
+
+@ignore
+    Discussion of microtones other than quarter-tones,
+    alternative notations (arrows, slash-flats), etc.
+@end ignore
+
+
+@node Contemporary key signatures and harmony
+@unnumberedsubsubsec Contemporary key signatures and harmony
+
+@ignore
+    Discussion of contemporary key signatures:
+    non-standard, polytonality, etc.
+@end ignore
+
+
+@node Contemporary approaches to rhythm
+@subsection Contemporary approaches to rhythm
+
+This section highlights issues that are relevant to the
+notation of rhythm in contemporary music.
+
+@menu
+* References for contemporary approaches to rhythm::
+* Tuplets in contemporary music::
+* Contemporary time signatures::
+* Extended polymetric notation::
+* Beams in contemporary music::
+* Bar lines in contemporary music::
+@end menu
+
+
+@node References for contemporary approaches to rhythm
+@unnumberedsubsubsec References for contemporary approaches to rhythm
+
+@itemize
+@item Compound time signatures are addressed in @ref{Time signature}.
+
+@item Basic polymetric notation is addressed in
+@ref{Polymetric notation}.
+
+@item Feathered beams are addressed in @ref{Feathered beams}.
+
+@item Mensurstriche bar lines (bar lines between staves only) are
+addressed in @ref{Grouping staves}.
+
+@end itemize
+
+
+@node Tuplets in contemporary music
+@unnumberedsubsubsec Tuplets in contemporary music
+
+@ignore
+    Extended discussion of modern tuplets, including
+    non-standard ratios, nested tuplets and customising
+    the appearance of tuplets (ratios, note values etc.)
+    Also how to provide an ossia RhythmicStaff to help
+    players break down a complicated tuplet.
+@end ignore
+
+
+@node Contemporary time signatures
+@unnumberedsubsubsec Contemporary time signatures
+
+@ignore
+    Extended discussion of compound time signatures
+    including Graham P.'s work; non-standard time
+    signatures such as 7/10, 5/6; alternative
+    notations such as Orff-esque 4/note, placing a
+    single time signature across multiple staves, or
+    placing time signatures at the top of StaffGroups
+    or systems rather than in the stave.
+@end ignore
+
+
+@node Extended polymetric notation
+@unnumberedsubsubsec Extended polymetric notation
+
+@ignore
+    Extended examples e.g., different instruments
+    or ensembles with independent tempi
+@end ignore
+
+
+@node Beams in contemporary music
+@unnumberedsubsubsec Beams in contemporary music
+
+@ignore
+    Beaming practises, stemlets, Boulez-esque displaying
+    of beamed notes with flags
+@end ignore
+
+
+@node Bar lines in contemporary music
+@unnumberedsubsubsec Bar lines in contemporary music
+
+@ignore
+    Mensurstriche barlines, tick barlines, etc.
+@end ignore
+
+
+@node Graphical notation
+@subsection Graphical notation
+
+
+@node Contemporary scoring techniques
+@subsection Contemporary scoring techniques
+
+
+@node New instrumental techniques
+@subsection New instrumental techniques
+
+
+@node Further reading and scores of interest
+@subsection Further reading and scores of interest
+
+This section suggests books, musical examples and other
+resources useful in studying contemporary musical notation.
+
+@menu
+* Books and articles on contemporary musical notation::
+* Scores and musical examples::
+@end menu
+
+
+@node Books and articles on contemporary musical notation
+@unnumberedsubsubsec Books and articles on contemporary musical notation
+
+@itemize
+@item
+@emph{Music Notation in the Twentieth Century: A Practical Guidebook}
+by Kurt Stone [W. W. Norton, 1980]
+
+@item
+@emph{Music Notation: A Manual of Modern Practice} by Gardner Read
+[Taplinger, 1979]
+
+@item
+@emph{Instrumentation and Orchestration} by Alfred Blatter [Schirmer,
+2nd ed. 1997]
+
+@end itemize
+
+
+@node Scores and musical examples
+@unnumberedsubsubsec Scores and musical examples
+
+@ignore
+    Rough list of composers whose work could be included
+    (in alphabetical order, perhaps with suggested work):
+
+        Pierre Boulez (Le Marteau Sans Maître?)
+        John Cage (Freeman Etudes?)
+        George Crumb (Black Angels?)
+        Brian Ferneyhough (Transit?  Time & Motion Studies?)
+        Ben Johnston (extended just intonation example)
+        György Ligeti (several, including Hamburg Concerto)
+        Krzysztof Penderecki (Threnody to the Victims of Hiroshima?)
+        Karlheinz Stockhausen (Gruppen?)
+@end ignore
+

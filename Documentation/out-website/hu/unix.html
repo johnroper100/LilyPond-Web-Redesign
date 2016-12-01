@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 by the authors.
+
+This file documents the LilyPond website.
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on november 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; kottaszedés mindenkinek: Unix</title>
+
+<meta name="description" content="LilyPond &ndash; kottaszedés mindenkinek: Unix">
+<meta name="keywords" content="LilyPond &ndash; kottaszedés mindenkinek: Unix">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... kottaszedés mindenkinek">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="Tartalomjegyzék">
+<link href="index_abt.html#SEC_About" rel="help" title="A navigációs panel használata">
+<link href="download.html#download" rel="up" title="Letöltés">
+<link href="attic.html#attic" rel="next" title="Hírarchívum">
+<link href="download.html#download" rel="previous" title="Letöltés">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="hu" class="web devStatus">
+
+<div id="main">
+<a name="Unix"></a>
+
+<a name="unix"></a>
+<h2 class="unnumberedsec">Unix</h2>
+
+<div class="column-center-top"><a name="Generikus-vagy-disztribucio_002dspecifikus-csomagokat-hasznaljak_003f"></a>
+<h3 class="subheading">Generikus vagy disztribúció-specifikus csomagokat használjak?</h3>
+
+<p>Sok disztribúció csomagkezelőjében megtalálható a LilyPond. Ezeket a verziókat
+egyszerűbb telepíteni és eltávolítani, mint a generikus csomagokat, de
+régebbiek lehetnek. Ha egy generikus csomagot akarsz használni, előbb
+távolítsd el a csomag hivatalos verzióját a csomagkezelővel.
+Ehhez a disztribúció csomagkezelőjének dokumentációja nyújt segítséget.
+</p>
+
+</div>
+
+<div class="column-left-top"><a name="Generikus-csomagok"></a>
+<h3 class="subheading">Generikus csomagok</h3>
+
+<a name="Letoltes-1"></a>
+<h4 class="subsubheading">Letöltés</h4>
+
+<ul>
+<li>
+<img src="pictures/logo-linux.png" alt="pictures/logo-linux">
+<a href="http://download.linuxaudio.org/lilypond/binaries/linux-x86/lilypond-2.18.2-1.linux-x86.sh">GNU/Linux x86: LilyPond 2.18.2-1</a>
+(ha bizonytalan vagy afelől, hogy melyiket töltsd le, ezt válaszd)
+
+</li><li>
+<img src="pictures/logo-linux.png" alt="pictures/logo-linux">
+<a href="http://download.linuxaudio.org/lilypond/binaries/linux-64/lilypond-2.18.2-1.linux-64.sh">GNU/Linux 64: LilyPond 2.18.2-1</a>
+
+</li><li>
+<img src="pictures/logo-linux.png" alt="pictures/logo-linux">
+<a href="http://download.linuxaudio.org/lilypond/binaries/linux-ppc/lilypond-2.18.2-1.linux-ppc.sh">GNU/Linux PPC: LilyPond 2.18.2-1</a>
+
+</li><li>
+<img src="pictures/logo-freebsd.png" alt="pictures/logo-freebsd">
+<a href="http://download.linuxaudio.org/lilypond/binaries/freebsd-x86/lilypond-2.18.2-1.freebsd-x86.sh">FreeBSD i386: LilyPond 2.18.2-1</a>
+
+</li><li>
+<img src="pictures/logo-freebsd.png" alt="pictures/logo-freebsd">
+<a href="http://download.linuxaudio.org/lilypond/binaries/freebsd-64/lilypond-2.18.2-1.freebsd-64.sh">FreeBSD amd64: LilyPond 2.18.2-1</a>
+
+</li></ul>
+
+
+<a name="Telepites"></a>
+<h4 class="subsubheading">Telepítés</h4>
+
+<p>Add ki a következő parancsokat:
+</p>
+<blockquote><pre class="example">cd PATH-TO-DOWNLOAD-DIRECTORY
+sh lilypond-2.18.2-OS-TYPE.sh
+</pre></blockquote>
+
+<a name="Eltavolitas"></a>
+<h4 class="subsubheading">Eltávolítás</h4>
+
+<p>Add ki a következő parancsot:
+</p>
+<blockquote><pre class="example">uninstall-lilypond
+</pre></blockquote>
+
+
+</div>
+
+<div class="column-right-top"><a name="Disztribucio_002dspecifikus-csomagok"></a>
+<h3 class="subheading">Disztribúció-specifikus csomagok</h3>
+
+<p>Ezeket a csomagokat a disztribúciód csomagkezelőjével tudod telepíteni.
+</p>
+<ul>
+<li>
+<img src="pictures/logo-fedora.png" alt="pictures/logo-fedora">
+<a href="https://admin.fedoraproject.org/pkgdb/packages/name/lilypond">Fedora: LilyPond 2.12.0</a>
+
+</li><li>
+<img src="pictures/logo-ubuntu.png" alt="pictures/logo-ubuntu">
+<a href="https://launchpad.net/ubuntu/+source/lilypond">Ubuntu: LilyPond 2.12.1</a>
+
+</li><li>
+<img src="pictures/logo-slackware.png" alt="pictures/logo-slackware">
+<a href="http://www.johannes-schoepfer.de/lilypond">Slackware: LilyPond 2.12.1</a>
+
+</li><li>
+<img src="pictures/logo-debian.png" alt="pictures/logo-debian">
+<a href="http://packages.debian.org/search?keywords=lilypond">Debian: LilyPond 2.10.33</a>
+
+</li><li>
+<img src="pictures/logo-suse.png" alt="pictures/logo-suse">
+<a href="http://opensuse.org/?fixme=urg-no-lilypond-package-page">openSUSE: LilyPond 2.10.33</a>
+
+</li></ul>
+
+
+</div>
+
+<div class="column-center-bottom"><a name="Jogi-tudnivalok-4"></a>
+<h3 class="subheading">Jogi tudnivalók</h3>
+
+<div class="legal"><p>Minden logó és termékábrázolás szerzői joggal védett.
+</p>
+<p>Tux, a Linux pingvin <a href="mailto:lewing@isc.tamu.edu">lewing@isc.tamu.edu</a>
+műve, és a <a href="http://www.isc.tamu.edu/~lewing/gimp">GNU Image Manipulation Program</a> segítségével készült.
+</p>
+
+<p>A FreeBSD logó a <a href="http://www.freebsd.org">FreeBSD Alapítvány</a>
+bejegyzett védjegye.
+</p>
+
+
+</div>
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Köszönet a <a href="http://www.webdev.nl/">webdev.nl</a> részére a <code>lilypond.org</code> tárhelyért.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Bevezetes" href="introduction.html">Bevezetés</a>  </li>
+  <li class=" toc_current"><a name="toc-Letoltes" href="download.html">Letöltés</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Letoltes" href="download.html">Letöltés</a></li>
+    <li class=" toc_current"><a name="toc-Unix-1" href="unix.html">Unix</a>    </li>
+    <li class=""><a name="toc-Mac-OS-X-1" href="macos-x.html">Mac OS X</a>    </li>
+    <li class=""><a name="toc-Windows-1" href="windows.html">Windows</a>    </li>
+    <li class=""><a name="toc-Forras" href="source.html">Forrás</a>    </li>
+    <li class=""><a name="toc-Regi-verziok" href="old-downloads.html">Régi verziók</a>    </li>
+    <li class=""><a name="toc-GPL-1" href="gpl.html">GPL</a>    </li>
+  </ul>
+  </li>
+  <li class=""><a name="toc-Dokumentacio" href="manuals.html">Dokumentáció</a>  </li>
+  <li class=""><a name="toc-Kozosseg" href="community.html">Közösség</a>  </li>
+<li>
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Google keresés">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Keresés">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

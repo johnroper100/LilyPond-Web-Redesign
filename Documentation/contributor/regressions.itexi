@@ -1,0 +1,590 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Regression tests
+@chapter Regression tests
+
+@menu
+* Introduction to regression tests::
+* Precompiled regression tests::
+* Compiling regression tests::
+* Regtest comparison::
+* Pixel-based regtest comparison::
+* Finding the cause of a regression::
+* Memory and coverage tests::
+* MusicXML tests::
+* Grand Regression Test Checking::
+@end menu
+
+
+@node Introduction to regression tests
+@section Introduction to regression tests
+
+LilyPond has a complete suite of regression tests that are used
+to ensure that changes to the code do not break existing behavior.
+These regression tests comprise small LilyPond snippets that test
+the functionality of each part of LilyPond.
+
+Regression tests are added when new functionality is added to
+LilyPond.
+We do not yet have a policy on when it is appropriate to add or
+modify a regtest when bugs are fixed.  Individual developers
+should use their best judgement until this is clarified during the
+@ref{Grand Organization Project (GOP)}.
+
+The regression tests are compiled using special @code{make}
+targets.  There are three primary uses for the regression
+tests.  First, successful completion of the regression tests means
+that LilyPond has been properly built.  Second, the output of the
+regression tests can be manually checked to ensure that
+the graphical output matches the description of the intended
+output.  Third, the regression test output from two different
+versions of LilyPond can be automatically compared to identify
+any differences.  These differences should then be manually
+checked to ensure that the differences are intended.
+
+Regression tests (@qq{regtests}) are available in precompiled form
+as part of the documentation.  Regtests can also be compiled
+on any machine that has a properly configured LilyPond build
+system.
+
+
+@node Precompiled regression tests
+@section Precompiled regression tests
+
+@subheading Regression test output
+
+As part of the release process, the regression tests are run
+for every LilyPond release.  Full regression test output is
+available for every stable version and the most recent development
+version.
+
+Regression test output is available in HTML and PDF format.  Links
+to the regression test output are available at the developer's
+resources page for the version of interest.
+
+The latest stable version of the regtests is found at:
+
+@example
+@uref{http://lilypond.org/doc/stable/input/regression/collated-files.html}
+@end example
+
+The latest development version of the regtests is found at:
+
+@example
+@uref{http://lilypond.org/doc/latest/input/regression/collated-files.html}
+@end example
+
+
+@subheading Regression test comparison
+
+Each time a new version is released, the regtests are
+compiled and the output is automatically compared with the
+output of the previous release.  The result of these
+comparisons is archived online:
+
+@example
+@uref{http://lilypond.org/test/}
+@end example
+
+Checking these pages is a very important task for the LilyPond project.
+You are invited to report anything that looks broken, or any case
+where the output quality is not on par with the previous release,
+as described in @rweb{Bug reports}.
+
+@warning{ The special regression test
+@file{test-output-distance.ly} will always show up as a
+regression.  This test changes each time it is run, and serves to
+verify that the regression tests have, in fact, run.}
+
+
+@subheading What to look for
+
+The test comparison shows all of the changes that occurred between
+the current release and the prior release.  Each test that has a
+significant (noticeable) difference in output is displayed, with
+the old version on the left and the new version on the right.
+
+Some of the small changes can be ignored (slightly different slur
+shapes, small variations in note spacing), but this is not always
+the case: sometimes even the smallest change means that something
+is wrong.  To help in distinguishing these cases, we use bigger
+staff size when small differences matter.
+
+Staff size 30 generally means "pay extra attention to details".
+Staff size 40 (two times bigger than default size) or more means
+that the regtest @strong{is} about the details.
+
+Staff size smaller than default doesn't mean anything.
+
+Regression tests whose output is the same for both versions are
+not shown in the test comparison.
+
+@itemize
+@item
+Images: green blurs in the new version show the approximate
+location of elements in the old version.
+
+There are often minor adjustments in spacing which do not indicate
+any problem.
+
+@item
+Log files: show the difference in command-line output.
+
+The main thing to examine are any changes in page counts -- if a
+file used to fit on 1 page but now requires 4 or 5 pages,
+something is suspicious!
+
+@item
+Profile files: give information about
+TODO?  I don't know what they're for.
+Apparently they give some information about CPU usage.  If you got
+tons of changes in cell counts, this probably means that you compiled
+@code{make test-baseline} with a different amount of CPU threads than
+@code{make check}. Try redoing tests from scratch with the same
+number of threads each time -- see @ref{Saving time with the -j option}.
+
+@end itemize
+
+@warning{
+The automatic comparison of the regtests checks the LilyPond
+bounding boxes.  This means that Ghostscript changes and changes
+in lyrics or text are not found.
+}
+
+@node Compiling regression tests
+@section Compiling regression tests
+
+Developers may wish to see the output of the complete regression
+test suite for the current version of the source repository
+between releases.  Current source code is available; see
+@ref{Working with source code}.
+
+For regression testing @code{../configure} should be run with the
+@code{--disable-optimising} option.  Then you will need
+to build the LilyPond binary; see @ref{Compiling LilyPond}.
+
+Uninstalling the previous LilyPond version is not necessary, nor is
+running @code{make install}, since the tests will automatically be
+compiled with the LilyPond binary you have just built in your source
+directory.
+
+From this point, the regtests are compiled with:
+
+@example
+make test
+@end example
+
+If you have a multi-core machine you may want to use the @option{-j}
+option and @var{CPU_COUNT} variable, as
+described in @ref{Saving time with CPU_COUNT}.
+For a quad-core processor the complete command would be:
+
+@example
+make -j5 CPU_COUNT=5 test
+@end example
+
+The regtest output will then be available in
+@file{input/regression/out-test}.
+@file{input/regression/out-test/collated-examples.html}
+contains a listing of all the regression tests that were run,
+but none of the images are included.  Individual images are
+also available in this directory.
+
+The primary use of @samp{make@tie{}test} is to verify that the
+regression tests all run without error.  The regression test
+page that is part of the documentation is created only when the
+documentation is built, as described in @ref{Generating documentation}.
+Note that building the documentation requires more installed components
+than building the source code, as described in
+@ref{Requirements for building documentation}.
+
+
+@node Regtest comparison
+@section Regtest comparison
+
+Before modified code is committed to @code{master} (via @code{staging}),
+a regression test
+comparison must be completed to ensure that the changes have
+not caused problems with previously working code.  The comparison
+is made automatically upon compiling the regression test suite
+twice.
+
+@enumerate
+
+@item
+Run @code{make} with current git master without any of your changes.
+
+@item
+Before making changes to the code, establish a baseline for the comparison by
+going to the @file{$LILYPOND_GIT/build/} directory and running:
+
+@example
+make test-baseline
+@end example
+
+@item
+Make your changes, or apply the patch(es) to consider.
+
+@item
+Compile the source with @samp{make} as usual.
+
+@item
+Check for unintentional changes to the regtests:
+
+@example
+make check
+@end example
+
+After this has finished, a regression test comparison will be
+available (relative to the current @file{build/} directory) at:
+
+@example
+out/test-results/index.html
+@end example
+
+For each regression test that differs between the baseline and the
+changed code, a regression test entry will be displayed.  Ideally,
+the only changes would be the changes that you were working on.
+If regressions are introduced, they must be fixed before
+committing the code.
+
+@warning{
+The special regression test @file{test-output-distance.ly} will always
+show up as a regression.  This test changes each time it is run, and
+serves to verify that the regression tests have, in fact, run.}
+
+@item
+If you are happy with the results, then stop now.
+
+If you want to continue programming, then make any additional code
+changes, and continue.
+
+@item
+Compile the source with @samp{make} as usual.
+
+@item
+To re-check files that differed between the initial
+@samp{make@tie{}test-baseline} and your post-changes
+@samp{make@tie{}check}, run:
+
+@example
+make test-redo
+@end example
+
+This updates the regression list at @file{out/test-results/index.html}.
+It does @emph{not} redo @file{test-output-distance.ly}.
+
+@item
+When all regressions have been resolved, the output list will be empty.
+
+@item
+Once all regressions have been resolved, a final check should be completed
+by running:
+
+@example
+make test-clean
+make check
+@end example
+
+This cleans the results of the previous @samp{make@tie{}check}, then does the
+automatic regression comparison again.  
+
+@end enumerate
+
+@advanced{
+Once a test baseline has been established, there is no need to run it again
+unless git master changed. In other words, if you work with several branches
+and want to do regtests comparison for all of them, you can
+@code{make test-baseline} with git master, checkout some branch,
+@code{make} and @code{make check} it, then switch to another branch,
+@code{make test-clean}, @code{make} and @code{make check} it without doing
+@code{make test-baseline} again.}
+
+@node Pixel-based regtest comparison
+@section Pixel-based regtest comparison
+
+As an alternative to the @code{make test} method for regtest checking (which
+relies upon @code{.signature} files created by a LilyPond run and which describe
+the placing of grobs) there is a script which compares the output of two
+LilyPond versions pixel-by-pixel.  To use this, start by checking out the
+version of LilyPond you want to use as a baseline, and run @code{make}.  Then,
+do the following:
+
+@example
+cd $LILYPOND_GIT/scripts/auxiliar/
+./make-regtest-pngs.sh -j9 -o
+@end example
+
+The @code{-j9} option tells the script to use 9 CPUs to create the
+images - change this to your own CPU count+1.  @code{-o} means this is the "old"
+version.  This will create images of all the regtests in
+
+@example
+$LILYPOND_BUILD_DIR/out-png-check/old-regtest-results/
+@end example
+
+Now checkout the version you want to compare with the baseline.  Run
+@code{make} again to recreate the LilyPond binary.  Then, do the following:
+
+@example
+cd $LILYPOND_GIT/scripts/auxiliar/
+./make-regtest-pngs.sh -j9 -n
+@end example
+
+The @code{-n} option tells the script to make a "new" version of the
+images.  They are created in
+
+@example
+$LILYPOND_BUILD_DIR/out-png-check/new-regtest-results/
+@end example
+
+Once the new images have been created, the script compares the old images with
+the new ones pixel-by-pixel and prints a list of the different images to the
+terminal, together with a count of how many differences were found.  The
+results of the checks are in
+
+@example
+$LILYPOND_BUILD_DIR/out-png-check/regtest-diffs/
+@end example
+
+To check for differences, browse that directory with an image
+viewer.  Differences are shown in red.  Be aware that some images with complex
+fonts or spacing annotations always display a few minor differences.  These can
+safely be ignored.
+
+
+@node Finding the cause of a regression
+@section Finding the cause of a regression
+
+Git has special functionality to help tracking down the exact
+commit which causes a problem.  See the git manual page for
+@code{git bisect}.  This is a job that non-programmers can do,
+although it requires familiarity with git, ability to compile
+LilyPond, and generally a fair amount of technical knowledge.  A
+brief summary is given below, but you may need to consult other
+documentation for in-depth explanations.
+
+Even if you are not familiar with git or are not able to compile
+LilyPond you can still help to narrow down the cause of a
+regression simply by downloading the binary releases of different
+LilyPond versions and testing them for the regression.  Knowing
+which version of LilyPond first exhibited the regression is
+helpful to a developer as it shortens the @code{git bisect}
+procedure.
+
+Once a problematic commit is identified, the programmers' job is
+much easier.  In fact, for most regression bugs, the majority of
+the time is spent simply finding the problematic commit.
+
+More information is in @ref{Regression tests}.
+
+@subheading git bisect setup
+
+We need to set up the bisect for each problem we want to
+investigate.
+
+Suppose we have an input file which compiled in version 2.13.32,
+but fails in version 2.13.38 and above.
+
+@enumerate
+@item
+Begin the process:
+
+@example
+git bisect start
+@end example
+
+@item
+Give it the earliest known bad tag:
+
+@example
+git bisect bad release/2.13.38-1
+@end example
+
+(you can see tags with: @code{git tag} )
+
+@item
+Give it the latest known good tag:
+
+@example
+git bisect good release/2.13.32-1
+@end example
+
+You should now see something like:
+@example
+Bisecting: 195 revisions left to test after this (roughly 8 steps)
+[b17e2f3d7a5853a30f7d5a3cdc6b5079e77a3d2a] Web: Announcement
+update for the new @qq{LilyPond Report}.
+@end example
+
+@end enumerate
+
+@subheading git bisect actual
+
+@enumerate
+
+@item
+Compile the source:
+
+@example
+make
+@end example
+
+@item
+Test your input file:
+
+@example
+out/bin/lilypond test.ly
+@end example
+
+@item
+Test results?
+
+@itemize
+@item
+Does it crash, or is the output bad?  If so:
+
+@example
+git bisect bad
+@end example
+
+@item
+Does your input file produce good output?  If so:
+
+@example
+git bisect good
+@end example
+
+@end itemize
+
+@item
+Once the exact problem commit has been identified, git will inform
+you with a message like:
+
+@example
+6d28aebbaaab1be9961a00bf15a1ef93acb91e30 is the first bad commit
+%%% ... blah blah blah ...
+@end example
+
+If there is still a range of commits, then git will automatically
+select a new version for you to test.  Go to step #1.
+
+@end enumerate
+
+@subheading Recommendation: use two terminal windows
+
+@itemize
+@item
+One window is open to the @code{build/} directory, and alternates
+between these commands:
+
+@example
+make
+out/bin/lilypond test.ly
+@end example
+
+@item
+One window is open to the top source directory, and alternates
+between these commands:
+
+@example
+git bisect good
+git bisect bad
+@end example
+
+@end itemize
+
+
+@node Memory and coverage tests
+@section Memory and coverage tests
+
+In addition to the graphical output of the regression tests, it is
+possible to test memory usage and to determine how much of the source
+code has been exercised by the tests.
+
+@subheading Memory usage
+
+For tracking memory usage as part of this test, you will need
+GUILE CVS; especially the following patch:
+@smallexample
+@uref{http://www.lilypond.org/vc/old/gub.darcs/patches/guile-1.9-gcstats.patch}.
+@end smallexample
+
+@subheading Code coverage
+
+For checking the coverage of the test suite, do the following
+
+@example
+./scripts/auxiliar/build-coverage.sh
+@emph{# uncovered files, least covered first}
+./scripts/auxiliar/coverage.py  --summary out-cov/*.cc
+@emph{# consecutive uncovered lines, longest first}
+./scripts/auxiliar/coverage.py  --uncovered out-cov/*.cc
+@end example
+
+
+@node MusicXML tests
+@section MusicXML tests
+
+
+LilyPond comes with a complete set of regtests for the
+@uref{http://www.musicxml.org/,MusicXML} language.  Originally
+developed to test @samp{musicxml2ly}, these regression tests
+can be used to test any MusicXML implementation.
+
+The MusicXML regression tests are found at
+@file{input/regression/musicxml/}.
+
+The output resulting from running these tests
+through @samp{musicxml2ly} followed by @samp{lilypond} is
+available in the LilyPond documentation:
+
+@example
+@uref{http://lilypond.org/doc/latest/input/regression/musicxml/collated-files}
+@end example
+
+
+@node Grand Regression Test Checking
+@section Grand Regression Test Checking
+
+@subheading What is this all about?
+
+Regression tests (usually abbreviated "regtests") is a collection
+of @file{.ly} files used to check whether LilyPond is working correctly.
+Example: before version 2.15.12 breve noteheads had incorrect width,
+which resulted in collisions with other objects.  After the issue was fixed,
+a small @file{.ly} file demonstrating the problem was added to the regression
+tests as a proof that the fix works.  If someone will accidentally break
+breve width again, we will notice this in the output of that regression test.
+
+@subheading How can I help?
+
+We ask you to help us by checking one or two regtests from time to time.
+You don't need programming skills to do this, not even LilyPond skills -
+just basic music notation knowledge; checking one regtest takes less than
+a minute.  Simply go here:
+
+@example
+@uref{http://www.philholmes.net/lilypond/regtests/}
+@end example
+
+@subheading Some tips on checking regtests
+
+@subsubheading Description text
+
+The description should be clear even for a music beginner.
+If there are any special terms used in the description,
+they all should be explained in our @rglosnamed{Top, Music Glossary}
+or @rinternalsnamed{Top, Internals Reference}.
+Vague descriptions (like "behaves well", "looks reasonable") shouldn't be used.
+
+@ignore
+this may be useful for advanced regtest checking
+@subsubheading Is regtest straightforward and systematic?
+
+Unfortunately some regtests are written poorly.  A good regtest should be
+straightforward: it should be obvious what it checks and how.  Also, it
+usually shouldn't check everything at once.  For example it's a bad idea to test
+accidental placement by constucting one huge chord with many suspended notes
+and loads of accidentals.  It's better to divide such problem into a series
+of clearly separated cases.
+@end ignore

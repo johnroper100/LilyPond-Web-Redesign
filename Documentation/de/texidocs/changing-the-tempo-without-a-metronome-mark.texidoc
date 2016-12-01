@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Um das Tempo für die MIDI-Ausgabe zu ändern, ohne eine Tempoangabe in den
+Noten auszugeben, kann die Metronombezeichnung unsichtbar gemacht werden:
+
+"
+
+  doctitlede = "Das Tempo ohne Metronom-Angabe verändern"

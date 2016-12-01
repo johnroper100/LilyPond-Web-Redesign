@@ -1,0 +1,19 @@
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+  texidocfr = "
+Grâce à ce canevas, vous pouvez obtenir une partition d'excellente
+facture pour quatuor à cordes mais aussi, si le besoin s'en faisait
+sentir, une partie séparée par instrument.  Par ailleurs, cet exemple
+illustre l'utilisation de la fonction @code{\\tag} dans le but
+d'extraire des parties séparées.
+
+Il vous faudra découper ce canevas en plusieurs fichiers séparés ; leur
+nom respectif est indiqué en commentaire : @file{piece.ly} comporte tout
+ce qui a trait à la musique, les autres fichiers -- @file{score.ly},
+@file{vn1.ly}, @file{vn2.ly}, @file{vla.ly} et @file{vlc.ly} -- vous
+permettront d'obtenir les parties selon le pupitre.
+
+N'oubliez pas de supprimer les commentaires superflus des fichiers
+individualisés !
+
+"
+  doctitlefr = "Quatuor à cordes, avec parties séparées"

@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 by the authors.
+
+LilyPond 网站由本文件归档。
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on 11 月 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; 人人的乐谱软件: Mac OS X</title>
+
+<meta name="description" content="LilyPond &ndash; 人人的乐谱软件: Mac OS X">
+<meta name="keywords" content="LilyPond &ndash; 人人的乐谱软件: Mac OS X">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... 人人的乐谱软件">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="目录">
+<link href="index_abt.html#SEC_About" rel="help" title="关于本文档">
+<link href="download.html#download" rel="up" title="下载">
+<link href="attic.html#attic" rel="next" title="Attic">
+<link href="unix.html#unix" rel="previous" title="Unix">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="zh" class="web devStatus">
+
+<div id="main">
+<a name="Mac-OS-X"></a>
+
+<a name="macos-x"></a>
+<h2 class="unnumberedsec">Mac OS X</h2>
+
+<div class="heading-center"><div class="warning"><p><strong>注意：</strong>LilyPond 是一个 <strong>基于文本</strong> 的音乐雕版印刷软件；和一般图形界面的打谱软件相比，LilyPond
+倒有点像一门编程语言。在您下载 LilyPond 之前，请先进一步了解我们的<a href="text-input.html">文本输入</a>。
+</p>
+</div>
+</div>
+<div class="column-left-top"><a name="Ruan-Jian-Bao--1"></a>
+<h3 class="subheading">软件包</h3>
+
+<a name="Xia-Zai--1"></a>
+<h4 class="subsubheading">下载</h4>
+
+<ul>
+<li>
+<img src="pictures/logo-macosx.png" alt="pictures/logo-macosx">
+<a href="http://download.linuxaudio.org/lilypond/binaries/darwin-x86/lilypond-2.18.2-1.darwin-x86.tar.bz2">MacOS X x86: LilyPond 2.18.2-1</a>
+适用于 Mac OS X 10.4 或更高版本，在英特尔处理器 (Intel CPU) 上运行。（如果你不确定，请选择这个。）
+
+<p>抱歉，目前尚未支持 Mac OS X 10.7 Lion。
+</p>
+</li><li>
+<img src="pictures/logo-macosx.png" alt="pictures/logo-macosx">
+<a href="http://download.linuxaudio.org/lilypond/binaries/darwin-ppc/lilypond-2.18.2-1.darwin-ppc.tar.bz2">MacOS X PPC: LilyPond 2.18.2-1</a>
+适用于 Mac OS X 10.4 或更高版本，在 G3 和 G4 处理器（上一代的苹果电脑）上运行。
+
+<p>抱歉，目前尚未支持 Mac OS X 10.7 Lion。
+</p>
+</li></ul>
+
+<a name="An-Zhuang-"></a>
+<h4 class="subsubheading">安装</h4>
+
+<p>Double-click the downloaded file, then drag it to wherever you
+want.
+</p>
+<a name="Xie-Zai--1"></a>
+<h4 class="subsubheading">卸载</h4>
+
+<p>Delete the LilyPond.app folder.
+</p>
+
+</div>
+<div class="column-right-top"><a name="Bian-Yi-Wen-Jian--1"></a>
+<h3 class="subheading">编译文件</h3>
+
+<div class="warning"><p><strong>注意：</strong>These instructions assume that you are using the LilyPond
+application.  If you are using any of the programs described in
+<a name="index-Easier-editing-1"></a>
+<a href="../../doc/v2.19/Documentation/web/../web/easier-editing.html">Easier editing</a>, consult the documentation for those
+programs should you have any problems.
+</p>
+</div>
+
+<a name="Step-1_002e-Create-your-_002ely-file"></a>
+<h4 class="subsubheading">Step 1. Create your &lsquo;<tt>.ly</tt>&rsquo; file</h4>
+
+<p>Double click the <code>LilyPond.app</code>, an example file will open.
+</p>
+<img src="pictures/Learning_Macos_welcome.png" alt="pictures/Learning_Macos_welcome">
+
+<p>From the menus along the top left of your screen, select
+<code>File &gt; Save</code>.
+</p>
+<img src="pictures/Learning_Macos_Save_menu.png" alt="pictures/Learning_Macos_Save_menu">
+
+<p>Choose a name for your file, for example &lsquo;<tt>test.ly</tt>&rsquo;.
+</p>
+<img src="pictures/Learning_Macos_Save_file_with_name.png" alt="pictures/Learning_Macos_Save_file_with_name">
+
+
+<a name="Step-2_002e-Compile-_0028with-LilyPad_0029"></a>
+<h4 class="subsubheading">Step 2. Compile (with LilyPad)</h4>
+
+<p>From the same menus, select
+<code>Compile &gt; Typeset</code>.
+</p>
+<img src="pictures/Learning_Macos_Typeset_menu.png" alt="pictures/Learning_Macos_Typeset_menu">
+
+<p>A new window will open showing a progress log of the compilation
+of the file you have just saved.
+</p>
+<img src="pictures/Learning_Macos_Compiling_log.png" alt="pictures/Learning_Macos_Compiling_log">
+
+
+<a name="Step-3_002e-View-output-1"></a>
+<h4 class="subsubheading">Step 3. View output</h4>
+
+<p>Once the compilation has finished, a PDF file will be created with
+the same name as the original file and will be automatically
+opened in the default PDF viewer and displayed on your screen.
+</p>
+<img src="pictures/Learning_Macos_pdf_output.png" alt="pictures/Learning_Macos_pdf_output">
+
+
+<a name="Other-commands-1"></a>
+<h4 class="subsubheading">Other commands</h4>
+
+<p>To create new files for LilyPond, begin by selecting
+<code>File &gt; New</code>
+</p>
+<img src="pictures/Learning_Macos_New_menu.png" alt="pictures/Learning_Macos_New_menu">
+
+<p>or <code>File &gt; Open</code> to open and edit existing files you have
+saved previously.
+</p>
+<img src="pictures/Learning_Macos_Open_menu.png" alt="pictures/Learning_Macos_Open_menu">
+
+<p>You must save any new edits you make to your file before you
+<code>Compile &gt; Typeset</code> and if the PDF file is not displayed
+check the window with the progress log for any errors.
+</p>
+<p>If you are not using the default Preview PDF viewer that comes
+with the Mac Operating system and you have the PDF file generated
+from a previous compilation open, then any further compilations
+may fail to generate an update PDF until you close the original.
+</p>
+
+
+
+
+</div>
+
+<div class="column-left-top"><a name="Zai-Ming-Ling-Xing-Xia-Yun-Xing-"></a>
+<h3 class="subheading">在命令行下运行</h3>
+
+<div class="warning"><p><strong>注意：</strong>如果您使用图形界面已经很满意了，那么请忽略以下说明。
+</p>
+</div>
+<a name="Mac-OS-X-De-Ming-Ling-Xing-"></a>
+<h4 class="subsubheading">Mac OS X 的命令行</h4>
+
+<p>The most convenient way to run lilypond scripts is by setting up
+&ldquo;helper&rdquo; scripts of your own.
+</p>
+<ol>
+<li>
+Create a directory to store these scripts,
+
+<blockquote><pre class="example">mkdir -p ~/bin
+cd ~/bin
+</pre></blockquote>
+
+
+</li><li>
+Create a file called <code>lilypond</code> which contains
+
+<div class="h-scroll-auto"><blockquote><pre class="example">exec <var>DIR</var>/LilyPond.app/Contents/Resources/bin/lilypond &quot;$@&quot;
+</pre></blockquote>
+
+</div>
+<div class="warning"><p><strong>注意：</strong><var>DIR</var> will generally be <code>/Applications/</code>
+</p>
+</div>
+
+</li><li>
+Create similar files <code>lilypond-book</code>,
+<code>convert-ly</code>, and any other scripts you wish to use, by
+replacing the <code>bin/lilypond</code> with <code>bin/convert-ly</code>
+(or other program name).
+
+
+</li><li>
+Make the file executable,
+
+<blockquote><pre class="example">chmod u+x lilypond
+</pre></blockquote>
+
+
+</li><li>
+Now, add this directory to your path.  Modify (or create) a file
+called <code>.profile</code> in your home directory such that it
+contains
+
+<blockquote><pre class="example">export PATH=$PATH:~/bin
+</pre></blockquote>
+
+<p>This file should end with a blank line.
+</p>
+</li></ol>
+
+
+<a name="Diao-Yong-Dan-Du-De-Jiao-Ben-"></a>
+<h4 class="subsubheading">调用单独的脚本</h4>
+
+<p>The scripts &mdash; such as <code>lilypond-book</code>, <code>convert-ly</code>,
+<code>abc2ly</code>, and even <code>lilypond</code> itself &mdash; are included
+inside the <code>.app</code> file for Mac&nbsp;OS&nbsp;X.
+</p>
+<p>Scripts can also be run from the command line by invoking them
+directly:
+</p>
+<div class="h-scroll-auto"><blockquote><pre class="example"><var>path/to</var>/LilyPond.app/Contents/Resources/bin/lilypond
+</pre></blockquote>
+
+</div>
+<p>The same is true for all other scripts in that directory, such as
+<code>lilypond-book</code> and <code>convert-ly</code>.
+</p>
+
+</div>
+
+<div class="column-center-bottom"><a name="Fa-Lu-Tiao-Wen--3"></a>
+<h3 class="subheading">法律条文</h3>
+
+<div class="legal"><p>All logos and product images are copyright and trademark
+acknowledged.
+</p>
+<p>The &ldquo;X image&rdquo; is not a registered trademark.  It was created by
+<a href="http://en.wikipedia.org/wiki/User:Nihonjoe">Nihonjoe</a> and
+<a href="http://en.wikipedia.org/wiki/User:CyberSkull">CyberSkull</a>, and
+placed under the GNU Free Documentation License version 1.2 or later.
+We found the image on
+<a href="http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png">this Wikimedia Commons page</a>.
+</p>
+
+
+</div>
+</div>
+
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>非常感谢 <a href="http://www.webdev.nl/">webdev.nl</a> 提供 <code>lilypond.org</code> 的主机空间。
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Jian-Jie-" href="introduction.html">简介</a>  </li>
+  <li class=" toc_current"><a name="toc-Xia-Zai-" href="download.html">下载</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Xia-Zai-" href="download.html">下载</a></li>
+    <li class=""><a name="toc-Unix-1" href="unix.html">Unix</a>    </li>
+    <li class=" toc_current"><a name="toc-Mac-OS-X-1" href="macos-x.html">Mac OS X</a>    </li>
+    <li class=""><a name="toc-Windows-1" href="windows.html">Windows</a>    </li>
+    <li class=""><a name="toc-Yuan-Dai-Ma-" href="source.html">源代码</a>    </li>
+    <li class=""><a name="toc-Jiu-De-Xia-Zai-" href="old-downloads.html">旧的下载</a>    </li>
+    <li class=""><a name="toc-GPL-1" href="gpl.html">GPL</a>    </li>
+  </ul>
+  </li>
+  <li class=""><a name="toc-Shou-Ce-" href="manuals.html">手册</a>  </li>
+  <li class=""><a name="toc-She-Qu-" href="community.html">社区</a>  </li>
+<li>
+<!--
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Google 搜索">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="搜索">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

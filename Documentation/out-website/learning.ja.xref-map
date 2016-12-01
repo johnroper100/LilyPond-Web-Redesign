@@ -1,0 +1,194 @@
+Top	index	index
+定義済みコマンド	_00e5_00ae_009a_00e7_00be_00a9_00e6_00b8_0088_00e3_0081_00bf_00e3_0082_00b3_00e3_0083_009e_00e3_0083_00b3_00e3_0083_0089	_00e5_00ae_009a_00e7_00be_00a9_00e6_00b8_0088_00e3_0081_00bf_00e3_0082_00b3_00e3_0083_009e_00e3_0083_00b3_00e3_0083_0089
+Selected Snippets	Selected-Snippets	Selected-Snippets
+参照	_00e5_008f_0082_00e7_0085_00a7	_00e5_008f_0082_00e7_0085_00a7
+既知の問題と警告	_00e6_0097_00a2_00e7_009f_00a5_00e3_0081_00ae_00e5_0095_008f_00e9_00a1_008c_00e3_0081_00a8_00e8_00ad_00a6_00e5_0091_008a	_00e6_0097_00a2_00e7_009f_00a5_00e3_0081_00ae_00e5_0095_008f_00e9_00a1_008c_00e3_0081_00a8_00e8_00ad_00a6_00e5_0091_008a
+Step 1. Create your .ly file	Step-1_002e-Create-your-_002ely-file	Step-1_002e-Create-your-_002ely-file
+Step 2. Compile (with LilyPad)	Step-2_002e-Compile-_0028with-LilyPad_0029	Step-2_002e-Compile-_0028with-LilyPad_0029
+Step 3. View output	Step-3_002e-View-output	Step-3_002e-View-output
+Other commands	Other-commands	Other-commands
+Step 1. Create your .ly file	Step-1_002e-Create-your-_002ely-file	Step-1_002e-Create-your-_002ely-file
+Step 2. Compile	Step-2_002e-Compile	Step-2_002e-Compile
+Step 3. View output	Step-3_002e-View-output	Step-3_002e-View-output
+Other commands	Other-commands	Other-commands
+Step 1. Create your .ly file	Step-1_002e-Create-your-_002ely-file	Step-1_002e-Create-your-_002ely-file
+Step 2. Compile (with command-line)	Step-2_002e-Compile-_0028with-command_002dline_0029	Step-2_002e-Compile-_0028with-command_002dline_0029
+Step 3. View output	Step-3_002e-View-output	Step-3_002e-View-output
+チュートリアル	Tutorial	Tutorial
+ファイルをコンパイルする	Compiling-a-file	Compiling-a-file
+入力を作成する	Entering-input	Entering-input
+出力を作り出す	Entering-input	Producing-output
+MacOS X	MacOS-X	MacOS-X
+Windows	Windows	Windows
+コマンド ライン	Command_002dline	Command_002dline
+入力ファイルの書き方	How-to-write-input-files	How-to-write-input-files
+簡単な記譜法	Simple-notation	Simple-notation
+ピッチ	Simple-notation	Pitches
+演奏時間 (リズム)	Simple-notation	Durations-_0028rhythms_0029
+休符	Simple-notation	Rests
+拍子記号	Simple-notation	Time-signature
+テンポ記号	Simple-notation	Tempo-marks
+音部記号	Simple-notation	Clef
+すべてをまとめて	Simple-notation	All-together
+入力ファイルに取り組む	Working-on-input-files	Working-on-input-files
+エラーに対処する	Dealing-with-errors	Dealing-with-errors
+一般的なトラブルシュート Tips	General-troubleshooting-tips	General-troubleshooting-tips
+いくつかの一般的なエラー	Some-common-errors	Some-common-errors
+このマニュアルの読み方	How-to-read-the-manuals	How-to-read-the-manuals
+省略された構成要素	Omitted-material	Omitted-material
+クリック可能な例	Clickable-examples	Clickable-examples
+マニュアルの概要	Overview-of-manuals	Overview-of-manuals
+一般的な記譜法	Common-notation	Common-notation
+単一譜表表記	Single-staff-notation	Single-staff-notation
+小節線と小節チェック	Bar-lines-and-bar-checks	Bar-lines-and-bar-checks
+小節線	Bar-lines-and-bar-checks	Bar-lines
+小節チェック	Bar-lines-and-bar-checks	Bar-checks
+ピッチと調号	Pitches-and-key-signatures	Pitches-and-key-signatures
+ピッチ変更	Pitches-and-key-signatures	Pitch-alterations
+調号	Pitches-and-key-signatures	Key-signatures
+警告 調号とピッチ	Pitches-and-key-signatures	Warning-key-signatures-and-pitches
+タイとスラー	Ties-and-slurs	Ties-and-slurs
+タイ	Ties-and-slurs	Ties
+スラー	Ties-and-slurs	Slurs
+フレージング スラー	Ties-and-slurs	Phrasing-slurs
+警告 スラー vs. タイ	Ties-and-slurs	Warnings-slurs-vs_002e-ties
+アーティキュレーションと強弱記号	Articulation-and-dynamics	Articulation-and-dynamics
+アーティキュレーション	Articulation-and-dynamics	Articulations
+運指法記号	Articulation-and-dynamics	Fingerings
+強弱記号	Articulation-and-dynamics	Dynamics
+テキストを追加する	Adding-text	Adding-text
+自動連桁と手動連桁	Automatic-and-manual-beams	Automatic-and-manual-beams
+高度なリズム コマンド	Advanced-rhythmic-commands	Advanced-rhythmic-commands
+部分小節	Advanced-rhythmic-commands	Partial-measure
+連符	Advanced-rhythmic-commands	Tuplets
+装飾小音符	Advanced-rhythmic-commands	Grace-notes
+同時に演奏する複数の音符	Multiple-notes-at-once	Multiple-notes-at-once
+音楽表記についての説明	Music-expressions-explained	Music-expressions-explained
+数学的表記との類似	Music-expressions-explained	Analogy_003a-mathematical-expressions
+同時進行する音楽表記 複数の譜	Music-expressions-explained	Simultaneous-music-expressions-multiple-staves
+同時進行する音楽表記 単一の譜表	Music-expressions-explained	Simultaneous-music-expressions-single-staff
+複数の譜	Multiple-staves	Multiple-staves
+譜表グループ	Staff-groups	Staff-groups
+音符を組み合わせて和音にする	Combining-notes-into-chords	Combining-notes-into-chords
+単一譜表での多声	Single-staff-polyphony	Single-staff-polyphony
+歌曲	Songs	Songs
+簡単な歌曲を作成する	Setting-simple-songs	Setting-simple-songs
+歌詞を旋律に揃える	Aligning-lyrics-to-a-melody	Aligning-lyrics-to-a-melody
+複数の譜への歌詞	Lyrics-to-multiple-staves	Lyrics-to-multiple-staves
+仕上げ	Final-touches	Final-touches
+変数を用いて楽曲を編成する	Organizing-pieces-with-variables	Organizing-pieces-with-variables
+タイトルを付け加える	Adding-titles	Adding-titles
+絶対音符名	Absolute-note-names	Absolute-note-names
+このチュートリアルの後にすべきこと	After-the-tutorial	After-the-tutorial
+基礎となるコンセプト	Fundamental-concepts	Fundamental-concepts
+LilyPond 入力ファイルの仕組み	How-LilyPond-input-files-work	How-LilyPond-input-files-work
+LilyPond ファイル構造の紹介	Introduction-to-the-LilyPond-file-structure	Introduction-to-the-LilyPond-file-structure
+Score は (単一の) 複合的な音楽表記	Score-is-a-_0028single_0029-compound-musical-expression	Score-is-a-_0028single_0029-compound-musical-expression
+音楽表記をネストする	Nesting-music-expressions	Nesting-music-expressions
+ネストされない括弧とタイ	On-the-un_002dnestedness-of-brackets-and-ties	On-the-un_002dnestedness-of-brackets-and-ties
+音楽を保持するボイス	Voices-contain-music	Voices-contain-music
+私はボイスを聴いている	I_0027m-hearing-Voices	I_0027m-hearing-Voices
+ボイスを明示的にインスタンス化する	Explicitly-instantiating-voices	Explicitly-instantiating-voices
+音符列	_00e9_009f_00b3_00e7_00ac_00a6_00e5_0088_0097	_00e9_009f_00b3_00e7_00ac_00a6_00e5_0088_0097
+ボイスとボーカル	Voices-and-vocals	Voices-and-vocals
+コンテキストとエングラーバ	Contexts-and-engravers	Contexts-and-engravers
+コンテキストの説明	Contexts-explained	Contexts-explained
+コンテキストを作成する	Creating-contexts	Creating-contexts
+エングラーバの説明	Engravers-explained	Engravers-explained
+コンテキスト プロパティを変更する	Modifying-context-properties	Modifying-context-properties
+\with を使ったコンテキスト プロパティの設定	_005cwith-_00e3_0082_0092_00e4_00bd_00bf_00e3_0081_00a3_00e3_0081_009f_00e3_0082_00b3_00e3_0083_00b3_00e3_0083_0086_00e3_0082_00ad_00e3_0082_00b9_00e3_0083_0088-_00e3_0083_0097_00e3_0083_00ad_00e3_0083_0091_00e3_0083_0086_00e3_0082_00a3_00e3_0081_00ae_00e8_00a8_00ad_00e5_00ae_009a	_005cwith-_00e3_0082_0092_00e4_00bd_00bf_00e3_0081_00a3_00e3_0081_009f_00e3_0082_00b3_00e3_0083_00b3_00e3_0083_0086_00e3_0082_00ad_00e3_0082_00b9_00e3_0083_0088-_00e3_0083_0097_00e3_0083_00ad_00e3_0083_0091_00e3_0083_0086_00e3_0082_00a3_00e3_0081_00ae_00e8_00a8_00ad_00e5_00ae_009a
+\context を使ったコンテキスト プロパティの設定	_005ccontext-_00e3_0082_0092_00e4_00bd_00bf_00e3_0081_00a3_00e3_0081_009f_00e3_0082_00b3_00e3_0083_00b3_00e3_0083_0086_00e3_0082_00ad_00e3_0082_00b9_00e3_0083_0088-_00e3_0083_0097_00e3_0083_00ad_00e3_0083_0091_00e3_0083_0086_00e3_0082_00a3_00e3_0081_00ae_00e8_00a8_00ad_00e5_00ae_009a	_005ccontext-_00e3_0082_0092_00e4_00bd_00bf_00e3_0081_00a3_00e3_0081_009f_00e3_0082_00b3_00e3_0083_00b3_00e3_0083_0086_00e3_0082_00ad_00e3_0082_00b9_00e3_0083_0088-_00e3_0083_0097_00e3_0083_00ad_00e3_0083_0091_00e3_0083_0086_00e3_0082_00a3_00e3_0081_00ae_00e8_00a8_00ad_00e5_00ae_009a
+エングラーバを追加 / 削除する	Adding-and-removing-engravers	Adding-and-removing-engravers
+単一のコンテキストの変更	_00e5_008d_0098_00e4_00b8_0080_00e3_0081_00ae_00e3_0082_00b3_00e3_0083_00b3_00e3_0083_0086_00e3_0082_00ad_00e3_0082_00b9_00e3_0083_0088_00e3_0081_00ae_00e5_00a4_0089_00e6_009b_00b4	_00e5_008d_0098_00e4_00b8_0080_00e3_0081_00ae_00e3_0082_00b3_00e3_0083_00b3_00e3_0083_0086_00e3_0082_00ad_00e3_0082_00b9_00e3_0083_0088_00e3_0081_00ae_00e5_00a4_0089_00e6_009b_00b4
+同じタイプのコンテキストをすべて変更する	_00e5_0090_008c_00e3_0081_0098_00e3_0082_00bf_00e3_0082_00a4_00e3_0083_0097_00e3_0081_00ae_00e3_0082_00b3_00e3_0083_00b3_00e3_0083_0086_00e3_0082_00ad_00e3_0082_00b9_00e3_0083_0088_00e3_0082_0092_00e3_0081_0099_00e3_0081_00b9_00e3_0081_00a6_00e5_00a4_0089_00e6_009b_00b4_00e3_0081_0099_00e3_0082_008b	_00e5_0090_008c_00e3_0081_0098_00e3_0082_00bf_00e3_0082_00a4_00e3_0083_0097_00e3_0081_00ae_00e3_0082_00b3_00e3_0083_00b3_00e3_0083_0086_00e3_0082_00ad_00e3_0082_00b9_00e3_0083_0088_00e3_0082_0092_00e3_0081_0099_00e3_0081_00b9_00e3_0081_00a6_00e5_00a4_0089_00e6_009b_00b4_00e3_0081_0099_00e3_0082_008b
+テンプレートを拡張する	Extending-the-templates	Extending-the-templates
+ソプラノとチェロ	Soprano-and-cello	Soprano-and-cello
+4 パート SATB ボーカル譜	Four_002dpart-SATB-vocal-score	Four_002dpart-SATB-vocal-score
+ゼロから楽譜を構築する	Building-a-score-from-scratch	Building-a-score-from-scratch
+変数と関数を用いて入力の手間を省く	Saving-typing-with-variables-and-functions	Saving-typing-with-variables-and-functions
+楽譜とパート	Scores-and-parts	Scores-and-parts
+出力を調整する	Tweaking-output	Tweaking-output
+調整の基本	Tweaking-basics	Tweaking-basics
+調整の紹介	Introduction-to-tweaks	Introduction-to-tweaks
+オブジェクトとインタフェイス	Objects-and-interfaces	Objects-and-interfaces
+オブジェクトとプロパティの命名規則	Naming-conventions-of-objects-and-properties	Naming-conventions-of-objects-and-properties
+調整手段	Tweaking-methods	Tweaking-methods
+\override コマンド	Tweaking-methods	The-_005coverride-command
+\revert コマンド	Tweaking-methods	The-_005crevert-command
+\once 接頭辞	Tweaking-methods	The-_005conce-prefix
+\overrideProperty コマンド	Tweaking-methods	The-_005coverrideProperty-command
+\tweak コマンド	Tweaking-methods	The-_005ctweak-command
+内部リファレンス マニュアル	The-Internals-Reference-manual	The-Internals-Reference-manual
+レイアウト オブジェクトのプロパティ	Properties-of-layout-objects	Properties-of-layout-objects
+インタフェイスの中で見つかるプロパティ	Properties-found-in-interfaces	Properties-found-in-interfaces
+プロパティのタイプ	Types-of-properties	Types-of-properties
+オブジェクトの見た目	Appearance-of-objects	Appearance-of-objects
+オブジェクトの可視性と色	Visibility-and-color-of-objects	Visibility-and-color-of-objects
+stencil プロパティ	Visibility-and-color-of-objects	The-stencil-property
+break-visibility プロパティ	Visibility-and-color-of-objects	The-break_002dvisibility-property
+transparent プロパティ	Visibility-and-color-of-objects	The-transparent-property
+色 (color)	_00e8_0089_00b2-_0028color_0029	_00e8_0089_00b2-_0028color_0029
+color プロパティ	_00e8_0089_00b2-_0028color_0029	The-color-property
+オブジェクトのサイズ	Size-of-objects	Size-of-objects
+オブジェクトの長さと太さ	Length-and-thickness-of-objects	Length-and-thickness-of-objects
+オブジェクトの配置	Placement-of-objects	Placement-of-objects
+自動配置	Automatic-behavior	Automatic-behavior
+譜内部オブジェクト	Within_002dstaff-objects	Within_002dstaff-objects
+direction プロパティ	Within_002dstaff-objects	The-direction-property
+運指	Within_002dstaff-objects	Fingering
+譜外部オブジェクト	Outside_002dstaff-objects	Outside_002dstaff-objects
+outside-staff-priority プロパティ	Outside_002dstaff-objects	The-outside_002dstaff_002dpriority-property
+\textLengthOn コマンド	Outside_002dstaff-objects	The-_005ctextLengthOn-command
+強弱記号の配置	Outside_002dstaff-objects	Dynamics-placement
+グラフィカル オブジェクトのサイズ	Outside_002dstaff-objects	Grob-sizing
+オブジェクトの衝突	Collisions-of-objects	Collisions-of-objects
+オブジェクトを移動させる	Moving-objects	Moving-objects
+表記の重なりを修正する	Fixing-overlapping-notation	Fixing-overlapping-notation
+padding プロパティ	Fixing-overlapping-notation	The-padding-property
+right-padding プロパティ	Fixing-overlapping-notation	The-right_002dpadding-property
+staff-padding プロパティ	Fixing-overlapping-notation	The-staff_002dpadding-property
+self-alignment-X プロパティ	Fixing-overlapping-notation	The-self_002dalignment_002dX-property
+staff-position プロパティ	Fixing-overlapping-notation	The-staff_002dposition-property
+extra-offset プロパティ	Fixing-overlapping-notation	The-extra_002doffset-property
+positions プロパティ	Fixing-overlapping-notation	The-positions-property
+force-hshift プロパティ	Fixing-overlapping-notation	The-force_002dhshift-property
+実際の音楽からの例	Real-music-example	Real-music-example
+更なる調整	Further-tweaking	Further-tweaking
+調整のその他の使用方法	Other-uses-for-tweaks	Other-uses-for-tweaks
+異なるボイスの中にある音符をタイで結ぶ	Other-uses-for-tweaks	Tying-notes-across-voices
+MIDI でフェルマータをシミュレートする	Other-uses-for-tweaks	Simulating-a-fermata-in-MIDI
+調整のために変数を使用する	Using-variables-for-tweaks	Using-variables-for-tweaks
+スタイル シート	Style-sheets	Style-sheets
+その他の情報源	Other-sources-of-information	Other-sources-of-information
+Scheme を用いた高度な調整	Advanced-tweaks-with-Scheme	Advanced-tweaks-with-Scheme
+テンプレート	Templates	Templates
+単一譜テンプレート	Single-staff-templates	Single-staff-templates
+音符のみ	Notes-only	Notes-only
+音符と歌詞	Notes-and-lyrics	Notes-and-lyrics
+音符とコード	Notes-and-chords	Notes-and-chords
+音符、歌詞それにコード	Notes-lyrics-and-chords	Notes-lyrics-and-chords
+ピアノ テンプレート	Piano-templates	Piano-templates
+ソロ ピアノ	Solo-piano	Solo-piano
+ピアノと歌詞を持つ旋律	Piano-and-melody-with-lyrics	Piano-and-melody-with-lyrics
+歌詞が中央に配置されたピアノ譜	Piano-centered-lyrics	Piano-centered-lyrics
+弦楽四重奏テンプレート	String-quartet-templates	String-quartet-templates
+弦楽四重奏	String-quartet	String-quartet
+弦楽四重奏パート	String-quartet-parts	String-quartet-parts
+合唱テンプレート	Vocal-ensembles-templates	Vocal-ensembles-templates
+SATB ボーカル譜	SATB-vocal-score	SATB-vocal-score
+SATB ボーカル譜と自動ピアノ譜	SATB-vocal-score-and-automatic-piano-reduction	SATB-vocal-score-and-automatic-piano-reduction
+整列されたコンテキストを持つ SATB	SATB-with-aligned-contexts	SATB-with-aligned-contexts
+4 つの譜に配置された SATB	SATB-on-four-staves	SATB-on-four-staves
+ソロと 2 パートのリフレイン	Solo-verse-and-two_002dpart-refrain	Solo-verse-and-two_002dpart-refrain
+賛美歌	Hymn-tunes	Hymn-tunes
+聖歌	Psalms	Psalms
+オーケストラ テンプレート	Orchestral-templates	Orchestral-templates
+オーケストラ、合唱それにピアノ	Orchestra-choir-and-piano	Orchestra-choir-and-piano
+古代の記譜法テンプレート	Ancient-notation-templates	Ancient-notation-templates
+Transcription of mensural music	Transcription-of-mensural-music	Transcription-of-mensural-music
+Gregorian transcription template	Gregorian-transcription-template	Gregorian-transcription-template
+その他のテンプレート	Other-templates	Other-templates
+ジャズ バンド	Jazz-combo	Jazz-combo
+GNU Free Documentation License	GNU-Free-Documentation-License	GNU-Free-Documentation-License
+ADDENDUM: How to use this License for your documents	ADDENDUM_003a-How-to-use-this-License-for-your-documents	ADDENDUM_003a-How-to-use-this-License-for-your-documents
+LilyPond インデックス	LilyPond-index	LilyPond-index

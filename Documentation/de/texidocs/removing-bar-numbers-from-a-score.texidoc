@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Taktnummern können vollkommen aus den Noten entfernt werden, indem
+man den @code{Bar_number_engraver} aus dem @code{Score}-Kontext
+entfernt.
+
+"
+  doctitlede = "Entfernung von Taktnummern in einer Partitur"
+
+

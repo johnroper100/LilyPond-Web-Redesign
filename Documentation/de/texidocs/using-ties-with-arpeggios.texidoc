@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+ texidocde = "
+ Überbindungen werden teilweise benutzt, um Arpeggios zu notieren.  In
+ diesem Fall stehen die übergebundenen Noten nicht unbedingt hintereinander.
+Das Verhalten kann erreicht werden, indem die @code{tieWaitForNote}-Eigenschaft
+auf @code{#t} gesetzt wird.  Diese Funktion ist auch sinnvoll, um etwa
+ein Tremolo mit einem Akkord zu überbinden, kann aber prinzipiell auch
+für normale Überbindungen eingesetzt werden
+"
+  doctitlede = "Überbindungen für Arpeggio benutzen"
+
+

@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 par les auteurs.
+
+This file documents the LilyPond website.
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on le 30 novembre 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; la notation musicale pour tous: Exemples minimalistes</title>
+
+<meta name="description" content="LilyPond &ndash; la notation musicale pour tous: Exemples minimalistes">
+<meta name="keywords" content="LilyPond &ndash; la notation musicale pour tous: Exemples minimalistes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.fr.html#top" rel="start" title="LilyPond... la notation musicale pour tous">
+<link href="index_toc.fr.html#SEC_Contents" rel="contents" title="Table des mati&egrave;res">
+<link href="index_abt.fr.html#SEC_About" rel="help" title="A propos de ce document">
+<link href="community.fr.html#community" rel="up" title="Communauté">
+<link href="attic.fr.html#attic" rel="next" title="Grenier">
+<link href="contact.fr.html#contact" rel="previous" title="Contact">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+<!-- Google tracking !-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68969-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body lang="fr" class="web devStatus">
+
+<div id="main">
+<a name="Exemples-minimalistes"></a>
+
+<a name="tiny-examples"></a>
+<h2 class="unnumberedsec">Exemples minimalistes</h2>
+
+<div class="column-center-top"><a name="Exemple-minimaliste_2026-mais-qu_0027est_002dce-donc-que-cela-_003f"></a>
+<h3 class="subheading">Exemple minimaliste&hellip; mais qu&rsquo;est-ce donc que cela ?</h3>
+
+<p>Un exemple minimaliste est un bout de code duquel <strong>plus rien</strong> ne
+peut être retiré.
+</p>
+</div>
+<div class="column-left-bottom"><a name="Pourquoi-etre-minimaliste-_003f"></a>
+<h3 class="subheading">Pourquoi être minimaliste ?</h3>
+
+<div class="keep-bullets"><ul>
+<li>
+Au plus l&rsquo;exemple est simpliste, au plus vite ceux qui pourraient vous
+aider comprendront votre propos et vous apporteront une réponse.
+
+</li><li>
+Réduire l&rsquo;exemple à sa plus simple expression indique que vous avez déjà
+tenté par vous-même de trouver une solution.  Des tonnes de lignes
+laissent à penser que celui qui les envoie se soucie guère de ce qui
+arrive.
+
+</li><li>
+La génération d&rsquo;un exemple minimaliste permet de comprendre ce qui se
+passe et évite la plupart du temps de signaler un problème qui, en
+réalité, n&rsquo;existe pas : lorsqu&rsquo;un « bogue » ne peut être reproduit dans
+le cadre d&rsquo;un exemple minimal, il y a de fortes présomptions qu&rsquo;il
+s&rsquo;agisse d&rsquo;une inadéquation entre l&rsquo;utilisateur et LilyPond plutôt que
+réellement d&rsquo;un « bogue ».
+
+</li></ul>
+
+</div>
+
+</div>
+
+<div class="column-right-bottom"><a name="Comment-etre-minimaliste-_003f"></a>
+<h3 class="subheading">Comment être minimaliste&nbsp;?</h3>
+
+<div class="keep-bullets"><ul>
+<li>
+Inclure une mention <code>\version</code> pour indiquer le numéro de version
+utilisée.
+
+</li><li>
+Être aussi bref et concis que possible.  Si des problèmes concernant les
+espacements ou la mise en page peuvent nécessiter un certain nombre de
+mesures, la plupart des litiges peuvent se cantonner à moins d&rsquo;une
+mesure.
+
+</li><li>
+Lorsque vous créez un exemple minimal à partir de votre code, commencez
+par commenter des portions de votre fichier &ndash; à l&rsquo;aide de <code>%</code>
+ou <code>%{ &hellip; %}</code>.  Tout ce que vous mettez en commentaire et
+qui ne nuit pas à la démonstration est superflu ; suprimez-le !
+
+</li><li>
+Évitez autant que faire se peut toute notation, tonalité ou métrique
+complexe, à moins que leur traitement ne soit précisément l&rsquo;objet du
+litige.
+
+</li><li>
+N&rsquo;utilisez pas les commandes <code>\override</code> ou <code>\set</code> à moins que
+le problème ne soit directement lié à leur utilisation.
+
+</li><li>
+Le cas échéant, joignez une image de ce à quoi vous voulez arriver.
+
+</li></ul>
+
+</div>
+
+</div>
+<div class="column-center-bottom"><a name="Jusqu_0027ou-pousser-le-minimalisme-_003f"></a>
+<h3 class="subheading">Jusqu&rsquo;où pousser le minimalisme&nbsp;?</h3>
+
+<p>En voici un exemple :
+</p>
+<blockquote><pre class="example">\version &quot;2.14.1&quot;
+\include &quot;english.ly&quot;
+
+\score {
+  \new Staff {
+    \key d \major
+    \numericTimeSignature
+    \time 2/4
+    &lt;cs' d'' b''&gt;16 &lt;cs' d'' b''&gt;8.
+    %% Ici : la liaison des ré est bizarre.
+    %% Trop haute ? Extrémité gauche décalée par rapport à celle du si ?
+    ~
+    &lt;cs' d'' b''&gt;8 [ &lt;b d'' a''&gt; ]
+  }
+}
+</pre></blockquote>
+
+<p>C&rsquo;est vrai, ce n&rsquo;est pas très long.  Mais on peut encore le réduire :
+</p>
+<blockquote><pre class="example">\version &quot;2.14.1&quot;
+{
+  % la liaison du milieu est bizarre :
+  &lt;c' d'' b''&gt;8. ~ &lt;c' d'' b''&gt;8
+}
+</pre></blockquote>
+
+<p>Les exemples minimalistes dépassant les dix lignes de code ne sont pas
+légion &ndash; quatre lignes suffisent bien souvent à indiquer le problème.
+</p>
+
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="footer">
+<p id="languages">
+<!-- These links were autogenerated by /home/johnroper100/lilypond-git/scripts/build/website_post.py -->
+Autres langues: <a href="tiny-examples.html">English</a>, <a href="tiny-examples.ca.html">Català</a>, <a href="tiny-examples.cs.html">Česky</a>, <a href="tiny-examples.de.html">Deutsch</a>, <a href="tiny-examples.es.html">Español</a>, <a href="tiny-examples.hu.html">Magyar</a>, <a href="tiny-examples.it.html">Italiano</a>, <a href="tiny-examples.ja.html">日本語</a>, <a href="tiny-examples.nl.html">Nederlands</a>, <a href="tiny-examples.zh.html">中文</a>.
+<br>
+About <a href="http://www.lilypond.org/website/misc/browser-language">automatic language selection</a>.
+</p>
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Remerciements à <a href="http://www.webdev.nl/">webdev.nl</a> pour l'hébergement de <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.fr.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Introduction-1" href="introduction.fr.html">Introduction</a>  </li>
+  <li class=""><a name="toc-Telechargement" href="download.fr.html">Téléchargement</a>  </li>
+  <li class=""><a name="toc-Manuels-1" href="manuals.fr.html">Manuels</a>  </li>
+  <li class=" toc_current"><a name="toc-Communaute" href="community.fr.html">Communauté</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Communaute" href="community.fr.html">Communauté</a></li>
+    <li class=""><a name="toc-Contact-1" href="contact.fr.html">Contact</a>    </li>
+    <li class=" toc_current"><a name="toc-Exemples-minimalistes-1" href="tiny-examples.fr.html">Exemples minimalistes</a>    </li>
+    <li class=""><a name="toc-Signalement-de-bogue-1" href="bug-reports.fr.html">Signalement de bogue</a>    </li>
+    <li class=""><a name="toc-Participation-1" href="help-us.fr.html">Participation</a>    </li>
+    <li class=""><a name="toc-Mecenat" href="sponsoring.fr.html">Mécénat</a>    </li>
+    <li class=""><a name="toc-Developpement" href="development.fr.html">Développement</a>    </li>
+    <li class=""><a name="toc-Google-Summer-of-Code-1" href="google-summer-of-code.fr.html">Google Summer of Code</a>    </li>
+    <li class=""><a name="toc-Auteurs-1" href="authors.fr.html">Auteurs</a>    </li>
+    <li class=""><a name="toc-Remerciements-1" href="remerciements.fr.html">Remerciements</a>    </li>
+    <li class=""><a name="toc-Publications-1" href="publications.fr.html">Publications</a>    </li>
+    <li class=""><a name="toc-Actualites" href="news.fr.html">Actualités</a>    </li>
+    <li class=""><a name="toc-Grenier-1" href="attic.fr.html">Grenier</a>    </li>
+  </ul>
+  </li>
+<li>
+<!--
+    Translation of GIT committish: febe2e4ff91dda9227e85274ae045e23c6b4ec28
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+-->
+
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Recherche sur Google">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Rechercher">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</div>
+</body>
+</html>

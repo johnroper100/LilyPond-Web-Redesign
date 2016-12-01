@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2003-2015 degli autori.
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on Novembre 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; Notazione musicale per tutti: Google Summer of Code</title>
+
+<meta name="description" content="LilyPond &ndash; Notazione musicale per tutti: Google Summer of Code">
+<meta name="keywords" content="LilyPond &ndash; Notazione musicale per tutti: Google Summer of Code">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... notazione musicale per tutti">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="Indice">
+<link href="index_abt.html#SEC_About" rel="help" title="Informazioni su questo documento">
+<link href="community.html#community" rel="up" title="Comunità">
+<link href="attic.html#attic" rel="next" title="Soffitta">
+<link href="development.html#development" rel="previous" title="Sviluppo">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="it" class="web devStatus">
+
+<div id="main">
+<a name="Google-Summer-of-Code"></a>
+
+<a name="google-summer-of-code"></a>
+<h2 class="unnumberedsec">Google Summer of Code</h2>
+
+<div class="column-center-top"><a name="Che-cos_0027e-il-Google-Summer-of-Code_003f"></a>
+<h3 class="subheading">Che cos&rsquo;è il Google Summer of Code?</h3>
+
+<p><a href="https://developers.google.com/open-source/gsoc">GSoC</a> è un programma
+internazionale che offre agli studenti degli stipendi per scrivere codice per
+progetti di software libero e open source durante l&rsquo;estate.  È un&rsquo;ottima
+opportunità per gli studenti per fare esperienza con lo sviluppo software
+in un progetto vero e per dare un contributo da cui tutti potranno trarre
+vantaggio.  Attrae nuovi collaboratori e stimola gli studenti che già
+partecipano allo sviluppo di LilyPond ad impegnarsi di più in esso.  LilyPond
+partecipa a GSoC sotto l&rsquo;egida del <a href="http://www.gnu.org">progetto GNU</a>.
+</p>
+<p>Abbiamo avuto partecipanti al GSoC nel 2012 e nel 2015 e invitiamo gli studenti
+a fare domanda per le prossime estati.
+</p>
+<p>Se hai dubbi o desideri presentare domanda, invia un&rsquo;email alla nostra
+mailing list degli sviluppatori (vedi <a href="contact.html">Contatti</a>).
+</p>
+
+</div>
+<div class="column-center-middle-color2"><a name="Elenco-di-idee-di-progetti"></a>
+<h3 class="subheading">Elenco di idee di progetti</h3>
+
+<p>Ecco un elenco di progetti suggeriti per il GSoC o per chiunque sia interessato
+a aiutare a migliorare LilyPond. (Ultimo aggiornamento: Febbraio 2016)
+</p>
+<p>La disponibilità di mentori varia da progetto a progetto e di anno in anno.
+Invia un&rsquo;email alla nostra mailing list degli sviluppatori (vedi <a href="contact.html">Contatti</a>)
+e ti aiuteremo a trovare un mentore per un progetto che sia adatto ai tuoi
+interessi e capacità.
+</p>
+<p>Se hai idee per un progetto GSoC che non è elencato qui sotto, puoi inviarci
+un&rsquo;email per discuterne.  Ci sono molte aree in cui LilyPond può essere
+migliorato e il nostro team di sviluppo è sempre disponibile a aiutare
+coloro che desiderino affrontare un progetto come quelli di seguito elencati.
+</p>
+<p>Una lista completa di tutti i problemi da risolvere si trova
+<a href="http://sourceforge.net/p/testlilyissues/issues">qui</a>.
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="Migliorare-la-struttura-interna-degli-accordi"></a>
+<h3 class="subheading">Migliorare la struttura interna degli accordi</h3>
+
+<p>La rappresentazione interna degli accordi in LilyPond non è abbastanza potente
+da comprendere la nomenclatura degli accordi jazz.  Attualmente l&rsquo;accordo ha
+una radice, un basso e un&rsquo;inversione.  Sarebbe auspicabile poter gestire
+accordi &ldquo;impilati&rdquo; o bicordi, minori/maggiori, etc.  Per poter far questo,
+deve essere sviluppata una rappresentazione interna capace di catturare
+l&rsquo;essenza di accordi complessi.  Una volta che questa rappresentazione
+interna viene sviluppata, c&rsquo;è un&rsquo;ulteriore vantaggio: sarà più semplice
+migliorare la formattazione dei nomi degli accordi.
+</p>
+<p><strong>Difficoltà:</strong> Facile/media
+<strong>Requisiti:</strong> Scheme (Guile), ma il livello necessario può essere
+facilmente imparato
+<strong>Consigliato:</strong> Teoria e nomenclatura degli accordi
+<strong>Mentore:</strong> Carl Sorensen
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="ScholarLY"></a>
+<h3 class="subheading">ScholarLY</h3>
+
+<p>ScholarLY è una libreria di
+<a href="https://openlilylib.org">openLilyLib</a> che fornisce delle funzionalità
+per aggiungere annotazioni alle partiture, rendendo possibile la gestione
+dei flussi di lavoro accademici nel contesto del documento della partitura.
+Finora è possibile inserire delle annotazioni di diverso tipo, produrre
+messaggi cliccabili nell&rsquo;output della console e esportare su file di testo
+o LaTeX.
+</p>
+<p>Ci sono numerose richieste di nuove funzionalità per trasformare questa
+libreria in uno strumento ancora più potente e completo.  Alcuni esempi:
+inserimento di esempi musicali, creazione di note a piè di pagina, applicazione
+automatica di stili all&rsquo;elemento annotato (per esempio, usare il trattino per
+la legatura di portamento, mettere un&rsquo;alterazione tra parentesi), creazione
+di resoconti con voci punta-e-clicca.  Una descrizione completa di questo
+progetto si trova in
+<a href="https://github.com/openlilylib/scholarly/wiki/GSoC">questa pagina Wiki</a>.
+</p>
+<p><strong>Difficoltà:</strong> media
+<strong>Requisiti:</strong> Scheme, possibilmente LaTeX, (opzionalmente Python)
+<strong>Consigliato:</strong> Esperienza o interesse nelle edizioni accademiche e
+nei progetti collaborativi.
+<strong>Mentore:</strong> Urs Liska
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="Aggiungere-varianti-dei-glifi-dei-tipi-di-carattere"></a>
+<h3 class="subheading">Aggiungere varianti dei glifi dei tipi di carattere</h3>
+
+<div class="keep-bullets"><ul>
+<li>
+Aggiungere varianti &lsquo;sulla&rsquo; linea del rigo e &lsquo;tra&rsquo; le linee dei righi.
+
+</li><li>
+Varianti più corte e più strette di alcuni glifi, come ad esempio le
+alterazioni.  Un altro esempio più specifico è la testa della nota
+breve nella notazione antica che ha due varianti, con un &lsquo;buco&rsquo; più
+piccolo o più grande.
+
+</li></ul>
+
+</div>
+<p><strong>Difficoltà:</strong> facile
+<strong>Requisiti:</strong> MetaFont, C++, buon occhio per il dettaglio
+<strong>Conoscenze consigliate:</strong> conoscenza di base di LilyPond
+<strong>Mentore/i:</strong> Werner Lemberg
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="Abbellimenti"></a>
+<h3 class="subheading">Abbellimenti</h3>
+
+<p>Correggere i problemi di sincronizzazione degli abbellimenti.
+Gli abbellimenti possono interferire col modo in cui LilyPond
+gestisce il tempo e causare strani effetti, specialmente quando si
+usano più righi e alcuni di questi hanno degli abbellimenti mentre
+altri non ce li hanno.  Questo è uno dei
+<a href="https://sourceforge.net/p/testlilyissues/issues/34">bug</a>  più
+imbarazzanti e di vecchia data in LilyPond.
+</p>
+<p><strong>Difficoltà:</strong> media
+<strong>Requisiti:</strong> C++, MIDI
+<strong>Consigliato:</strong> familiarità col funzionamento interno di LilyPond
+<strong>Mentori potenziali:</strong> Mike Solomon (non disponibile per GSoC 2016), Carl Sorensen
+</p>
+
+</div>
+
+<div class="column-center-middle-color3"><a name="Migliorare-la-disposizione-predefinita-delle-travature"></a>
+<h3 class="subheading">Migliorare la disposizione predefinita delle travature</h3>
+
+<p>Per le travature normali, tra i righi, spezzate e angolari.  La disposizione
+delle travature deve dipendere dal contesto e dalle note vicine (si veda la
+sezione 2.2 di
+<a href="http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29">questo libro</a>).  Se possibile, ridurre anche il tempo di elaborazione della
+disposizione delle travature.
+</p>
+<p><strong>Difficoltà:</strong> media
+<strong>Requisiti:</strong> C++, esperienza con la scrittura di euristiche
+<strong>Conoscenze consigliate:</strong> senso estetico
+<strong>Mentori potenziali:</strong> Mike Solomon (non disponibile per GSoC 2016), Carl Sorensen
+</p>
+
+</div>
+
+<div class="column-center-middle-color3"><a name="Permettere-agli-estensori-di-attraversare-le-voci"></a>
+<h3 class="subheading">Permettere agli estensori di attraversare le voci</h3>
+
+<p>Attualmente gli estensori di ogni tipo (legature di valore e di portamento,
+dinamiche, estensori del testo, trilli, etc.) devono essere terminati nel
+contesto in cui sono iniziati.  Tuttavia, questo limite non riflette la
+realtà della notazione nella maggior parte delle impostazioni polifoniche.
+Attualmente sono necessari degli scomodi espedienti che fanno uso di voci
+nascoste per ottenere degli estensori che attraversino le voci.
+</p>
+<p>Dovrebbero essere esplorati nuovi modi di affrontare questo problema, per
+esempio
+</p>
+<div class="keep-bullets"><ul>
+<li> specificando un &ldquo;contesto obiettivo&rdquo; dove è prevista la terminazione
+dell&rsquo;estensore
+
+</li><li> specificando esplicitamente l&rsquo;oggetto su cui terminare l&rsquo;estensore
+tramite un ID
+
+</li></ul>
+
+</div>
+<p>Questa funzionalità risolverebbe molti problemi che si riscontrano comunemente
+nella musica per pianoforte e nelle parti combinate.
+</p>
+<p><strong>Difficoltà:</strong> media (?)
+<strong>Requisiti:</strong> C++, Scheme
+<strong>Mentore potenziale:</strong> Urs Liska
+</p>
+</div>
+
+<div class="column-center-middle-color3"><a name="Migliorare-il-comportamento-durante-la-compilazione"></a>
+<h3 class="subheading">Migliorare il comportamento durante la compilazione</h3>
+
+<p>Strumenti di analisi automatica del codice, come il rilevamento di
+perdite di memoria di valgrind e i profilatori di codice di callgrind,
+forniscono informazioni utili per individuare possibili errori nel
+nostro codice C++.  Pulire gli avvisi ci permetterebbe di automatizzare
+il rifiuto di qualsiasi patch che introduca avvisi ulteriori.
+</p>
+<p><strong>Difficoltà:</strong> media
+<strong>Requisiti:</strong> C++
+<strong>Mentori potenziali:</strong> Reinhold Kainhofer (non disponibile per GSoC 2016),
+Joe Neeman
+</p>
+
+</div>
+
+<div class="column-center-middle-color3"><a name="MusicXML"></a>
+<h3 class="subheading">MusicXML</h3>
+
+<p>Migliorare le funzioni di importazione e esportazione di MusicXML:
+</p>
+<div class="keep-bullets"><ul>
+<li>
+Gestire l&rsquo;esportazione del contenuto musicale principale come l&rsquo;esportazione
+MIDI (ovvero usando classi dedicate dell&rsquo;esportatore, derivate dalla classe
+del traduttore).
+
+</li><li>
+Costruire l&rsquo;albero XML del contenuto musicale di base,
+aggiungere un collegamento dall&rsquo;evento musicale al tag XML.
+
+</li><li>
+Far sì che tutti gli incisori di LilyPond facciano il loro lavoro.
+
+</li><li>
+Aggiungere la capacità di collegare ogni oggetto dell&rsquo;output
+(ovvero ogni stampo (stencil) / gruppo di stampi) alla sua causa musicale
+(e quindi al tag XML nell&rsquo;albero XML).
+
+</li><li>
+Creare un backend di output XML, che possa aggiungere le informazioni di
+formattazione per ogni oggetto di output ai tag XML.
+
+</li></ul>
+
+</div>
+<p>Ci sono varie direzioni possibili per questo progetto, inclusa quella di
+proseguire l&rsquo;esportazione in formato MusicXML iniziata nel progetto GSoC 2015.
+</p>
+<p><strong>Difficoltà:</strong> media
+<strong>Requisiti:</strong> MusicXML, Python, Scheme, conoscenza di base di LilyPond
+<strong>Mentori potenziali:</strong> Reinhold Kainhofer, Mike Solomon (entrambi non
+disponibili per GSoC 2016)
+</p>
+<p>È utile avere una certa familiarità con altri software di notazione musicale (a
+fine comparativo).
+</p>
+
+</div>
+<div class="column-center-middle-color3"><a name="Migliorare-le-legature-di-portamento-e-di-valore"></a>
+<h3 class="subheading">Migliorare le legature di portamento e di valore</h3>
+
+<p>La qualità tipografica delle legature di portamento e di valore è spesso
+non soddisfacente.  Le legature di valore &ldquo;spezzate&rdquo; da una chiave o da
+un cambio di rigo non sono gestite al meglio.  Il progetto potrebbe
+includere la raccolta e la classificazione di esempi di output scadente, la
+decisione sull&rsquo;output desiderato e la scrittura del codice per migliorarlo.
+</p>
+<p><strong>Difficoltà:</strong> difficile
+<strong>Requisiti:</strong> C++, esperienza con la scrittura di euristica
+<strong>Conoscenze consigliate:</strong> conoscenza di LilyPond, senso estetico
+<strong>Mentori:</strong> Mike Solomon, Janek Warchol (entrambi non disponibili
+per GSoC 2016)
+</p>
+
+</div>
+
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+Grazie a <a href="http://www.webdev.nl/">webdev.nl</a> per l'hosting di <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Introduzione-1" href="introduction.html">Introduzione</a>  </li>
+  <li class=""><a name="toc-Download-1" href="download.html">Download</a>  </li>
+  <li class=""><a name="toc-Manuali-1" href="manuals.html">Manuali</a>  </li>
+  <li class=" toc_current"><a name="toc-Comunita" href="community.html">Comunità</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Comunita" href="community.html">Comunità</a></li>
+    <li class=""><a name="toc-Contatti-1" href="contact.html">Contatti</a>    </li>
+    <li class=""><a name="toc-Esempi-minimi-1" href="tiny-examples.html">Esempi minimi</a>    </li>
+    <li class=""><a name="toc-Segnalazione-bug-1" href="bug-reports.html">Segnalazione bug</a>    </li>
+    <li class=""><a name="toc-Aiutaci-1" href="help-us.html">Aiutaci</a>    </li>
+    <li class=""><a name="toc-Sponsor-1" href="sponsoring.html">Sponsor</a>    </li>
+    <li class=""><a name="toc-Sviluppo-1" href="development.html">Sviluppo</a>    </li>
+    <li class=" toc_current"><a name="toc-Google-Summer-of-Code-1" href="google-summer-of-code.html">Google Summer of Code</a>    </li>
+    <li class=""><a name="toc-Autori-1" href="authors.html">Autori</a>    </li>
+    <li class=""><a name="toc-Riconoscimenti-1" href="acknowledgements.html">Riconoscimenti</a>    </li>
+    <li class=""><a name="toc-Pubblicazioni-1" href="publications.html">Pubblicazioni</a>    </li>
+    <li class=""><a name="toc-Notizie-1" href="news.html">Notizie</a>    </li>
+    <li class=""><a name="toc-Soffitta-1" href="attic.html">Soffitta</a>    </li>
+  </ul>
+  </li>
+<li>
+<!--
+    Translation of GIT committish: 1df9fc42197a6b2931f448cfba717527aead5e5a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Cerca con Google">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Cerca">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

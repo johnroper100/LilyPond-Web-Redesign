@@ -1,0 +1,75 @@
+Top	index	index
+Instrucciones predefinidas	Instrucciones-predefinidas	Instrucciones-predefinidas
+Fragmentos de código seleccionados	Fragmentos-de-c_00c3_00b3digo-seleccionados	Fragmentos-de-c_00c3_00b3digo-seleccionados
+Véase también	V_00c3_00a9ase-tambi_00c3_00a9n	V_00c3_00a9ase-tambi_00c3_00a9n
+Advertencias y problemas conocidos	Advertencias-y-problemas-conocidos	Advertencias-y-problemas-conocidos
+Tutorial de Scheme	Scheme-tutorial	Scheme-tutorial
+Introducción a Scheme	Introduction-to-Scheme	Introduction-to-Scheme
+Cajón de arena de Scheme	Scheme-sandbox	Scheme-sandbox
+Variables de Scheme	Scheme-variables	Scheme-variables
+Tipos de datos simples de Scheme	Scheme-simple-data-types	Scheme-simple-data-types
+Tipos de datos compuestos de Scheme	Scheme-compound-data-types	Scheme-compound-data-types
+Parejas	Scheme-compound-data-types	Pairs
+Listas	Scheme-compound-data-types	Lists
+Listas asociativas (listas-A)	Scheme-compound-data-types	Association-lists-_0028alists_0029
+Tablas de hash	Scheme-compound-data-types	Hash-tables
+Cálculos en Scheme	Calculations-in-Scheme	Calculations-in-Scheme
+Procedimientos de Scheme	Scheme-procedures	Scheme-procedures
+Definir procedimientos	Scheme-procedures	Defining-procedures
+Predicados	Scheme-procedures	Predicates
+Valores de retorno	Scheme-procedures	Return-values
+Condicionales de Scheme	Scheme-conditionals	Scheme-conditionals
+if	Scheme-conditionals	if
+cond	Scheme-conditionals	cond
+Scheme dentro de LilyPond	Scheme-in-LilyPond	Scheme-in-LilyPond
+Sintaxis del Scheme de LilyPond	LilyPond-Scheme-syntax	LilyPond-Scheme-syntax
+Variables de LilyPond	LilyPond-variables	LilyPond-variables
+Variables de entrada y Scheme	Input-variables-and-Scheme	Input-variables-and-Scheme
+Importación de Scheme dentro de LilyPond	Importing-Scheme-in-LilyPond	Importing-Scheme-in-LilyPond
+Propiedades de los objetos	Object-properties	Object-properties
+Variables de LilyPond compuestas	LilyPond-compound-variables	LilyPond-compound-variables
+Desplazamientos	LilyPond-compound-variables	Offsets
+Fracciones	LilyPond-compound-variables	Fracciones
+Fractions	Fractions	Fractions
+Dimensiones	Fractions	Extents
+Listas-A de propiedades	Fractions	Property-alists
+Cadenas de listas-A	Fractions	Alist-chains
+Representación interna de la música	Internal-music-representation	Internal-music-representation
+Construir funciones complicadas	Building-complicated-functions	Building-complicated-functions
+Presentación de las expresiones musicales	Displaying-music-expressions	Displaying-music-expressions
+Propiedades musicales	Music-properties	Music-properties
+Duplicar una nota con ligaduras (ejemplo)	Doubling-a-note-with-slurs-_0028example_0029	Doubling-a-note-with-slurs-_0028example_0029
+Añadir articulaciones a las notas (ejemplo)	Adding-articulation-to-notes-_0028example_0029	Adding-articulation-to-notes-_0028example_0029
+Interfaces para programadores	Interfaces-for-programmers	Interfaces-for-programmers
+Bloques de código de LilyPond	LilyPond-code-blocks	LilyPond-code-blocks
+Funciones de Scheme	Scheme-functions	Scheme-functions
+Definición de funciones de Scheme	Scheme-function-definitions	Scheme-function-definitions
+Uso de las funciones de Scheme	Scheme-function-usage	Scheme-function-usage
+Funciones de Scheme vacías	Void-scheme-functions	Void-scheme-functions
+Funciones musicales	Music-functions	Music-functions
+Definiciones de funciones musicales	Music-function-definitions	Music-function-definitions
+Uso de las funciones musicales	Music-function-usage	Music-function-usage
+Funciones de sustitución sencillas	Simple-substitution-functions	Simple-substitution-functions
+Funciones de sustitución intermedias	Intermediate-substitution-functions	Intermediate-substitution-functions
+Matemáticas dentro de las funciones	Mathematics-in-functions	Mathematics-in-functions
+Funciones sin argumentos	Functions-without-arguments	Functions-without-arguments
+Funciones musicales vacías	Void-music-functions	Void-music-functions
+Funciones de eventos	Event-functions	Event-functions
+Funciones de marcado	Markup-functions	Markup-functions
+Construcción de elementos de marcado en Scheme	Markup-construction-in-Scheme	Markup-construction-in-Scheme
+Cómo funcionan internamente los elementos de marcado	How-markups-work-internally	How-markups-work-internally
+Definición de una instrucción de marcado nueva	New-markup-command-definition	New-markup-command-definition
+Sintaxis de la definición de instrucciones de marcado	New-markup-command-definition	Markup-command-definition-syntax
+Acerca de las propiedades	New-markup-command-definition	On-properties
+Un ejemplo completo	New-markup-command-definition	A-complete-example
+Adaptación de instrucciones incorporadas	New-markup-command-definition	Adapting-builtin-commands
+Definición de nuevas instrucciones de lista de marcado	New-markup-list-command-definition	New-markup-list-command-definition
+Contextos para programadores	Contexts-for-programmers	Contexts-for-programmers
+Evaluación de contextos	Context-evaluation	Context-evaluation
+Ejecutar una función sobre todos los objetos de la presentación	Running-a-function-on-all-layout-objects	Running-a-function-on-all-layout-objects
+Funciones de callback	Callback-functions	Callback-functions
+Trucos difíciles	Difficult-tweaks	Difficult-tweaks
+Interfaces de Scheme de LilyPond	LilyPond-Scheme-interfaces	LilyPond-Scheme-interfaces
+GNU Free Documentation License	GNU-Free-Documentation-License	GNU-Free-Documentation-License
+ADDENDUM: How to use this License for your documents	ADDENDUM_003a-How-to-use-this-License-for-your-documents	ADDENDUM_003a-How-to-use-this-License-for-your-documents
+Índice de LilyPond	LilyPond-index	LilyPond-index

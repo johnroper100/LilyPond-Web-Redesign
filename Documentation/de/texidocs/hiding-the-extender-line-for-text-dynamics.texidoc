@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+texidocde = "
+Dynamik-Texte (wie cresc. und dim.) werden mit einer gestrichelten Linie
+gesetzt, die ihre Dauer anzeigt.  Diese Linie kann auf folgende Weise
+unterdrückt werden:
+
+"
+  doctitlede = "Crescendo-Linien von Dynamik-Texten unterdrücken"

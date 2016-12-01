@@ -1,0 +1,902 @@
+Elu@c -*- coding: utf-8; mode: texinfo; -*-
+@node Issues
+@chapter Issues
+
+This chapter deals with defects, feature requests, and
+miscellaneous development tasks.
+
+@menu
+* Introduction to issues::
+* The Bug Squad::
+* Issue classification::
+* Adding issues to the tracker::
+* Patch handling::
+* Summary of project status::
+@end menu
+
+
+@node Introduction to issues
+@section Introduction to issues
+
+@warning{All the tasks in this chapter require no programming skills and
+can be done by anyone with a web browser, an email client and the
+ability to run LilyPond.}
+
+The term @q{issues} refers not just to software bugs but also includes
+feature requests, documentation additions and corrections as well as any
+other general code @q{TODOs} that need to be kept track of.
+
+
+@node The Bug Squad
+@section The Bug Squad
+
+@menu
+* Bug Squad setup::
+* Bug Squad checklists::
+@end menu
+
+To help keep track and organize all issues are a group of tireless
+volunteers collectively known as the @emph{Bug Squad}.  Composed mainly
+of non-programmers, the Bug Squad's responsibilities include:
+
+@itemize
+
+@item
+Monitoring the LilyPond Bugs mailing list looking for any issues
+reported by other users ensuring that they are accurate and contain
+enough information for the developers to work with, preferably with
+@rweb{Tiny examples} and if applicable, screenshots.
+
+@item
+Adding new issues to the @emph{issue tracker} or updating existing
+issues with new information.
+
+@item
+Verifying issues in the @emph{issue tracker} that have been marked
+as @q{fixed}; making sure either that the fix works or (in the case of
+Documentation for example) has at least been commited to the code base.
+
+@end itemize
+
+The @ref{Meisters, Bug Meister} also helps check the current
+@ref{Regression tests} and highlights any significant changes (or
+problems) since the previous LilyPond release.
+
+If you would like to be part of the Bug Squad, please contact the
+@ref{Meisters, Bug Meister}.
+
+
+@node Bug Squad setup
+@subsection Bug Squad setup
+
+We highly recommend that you configure your email client to use some
+kind of sorting and filtering as this will significantly reduce and
+simplify your workload.  Suggested email folder names are mentioned
+below to work when sorted alphabetically.
+
+@enumerate
+
+@item
+Read every section of the @ref{Issues} chapter in this guide.
+
+@item
+Subscribe your email account to @code{bug-lilypond}.  See
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond}.
+
+@item
+Send your email address to the @ref{Meisters, Bug Meister}.
+
+@item
+Create your own Sourceforge login (required for the Allura issue
+tracker):
+
+@itemize
+
+@item
+Go to @uref{https://sourceforge.net/p/testlilyissues/issues/}
+
+@item
+Click on 'Join' in the top-right corner.
+
+@item
+Fill in your details as required and click the @emph{Register} button to
+complete the registration.
+
+@end itemize
+
+@item
+Send your Sourceforge @emph{username} (not your email address) to
+@email{bug-lilypond@@gnu.org} asking to be given appropriate permissions
+to either create, edit and comment on tracker issues.
+
+@item
+Configure your email client:
+
+@itemize
+
+@item
+Any email sent with your address in the @code{To:} or @code{CC:} fields
+should be configured to go into a @code{bug-answers} folder.
+
+@item
+Any email either @code{From:} or @code{CC:} to,
+
+@example
+testlilyissues-auto@@lists.sourceforge.net
+@end example
+
+@noindent
+should be configured to go into a @code{bug-ignore} folder or,
+alternately, configure your email client to delete these automatically.
+You do @emph{not} need to read mails in the @code{bug-ignore} folder.
+If you are curious (and have time) then read them, but they are not
+necessary for Bug Squad work.
+
+@item
+Any email sent @code{To:} or @code{CC:} to,
+
+@example
+bug-lilypond
+@end example
+
+@noindent
+should be configured to go into a @code{bug-current} folder.
+
+@end itemize
+
+@end enumerate
+
+
+@node Bug Squad checklists
+@subsection Bug Squad checklists
+
+When you do Bug Squad work, start at the top of this page and work
+your way down.  Stop when you've done 20 minutes.
+
+Please use the email sorting described in @ref{Bug Squad setup}.
+This means that (as Bug Squad members) you will only ever respond
+to emails sent or CC'd to the @code{bug-lilypond} mailing list.
+
+
+@subsubheading Emails to you personally
+
+You are not expected to work on Bug Squad matters outside of your
+20 minutes, but sometimes a confused user will send a bug report
+(or an update to a report) to you personally.  If that happens,
+please forward such emails to the @code{bug-lilypond} list so that
+the currently-active Bug Squad member(s) can handle the message.
+
+
+@subsubheading Daily schedule as of July 2015
+
+@example
+Monday: Federico Bruni
+Tuesday: Simon Albrecht
+Wednesday: Simon Albrecht
+Thursday: Colin Campbell
+Friday: Ralph Palmer
+Saturday: Colin Campbell
+Sunday:
+@end example
+
+
+@subsubheading Emails to @code{bug-answers}
+
+Some of these emails will be comments on issues that you added to
+the tracker.
+
+@itemize
+If they are asking for more information, give the additional
+information.
+
+@item
+If the email says that the issue was classified in some other
+manner, read the rationale given and take that into account for
+the next issue you add.
+
+@item
+Otherwise, move them to your @code{bug-ignore} folder.
+
+@end itemize
+
+Some of these emails will be discussions about Bug Squad work;
+read those.
+
+
+@subsubheading Emails to @code{bug-current}
+
+Dealing with these emails is your main task.  Your job is to get
+rid of these emails in the first method which is applicable:
+
+@enumerate
+@item
+If the email has already been handled by a Bug Squad member (i.e.
+check to see who else has replied to it), delete it.
+
+@item
+If the email is a question about how to use LilyPond, reply with
+this response:
+
+@example
+For questions about how to use LilyPond, please read our
+documentation available from:
+  @uref{http://lilypond.org/website/manuals.html}
+or ask the lilypond-user mailing list.
+@end example
+
+@item
+If the email mentions @qq{the latest git}, or any version number
+that has not yet been officially released, forward it to
+@code{lilypond-devel}.
+
+@item
+If a bug report is not in the form of a Tiny example, direct the
+user to resubmit the report with this response:
+
+@example
+I'm sorry, but due to our limited resources for handling bugs, we
+can only accept reports in the form of Tiny examples.  Please see
+step 2 in our bug reporting guidelines:
+  @uref{http://lilypond.org/website/bug-reports.html}
+@end example
+
+@item
+If anything is unclear, ask the user for more information.
+
+How does the graphical output differ from what the user expected?
+What version of lilypond was used (if not given) and operating
+system (if this is a suspected cause of the problem)?  In short,
+if you cannot understand what the problem is, ask the user to
+explain more.  It is the user's responsibility to explain the
+problem, not your responsibility to understand it.
+
+@item
+If the behavior is expected, the user should be told to read the
+documentation:
+
+@example
+I believe that this is the expected behaviour -- please read our
+documentation about this topic.  If you think that it really is a
+mistake, please explain in more detail.  If you think that the
+docs are unclear, please suggest an improvement as described by
+@qq{Simple tasks -- Documentation} on:
+  @uref{http://lilypond.org/website/help-us.html}
+@end example
+
+@item
+If the issue already exists in the tracker, send an email to that
+effect:
+
+@example
+This issue has already been reported; you can follow the
+discussion and be notified about fixes here:
+@end example
+
+@noindent
+(copy+paste the google code issue URL)
+
+@item
+Accept the report as described in
+@ref{Adding issues to the tracker}.
+
+@end enumerate
+
+All emails should be CC'd to the @code{bug-lilypond} list so that
+other Bug Squad members know that you have processed the email.
+
+@warning{There is no option for @qq{ignore the bug report} -- if
+you cannot find a reason to reject the report, you must accept
+it.}
+
+
+@ignore
+@c Try omitting this from Bug Squad duties
+
+@subheading Updates / discussion about issues
+
+We try to keep discussions about issues on the tracker, but
+sometimes it spills over onto email.  If discussion has ended with
+no patch / resolution and at least @strong{3 days} have passed,
+then either:
+
+@itemize
+
+@item
+Summarize the recent discussion on the tracker, and add a link to
+the original discussion.
+
+@item
+Add the comment @qq{there was some technical discussion which I
+could not understand}, and include a link to the original
+discussion.
+
+We do not expect Bug Squad members to be programmers, or even to
+be moderately-skilled users.  Your job is to keep track of issue
+reports; it is @emph{perfectly acceptable} to not understand
+discussions between advanced users and/or developers.
+
+@end itemize
+@end ignore
+
+
+@subheading Regular maintenance
+
+After @strong{every release} (both stable and unstable):
+
+@itemize
+
+@item
+Issues to verify: go to
+
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AFixed}
+@end smallexample
+
+(You can also generate this list by selecting the @qq{Open (Fixed)}
+button down the left-hand frame)
+
+You should see a list of Issues that have been marked as 'Fixed' by a
+developer.  If the developer has done their job properly, the
+Issue should have the @qq{Labels} field filled in with @qq{Fixed_x_y_z},
+where X is the major version, y the minor version and z the current
+release.
+
+@example
+Fixed_2_19_39
+@end example
+
+This will help you work out which you can verify - do not verify any
+Issues where the claimed fixed build is not yet released.  Work your
+way through these as follows:
+
+If the Issue refers to a bug, try to reproduce the bug with the latest
+officially released version (not one you've built yourself from
+source); if the bug is no longer there, mark the
+issue @qq{Verified} (i.e. @qq{the fix has been verified to work}).
+
+Quite a few of these will be issues tracking patches.  @strong{You
+do not have to prove these patches work - simply that they have
+been pushed into the code base.}  The developer should have put
+information similar to @qq{Pushed as as
+d8fce1e1ea2aca1a82e25e47805aef0f70f511b9} in the tracker.  The
+long list of letters and numbers is called the @qq{committish}.
+Providing you can find this at the git tracker:
+
+@example
+@uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
+@end example
+
+then you should mark the issue as verified.  A quick way of
+finding these is to enter the committish at the following address:
+
+@example
+@uref{http://philholmes.net/lilypond/git/}
+@end example
+
+The Issue tracker also requires that any issues labelled as
+@qq{Duplicate} are also verified.  Check that the linked issue is
+a duplicate and verify the issue.
+
+A few (approximately 10%) of the fixed issues relate to the
+build system or fundamental architecture changes; there is no way
+for you to verify these.  Leave those issues alone; somebody else
+will handle them.
+
+@item
+The official regression test comparison is online at:
+
+@c NOTE: leave this here.  In this case, it's worth duplicating
+@c       the link.  -gp
+@example
+@uref{http://lilypond.org/test/}
+@end example
+
+If anything has changed suspiciously,
+ask if it was deliberate.  If the text output from LilyPond (the
+logfile) changes, the differences will be displayed with a +
+before text added to the logfile and - before any text removed
+from the logfile.  This may or may not be suspicious.
+
+There is one test designed to produce output every time the
+regtests are created. @code{test-output-distance.ly} creates
+randomly spaced notes and will always have different output if the
+regtest checker is working.
+
+More information is available from in
+@ref{Precompiled regression tests}.
+
+@item
+Check for any incorrectly-classified items in the tracker.  This
+generally just means looking at the grid to see any items without
+a Type.
+
+@end itemize
+
+
+@ignore
+@c try omitting from daily tasks for now. -gp
+
+@subheading Irregular maintenance
+
+@warning{These tasks are a lot of work; gathering more volunteers
+to help is definitely recommended.  However, the Bug Squad should
+handle the organization and training of new volunteers.}
+
+Once every year or two:
+
+@itemize
+
+@item
+Checking all regtests: although we have a system for checking the
+regtests between two versions, occasionally a bug will slip
+through the cracks.  It is therefore good to manually examine all
+the regtests (compare the images to the text description).  More
+information is available from in @ref{Regression tests}.
+
+
+@item
+Checking all issues: we try to mark each Issue @q{fixed} when we
+fix it, but occasionally one or two issues will slip through the
+cracks.  It is therefore good to check all Issues.  If you see the
+same (broken) output as the initial report, then simply post a
+@qq{Problem still exists in 2.x.y} message to the issue.
+
+@end itemize
+
+@end ignore
+
+
+@node Issue classification
+@section Issue classification
+
+The Bug Squad should classify issues according to the guidelines
+given by developers.  Every issue should have a Status and Type;
+the other fields are optional.
+
+@subheading Status (mandatory)
+
+Open issues:
+
+@itemize
+
+@item
+New: the item was added by a non-member, despite numerous warnings
+not to do this.  Should be reviewed by a member of the Bug Squad.
+
+@item
+Accepted: the Bug Squad added it, or reviewed the item.
+
+@item
+Started: a contributor is working on a fix.  Owner should change
+to be this contributor.
+
+@end itemize
+
+
+Closed issues:
+
+@itemize
+
+@item
+Invalid: issue should not have been added in the current state.
+
+@item
+Duplicate: issue already exists in the tracker.
+
+@item
+Fixed: a contributor claims to have fixed the bug.  The Bug
+Squad should check the fix with the next official binary release
+(not by compiling the source from git).  Owner should be set to
+that contributor.
+
+@item
+Verified: Bug Squad has confirmed that the issue is closed.  This
+means that nobody should ever need look at the report again -- if
+there is any information in the issue that should be kept, open a
+new issue for that info.
+
+@end itemize
+
+
+@subheading Owner (optional)
+
+Newly-added issues should have @emph{no owner}.  When a
+contributor indicates that he has Started or Fixed an item, he
+should become the owner.
+
+
+@subheading Type (mandatory)
+
+The issue's Type should be the first relevant item in this list.
+
+@itemize
+
+@item
+Type-Critical: normally a regression
+against the current stable version or the previous stable version.
+Alternatively, a regression against a fix developed for the
+current version. This does not apply where the
+@qq{regression} occurred because a feature was removed
+deliberately - this is not a bug.
+
+Currently, only Critical items will block a stable release.
+
+@item
+Type-Maintainability: hinders future development.
+
+@item
+Type-Crash: any input which produces a crash.
+
+@item
+Type-Ugly: overlapping or other ugly notation in graphical output.
+
+@item
+Type-Defect: a problem in the core program.  (the @code{lilypond}
+binary, scm files, fonts, etc).
+
+@item
+Type-Documentation: inaccurate, missing, confusing, or desired
+additional info.  Must be fixable by editing a texinfo, ly, or scm
+file.
+
+@item
+Type-Build: problem or desired features in the build system.  This
+includes the makefiles, stepmake, python scripts, and GUB.
+
+@item
+Type-Scripts: problem or desired feature in the non-build-system
+scripts.  Mostly used for convert-ly, lilypond-book, etc.
+
+@item
+Type-Enhancement: a feature request for the core program.  The
+distinction between enhancement and defect isn't extremely clear;
+when in doubt, mark it as enhancement.
+
+@item
+Type-Patch: tracking a patch on Rietveld.  Bug squad should not
+need to use this label.
+
+@item
+Type-Other: anything else.
+
+@end itemize
+
+@ignore
+@subheading Priority (mandatory)
+
+Currently, only Critical items will block a stable release.
+
+@itemize
+
+@item
+Priority-Critical: LilyPond segfaults, a regression (see below)
+against a previous stable version or a regression against a fix
+developed for this version. This does not apply where the
+@qq{regression} occurred because a feature was removed
+deliberately - this is not a bug.
+
+@item
+Priority-High: An issue which produces output which does not
+accurately reflect the input (e.g. where the user would expect
+an accidental, but none is shown) or which produces aesthetically
+poor output in a situation which could be expected to crop up
+frequently in real-world music.  It should not be used where the
+problem can be avoided with a simple workaround.  It can also
+be used to flag where new code in a development version is not
+functioning as it should.  This level is also used for issues
+which produce no output and fail to give the user a clue about
+what's wrong.
+
+@item
+Priority-Medium: Normal priority - use this as the default.
+
+@item
+Priority-Low: A minor problem which produces slightly undesirable
+output, or which will only occur in contrived examples, or which
+is very easily worked around.
+
+@item
+Priority-Postponed: no fix planned.  Generally used for things
+which nobody wants to touch.
+
+@end itemize
+
+Note that these are initial classifications and can be subject
+to change by others in the development team.  For example, a
+regression against an old stable version which hasn't been
+noticed for a long time and which is unlikely to get fixed could
+be downgraded from Priority-Critical by one of the programmers.
+
+@end ignore
+
+@subheading Opsys (optional)
+
+Issues that only affect specific operating systems.
+
+@subheading Patch label (optional)
+
+Normal Bug Squad members should not add or modify Patch issues
+except to verify them; for all other Patch work, leave them to the
+Patch Meister.
+
+@itemize
+
+@item
+Patch-new: the patch has not been checked for @qq{obvious}
+mistakes.  When in doubt, use this tag.
+
+@item
+Patch-review: the patch has no @qq{obvious} mistakes (as checked
+by the Patch Meister), and is ready for review from main
+developers.
+
+Developers with git push ability can use this category, skipping
+over @code{patch-new}.
+
+@item
+Patch-needs_work: a developer has some concerns about the patch.
+This does not necessarily mean that the patch must be changed; in
+some cases, the developer's concerns can be resolved simply by
+discussion the situation or providing notation examples.
+
+If the patch is updated, the category should be changed to
+@code{patch-new} (for normal contributors) or @code{patch-review}
+(for developers who are very confident about their patch).
+
+@item
+Patch-countdown: final call for any patch problems
+
+@item
+Patch-push: patch has passed the countdown and should be pushed.
+
+@item
+Patch-abandoned: the author has not responded to review comments
+for a few months.
+
+@end itemize
+
+@subheading Other items (optional)
+
+Other labels:
+
+@itemize
+
+@item
+Regression: it used to work intentionally in the current
+stable release or the previous stable release.  If the earlier
+output was accidental (i.e. we didn't try to stop a collision,
+but it just so happened that two grobs didn't collide), then
+breaking it does not count as a regression.
+
+To help decide whether the change is a regression, please adopt
+the following process:
+
+@enumerate
+
+@item
+Are you certain the change is OK?  If so, do nothing.
+
+@item
+Are you certain that the change is bad?  Add it to the tracker
+as a regression.
+
+@item
+If you're not certain either way, add it to the tracker as a
+regression but be aware that it may be recategorised or marked
+invalid.
+
+@end enumerate
+
+In particular, anything that breaks a regression test is a
+regression.
+
+@item
+Frog: the fix is believed to be suitable for a new contributor
+(does not require a great deal of knowledge about LilyPond).  The
+issue should also have an estimated time in a comment.
+
+@item
+Bounty: somebody is willing to pay for the fix.  Only add this tag
+if somebody has offered an exact figure in US dollars or euros.
+
+@item
+Warning: graphical output is fine, but lilypond prints a
+false/misleading warning message.  Alternately, a warning should
+be printed (such as a bar line error), but was not.  Also applies
+to warnings when compiling the source code or generating
+documentation.
+
+@item
+Security: security risk.
+
+@item
+Performance: performance issue.
+
+@end itemize
+
+If you particularly want to add a label not in the list, go
+ahead, but this is not recommended, except when an issue is marked
+as fixed.  In this case it should be labeled Fixed_mm_MM_ss,
+where mm is major version, MM minor version and ss current
+release.
+
+
+@node Adding issues to the tracker
+@section Adding issues to the tracker
+
+@warning{This should only be done by the Bug Squad or experienced
+developers.  Normal users should not do this; instead, they should
+follow the guidelines for @rweb{Bug reports}.}
+
+In order to assign labels to issues, Bug Squad members should log
+in to their google account before adding an item.
+
+@enumerate
+
+@item
+Check if the issue falls into any previous category given on the
+relevant checklists in @ref{Bug Squad checklists}.  If in doubt,
+add a new issue for a report.  We would prefer to have some
+incorrectly-added issues rather than lose information that should
+have been added.
+
+@item
+Add the issue and classify it according to the guidelines in
+@ref{Issue classification}.  In particular, the item should have
+@code{Status} and @code{Type-} labels.
+
+Include output with the first applicable method:
+
+@itemize
+
+@item
+If the issue has a notation example which fits in one system,
+generate a small @file{bug.preview.png} file with:
+
+@example
+lilypond -dpreview bug.ly
+@end example
+
+@item
+If the issue has an example which requires more than one system
+(i.e. a spacing bug), generate a @file{bug.png} file with:
+
+@example
+lilypond --png bug.ly
+@end example
+
+@item
+If the issue requires one or two pages of output, then generate a
+@file{bug.png} file with the normal:
+
+@example
+lilypond --png bug.ly
+@end example
+
+@item
+Images created as @file{bug.png} may be trimmed to a minimum size
+by using the @code{trimtagline.sh} script, which can be found at
+
+@smallexample
+@uref{https://raw.github.com/gperciva/lilypond-extra/master/bug-squad/trimtagline.sh}
+@end smallexample
+
+@example
+trimtagline.sh bug.ly
+@end example
+
+@item
+If the issue cannot be shown with less than three pages, then
+generate a @file{bug.pdf} file with:
+
+@example
+lilypond --pdf bug.ly
+@end example
+
+Note that this is likely to be extremely rare; most bugs should
+fit into the first two categories above.
+
+
+@end itemize
+
+@item
+After adding the issue, please send a response email to the same
+group(s) that the initial patch was sent to.  If the initial email
+was sent to multiple mailing lists (such as both @code{user} and
+@code{bugs}), then reply to all those mailing lists as well.  The
+email should contain a link to the issue you just added.
+
+@end enumerate
+
+
+@node Patch handling
+@section Patch handling
+
+@warning{This is not a Bug Squad responsibility; we have a
+separate person handling this task.}
+
+For contributors/developers: follow the steps in
+@ref{Patches}, and @ref{Pushing to staging}.
+
+@ignore
+For people doing maintenance tasks: git-cl is adding issues, James
+is testing patches and managing the Patch countdown.  He also generally
+runs the scripts that merging to Staging (although other developers are
+available to do this task if required).
+@end ignore
+
+
+@node Summary of project status
+@section Summary of project status
+
+@subsubheading Project overview
+
+Project activity
+
+@smallexample
+@uref{https://sourceforge.net/projects/testlilyissues/}
+@end smallexample
+
+@subsubheading Hindering development
+
+These issues stop or slow development work:
+
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status:Accepted%20AND%20_type:Maintainability}
+@end smallexample
+
+@subsubheading Easy tasks
+
+Issues tagged with @code{Frog} indicates a task suitable for a
+relatively new contributor.  The time given is a quick (and probably
+inaccurate) estimate of the time required for somebody who is familiar
+with material in this manual, but does not know anything else about
+LilyPond development.
+
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status:Accepted%20AND%20labels:Frog}
+@end smallexample
+
+@subsubheading Patches currently in the Patch Review cycle
+
+Overview
+
+@c The following URL is provided by one of the Developers giving a much
+@c easier way to see all patches at all stages of the Review cycle in a
+@c single place.
+
+@example
+http://philholmes.net/lilypond/allura/
+@end example
+
+
+@noindent
+New patches
+
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Anew}
+@end smallexample
+
+
+@noindent
+Patches under Review
+
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Areview}
+@end smallexample
+
+
+@noindent
+Patches on final Countdown
+
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Acountdown}
+@end smallexample
+
+
+@noindent
+Patches that can be pushed
+
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Apush}
+@end smallexample

@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 par les auteurs.
+
+This file documents the LilyPond website.
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on le 30 novembre 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; la notation musicale pour tous: MacOS X</title>
+
+<meta name="description" content="LilyPond &ndash; la notation musicale pour tous: MacOS X">
+<meta name="keywords" content="LilyPond &ndash; la notation musicale pour tous: MacOS X">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... la notation musicale pour tous">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="Table des mati&egrave;res">
+<link href="index_abt.html#SEC_About" rel="help" title="A propos de ce document">
+<link href="download.html#download" rel="up" title="Téléchargement">
+<link href="attic.html#attic" rel="next" title="Grenier">
+<link href="unix.html#unix" rel="previous" title="Unix">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="fr" class="web devStatus">
+
+<div id="main">
+<a name="MacOS-X"></a>
+
+<a name="macos-x"></a>
+<h2 class="unnumberedsec">MacOS X</h2>
+
+
+<div class="heading-center"><div class="warning"><p><strong>Note :</strong> LilyPond travaille sur des <strong>fichiers textuels</strong>.  Il
+s&rsquo;apparente plus à un langage de programmation plutôt qu&rsquo;à un éditeur de
+partition en mode graphique.  Avant de télécharger LilyPond, veuillez
+lire <a href="text-input.html">Entrée sous forme de texte</a>.
+</p>
+</div>
+</div>
+<div class="column-left-top"><a name="Paquetages"></a>
+<h3 class="subheading">Paquetages</h3>
+
+<a name="Telechargement-1"></a>
+<h4 class="subsubheading">Téléchargement</h4>
+
+<ul>
+<li>
+<img src="pictures/logo-macosx.png" alt="pictures/logo-macosx">
+<a href="http://download.linuxaudio.org/lilypond/binaries/darwin-x86/lilypond-2.18.2-1.darwin-x86.tar.bz2">MacOS X x86: LilyPond 2.18.2-1</a>
+Pour MacOS X 10.4 ou supérieur tournant sur un processeur Intel (dans le
+doute, prenez celui-ci).
+
+
+</li><li>
+<img src="pictures/logo-macosx.png" alt="pictures/logo-macosx">
+<a href="http://download.linuxaudio.org/lilypond/binaries/darwin-ppc/lilypond-2.18.2-1.darwin-ppc.tar.bz2">MacOS X PPC: LilyPond 2.18.2-1</a>
+Pour MacOS X 10.4 ou supérieur tournant sur un processeur G3 ou G4
+(anciens ordinateurs Apple).
+
+
+</li></ul>
+
+<a name="Installation-1"></a>
+<h4 class="subsubheading">Installation</h4>
+
+<p>Double-cliquez sur le fichier téléchargé, puis déplacez-le où vous voulez.
+</p>
+<a name="Desinstallation-1"></a>
+<h4 class="subsubheading">Désinstallation</h4>
+
+<p>Supprimez le répertoire <code>LilyPond.app</code>.
+</p>
+
+</div>
+
+<div class="column-right-top"><a name="Utilisation-en-ligne-de-commande"></a>
+<h3 class="subheading">Utilisation en ligne de commande</h3>
+
+<div class="warning"><p><strong>Note :</strong> Si vous préférez l&rsquo;interface graphique mentionnée plus avant,
+ne tenez pas compte de ce qui suit.
+</p>
+</div>
+<a name="MacOS-X-et-la-ligne-de-commande"></a>
+<h4 class="subsubheading">MacOS X et la ligne de commande</h4>
+
+<p>Le moyen le plus pratique d&rsquo;utiliser les scripts LilyPond est de vous
+créer des « lanceurs ».
+</p>
+<ol>
+<li>
+Créez un répertoire pour stocker ces différents scripts :
+
+<blockquote><pre class="example">mkdir -p ~/bin
+cd ~/bin
+</pre></blockquote>
+
+
+</li><li>
+Créez un fichier <code>lilypond</code> qui contiendra
+
+<div class="h-scroll-auto"><blockquote><pre class="example">#!/bin/bash
+exec <var>RÉP</var>/LilyPond.app/Contents/Resources/bin/lilypond &quot;$@&quot;
+</pre></blockquote>
+
+</div>
+<div class="warning"><p><strong>Note :</strong> <var>RÉP</var> sera en règle générale <code>/Applications/</code>
+</p>
+</div>
+
+</li><li>
+Créez de la même manière les fichiers <code>lilypond-book</code>,
+<code>convert-ly</code>, et autres scripts que vous souhaitez utiliser, en
+remplaçant <code>bin/lilypond</code> par <code>bin/convert-ly</code> ou autre
+nom de programme.
+
+
+</li><li>
+Rendez ce fichier exécutable :
+
+<blockquote><pre class="example">chmod u+x lilypond
+</pre></blockquote>
+
+
+</li><li>
+Ajoutez ce répertoire à votre chemin de recherche (<em>path</em>).
+Modifiez, ou bien créez un fichier <code>.profile</code> à la racine de votre
+répertoire personnel de telle sorte qu&rsquo;il contienne
+
+<blockquote><pre class="example">export PATH=$PATH:~/bin
+</pre></blockquote>
+
+<p>Ce fichier doit se terminer par une ligne vide.
+</p>
+</li></ol>
+
+
+<a name="Lancement-des-scripts"></a>
+<h4 class="subsubheading">Lancement des scripts</h4>
+
+<p>Les scripts &ndash; aussi bien <code>lilypond-book</code>, <code>convert-ly</code>,
+<code>abc2ly</code>, que <code>lilypond</code> lui-même &ndash; sont inclus dans un
+fichier <code>.app</code> pour MacOS X.
+</p>
+<p>Ces scripts peuvent se lancer directement en ligne de commande :
+</p>
+<div class="h-scroll-auto"><blockquote><pre class="example"><var>chemin/vers</var>/LilyPond.app/Contents/Resources/bin/lilypond
+</pre></blockquote>
+
+</div>
+<p>Il en va de même pour les autres scripts de ce répertoire, tels que
+<code>lilypond-book</code> et <code>convert-ly</code>.
+</p>
+
+</div>
+
+<div class="column-center-top"><a name="Compilation-d_0027un-fichier-2"></a>
+<h3 class="subheading">Compilation d&rsquo;un fichier</h3>
+
+<div class="warning"><p><strong>Note :</strong> Les instructions qui suivent concernent ceux qui utilisent
+le lanceur LilyPond.  Si vous utilisez l&rsquo;un des programmes mentionnés
+au chapitre <a name="index-Facilites-d_0027edition-1"></a>
+<a href="../../doc/v2.19/Documentation/web/../web/easier-editing.html">Facilités d'édition</a>, référez-vous à leur
+documentation respective en cas de problème.
+</p>
+</div>
+
+<a name="Etape-1_002e-Creation-d_0027un-fichier-_002ely"></a>
+<h4 class="subsubheading">Étape 1. Création d&rsquo;un fichier &lsquo;<tt>.ly</tt>&rsquo;</h4>
+
+<p>Lorsque vous faites un double clic sur <code>LilyPond.app</code>, un
+fichier exemple s&rsquo;ouvre.
+</p>
+<img src="pictures/Learning_Macos_welcome.png" alt="pictures/Learning_Macos_welcome">
+
+<p>Dans le menu, en haut et à gauche de la fenêtre, sélectionnez
+<code>Fichier &gt; Enregistrer</code>.
+</p>
+<img src="pictures/Learning_Macos_Save_menu.png" alt="pictures/Learning_Macos_Save_menu">
+
+<p>Attribuez un nom à votre fichier, par exemple &lsquo;<tt>test.ly</tt>&rsquo;.
+</p>
+<img src="pictures/Learning_Macos_Save_file_with_name.png" alt="pictures/Learning_Macos_Save_file_with_name">
+
+
+<a name="Etape-2_002e-Compilation-_0028avec-LilyPad_0029"></a>
+<h4 class="subsubheading">Étape 2. Compilation (avec LilyPad)</h4>
+
+<p>Dans le menu, sélectionnez
+<code>Compiler &gt; Typeset</code>.
+</p>
+<img src="pictures/Learning_Macos_Typeset_menu.png" alt="pictures/Learning_Macos_Typeset_menu">
+
+<p>Une nouvelle fenêtre s&rsquo;ouvre dans laquelle s&rsquo;affiche le journal de
+compilation du fichier que vous venez de sauvegarder.
+</p>
+<img src="pictures/Learning_Macos_Compiling_log.png" alt="pictures/Learning_Macos_Compiling_log">
+
+
+<a name="Etape-3_002e-Visualisation-du-resultat-2"></a>
+<h4 class="subsubheading">Étape 3. Visualisation du résultat</h4>
+
+<p>La compilation s&rsquo;achève par la création d&rsquo;un fichier PDF portant le même
+nom que le fichier source ; ce nouveau fichier sera automatiquement
+ouvert par votre lecteur PDF par défaut et affiché à l&rsquo;écran.
+</p>
+<img src="pictures/Learning_Macos_pdf_output.png" alt="pictures/Learning_Macos_pdf_output">
+
+
+<a name="Autres-commandes"></a>
+<h4 class="subsubheading">Autres commandes</h4>
+
+<p>Pour créer de nouveaux fichiers pour LilyPond, sélectionnez
+<code>Fichier &gt; Nouveau</code>
+</p>
+<img src="pictures/Learning_Macos_New_menu.png" alt="pictures/Learning_Macos_New_menu">
+
+<p>ou <code>Fichier &gt; Ouvrir</code> pour reprendre un fichier précédemment
+enregistré.
+</p>
+<img src="pictures/Learning_Macos_Open_menu.png" alt="pictures/Learning_Macos_Open_menu">
+
+<p>Pensez à toujours enregistrer votre travail avant de lancer l&rsquo;option
+<code>Compile &gt; Tyepset</code> du menu.  Si le PDF n&rsquo;apparaît pas,
+vérifiez que la fenêtre &laquo;&nbsp;log&nbsp;&raquo; ne comporte pas d&rsquo;erreur.
+</p>
+<p>Si vous n&rsquo;utilisez pas le lecteur de PDF par défaut de Mac OS et
+qu&rsquo;un fichier résultant d&rsquo;une précédente compilation est encore ouvert
+dans votre lecteur, la régénération de ce PDF peut bloquer tant que vous
+ne fermez pas le fichier ouvert.
+</p>
+
+
+
+</div>
+
+<div class="column-center-bottom"><a name="Mention-legale-1"></a>
+<h3 class="subheading">Mention légale</h3>
+
+<div class="legal"><p>Tous les logos et images des produits sont des marques déposées ou sont
+protégés par le droit d’auteur.
+</p>
+<p>L&rsquo;image &lsquo;X&rsquo; n&rsquo;est pas déposée.  Elle a été créée par
+<a href="http://en.wikipedia.org/wiki/User:Nihonjoe">Nihonjoe</a> et
+<a href="http://en.wikipedia.org/wiki/User:CyberSkull">CyberSkull</a>, et
+distribuée sous la licence GNU Free Documentation License version 1.2 ou
+ultérieure.
+Nous avons trouvé cette image sur
+<a href="http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png">cette page de Wikimedia Commons</a>.
+</p>
+
+
+</div>
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Remerciements à <a href="http://www.webdev.nl/">webdev.nl</a> pour l'hébergement de <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Introduction-1" href="introduction.html">Introduction</a>  </li>
+  <li class=" toc_current"><a name="toc-Telechargement" href="download.html">Téléchargement</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Telechargement" href="download.html">Téléchargement</a></li>
+    <li class=""><a name="toc-Unix-1" href="unix.html">Unix</a>    </li>
+    <li class=" toc_current"><a name="toc-MacOS-X-1" href="macos-x.html">MacOS X</a>    </li>
+    <li class=""><a name="toc-Windows-1" href="windows.html">Windows</a>    </li>
+    <li class=""><a name="toc-Sources-1" href="source.html">Sources</a>    </li>
+    <li class=""><a name="toc-Anciennes-versions-1" href="old-downloads.html">Anciennes versions</a>    </li>
+    <li class=""><a name="toc-GPL-1" href="gpl.html">GPL</a>    </li>
+  </ul>
+  </li>
+  <li class=""><a name="toc-Manuels-1" href="manuals.html">Manuels</a>  </li>
+  <li class=""><a name="toc-Communaute" href="community.html">Communauté</a>  </li>
+<li>
+<!--
+    Translation of GIT committish: febe2e4ff91dda9227e85274ae045e23c6b4ec28
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+-->
+
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Recherche sur Google">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Rechercher">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

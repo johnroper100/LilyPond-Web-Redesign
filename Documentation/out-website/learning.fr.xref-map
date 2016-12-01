@@ -1,0 +1,199 @@
+Top	index	index
+Commandes prédéfinies	Commandes-pr_00c3_00a9d_00c3_00a9finies	Commandes-pr_00c3_00a9d_00c3_00a9finies
+Morceaux choisis	Morceaux-choisis	Morceaux-choisis
+Propriétés couramment modifiées	Propri_00c3_00a9t_00c3_00a9s-couramment-modifi_00c3_00a9es	Propri_00c3_00a9t_00c3_00a9s-couramment-modifi_00c3_00a9es
+Voir aussi	Voir-aussi	Voir-aussi
+Problèmes connus et avertissements	Probl_00c3_00a8mes-connus-et-avertissements	Probl_00c3_00a8mes-connus-et-avertissements
+Step 1. Create your .ly file	Step-1_002e-Create-your-_002ely-file	Step-1_002e-Create-your-_002ely-file
+Step 2. Compile (with LilyPad)	Step-2_002e-Compile-_0028with-LilyPad_0029	Step-2_002e-Compile-_0028with-LilyPad_0029
+Step 3. View output	Step-3_002e-View-output	Step-3_002e-View-output
+Other commands	Other-commands	Other-commands
+Step 1. Create your .ly file	Step-1_002e-Create-your-_002ely-file	Step-1_002e-Create-your-_002ely-file
+Step 2. Compile	Step-2_002e-Compile	Step-2_002e-Compile
+Step 3. View output	Step-3_002e-View-output	Step-3_002e-View-output
+Other commands	Other-commands	Other-commands
+Step 1. Create your .ly file	Step-1_002e-Create-your-_002ely-file	Step-1_002e-Create-your-_002ely-file
+Step 2. Compile (with command-line)	Step-2_002e-Compile-_0028with-command_002dline_0029	Step-2_002e-Compile-_0028with-command_002dline_0029
+Step 3. View output	Step-3_002e-View-output	Step-3_002e-View-output
+Tutoriel	Tutorial	Tutorial
+Compilation d'un fichier	Compiling-a-file	Compiling-a-file
+Saisie de la musique	Entering-input	Entering-input
+Production de la partition	Entering-input	Producing-output
+MacOS X	MacOS-X	MacOS-X
+Windows	Windows	Windows
+Ligne de commande	Command_002dline	Command_002dline
+Composition d'un fichier source	How-to-write-input-files	How-to-write-input-files
+Notation simple	Simple-notation	Simple-notation
+Hauteurs	Simple-notation	Pitches
+Durées et rythme	Simple-notation	Durations-_0028rhythms_0029
+Silences	Simple-notation	Rests
+Métrique	Simple-notation	Time-signature
+Indication de tempo	Simple-notation	Tempo-marks
+Clefs	Simple-notation	Clef
+Tout ensemble	Simple-notation	All-together
+Travail sur les fichiers d'entrée	Working-on-input-files	Working-on-input-files
+Gestion des erreurs	Dealing-with-errors	Dealing-with-errors
+Quand ça ne fonctionne pas	General-troubleshooting-tips	General-troubleshooting-tips
+Erreurs courantes	Some-common-errors	Some-common-errors
+Bien lire le manuel	How-to-read-the-manuals	How-to-read-the-manuals
+Matériel incomplet	Omitted-material	Omitted-material
+Exemples cliquables	Clickable-examples	Clickable-examples
+Vue d'ensemble des manuels	Overview-of-manuals	Overview-of-manuals
+Bases de notation musicale	Common-notation	Common-notation
+Notation sur une seule portée	Single-staff-notation	Single-staff-notation
+Barre et contrôle de mesure	Bar-lines-and-bar-checks	Bar-lines-and-bar-checks
+Barre de mesure	Bar-lines-and-bar-checks	Bar-lines
+Contrôle de mesure	Bar-lines-and-bar-checks	Bar-checks
+Hauteurs et armure	Pitches-and-key-signatures	Pitches-and-key-signatures
+Altérations	Pitches-and-key-signatures	Pitch-alterations
+Armures	Pitches-and-key-signatures	Key-signatures
+Attention aux armures et aux hauteurs	Pitches-and-key-signatures	Warning-key-signatures-and-pitches
+Liaisons	Ties-and-slurs	Ties-and-slurs
+Liaisons de prolongation	Ties-and-slurs	Ties
+Liaisons d'articulation	Ties-and-slurs	Slurs
+Liaisons de phrasé	Ties-and-slurs	Phrasing-slurs
+Attention aux types de liaison	Ties-and-slurs	Warnings-slurs-vs_002e-ties
+Articulations et nuances	Articulation-and-dynamics	Articulation-and-dynamics
+Articulation	Articulation-and-dynamics	Articulations
+Doigté	Articulation-and-dynamics	Fingerings
+Nuance	Articulation-and-dynamics	Dynamics
+Ajout de texte	Adding-text	Adding-text
+Barres de ligature automatiques et manuelles	Automatic-and-manual-beams	Automatic-and-manual-beams
+Commandes rythmiques avancées	Advanced-rhythmic-commands	Advanced-rhythmic-commands
+Mesure incomplète	Advanced-rhythmic-commands	Partial-measure
+N-olet	Advanced-rhythmic-commands	Tuplets
+Note d'ornement	Advanced-rhythmic-commands	Grace-notes
+Notes simultanées	Multiple-notes-at-once	Multiple-notes-at-once
+Les expressions musicales en clair	Music-expressions-explained	Music-expressions-explained
+Analogie avec les expressions mathématiques	Music-expressions-explained	Analogy-mathematical-expressions
+Expressions musicales simultanées - plusieurs portées	Music-expressions-explained	Simultaneous-music-expressions-multiple-staves
+Expressions musicales simultanées - une seule portée	Music-expressions-explained	Simultaneous-music-expressions-single-staff
+Plusieurs portées	Multiple-staves	Multiple-staves
+Regroupements de portées	Staff-groups	Staff-groups
+Combinaison de notes en accords	Combining-notes-into-chords	Combining-notes-into-chords
+Polyphonie sur une portée	Single-staff-polyphony	Single-staff-polyphony
+Chansons	Songs	Songs
+Écriture de chants simples	Setting-simple-songs	Setting-simple-songs
+Alignement des paroles sur une mélodie	Aligning-lyrics-to-a-melody	Aligning-lyrics-to-a-melody
+Paroles pour plusieurs portées	Lyrics-to-multiple-staves	Lyrics-to-multiple-staves
+Dernières précisions	Final-touches	Final-touches
+Organisation du code source avec des variables	Organizing-pieces-with-variables	Organizing-pieces-with-variables
+Ajout de titres	Adding-titles	Adding-titles
+Noms de note absolus	Absolute-note-names	Absolute-note-names
+Après le tutoriel	After-the-tutorial	After-the-tutorial
+Concepts fondamentaux	Fundamental-concepts	Fundamental-concepts
+Organisation des fichiers LilyPond	How-LilyPond-input-files-work	How-LilyPond-input-files-work
+Introduction à la structure de fichier LilyPond	Introduction-to-the-LilyPond-file-structure	Introduction-to-the-LilyPond-file-structure
+La partition est une (unique) expression musicale composée	Score-is-a-_0028single_0029-compound-musical-expression	Score-is-a-_0028single_0029-compound-musical-expression
+Expressions musicales imbriquées	Nesting-music-expressions	Nesting-music-expressions
+Non-imbrication des crochets et liaisons	On-the-un_002dnestedness-of-brackets-and-ties	On-the-un_002dnestedness-of-brackets-and-ties
+Les voix contiennent la musique	Voices-contain-music	Voices-contain-music
+J'entends des Voix	I_0027m-hearing-Voices	I_0027m-hearing-Voices
+Instanciation explicite des voix	Explicitly-instantiating-voices	Explicitly-instantiating-voices
+Empilement des notes	Note-columns	Note-columns
+Voix et paroles	Voices-and-vocals	Voices-and-vocals
+Contextes et graveurs	Contexts-and-engravers	Contexts-and-engravers
+Tout savoir sur les contextes	Contexts-explained	Contexts-explained
+Création d'un contexte	Creating-contexts	Creating-contexts
+Tout savoir sur les graveurs	Engravers-explained	Engravers-explained
+Modification des propriétés d'un contexte	Modifying-context-properties	Modifying-context-properties
+Définition des propriétés de contexte avec \with	Setting-context-properties-with-_005cwith	Setting-context-properties-with-_005cwith
+Définition des propriétés de contexte avec \context	Setting-context-properties-with-_005ccontext	Setting-context-properties-with-_005ccontext
+Ajout et suppression de graveurs	Adding-and-removing-engravers	Adding-and-removing-engravers
+Modification d'un seul contexte	Changing-a-single-context	Changing-a-single-context
+Modification de tous les contextes d'un même type	Changing-all-contexts-of-the-same-type	Changing-all-contexts-of-the-same-type
+Extension des modèles	Extending-the-templates	Extending-the-templates
+Soprano et violoncelle	Soprano-and-cello	Soprano-and-cello
+Partition pour chœur à quatre voix mixtes	Four_002dpart-SATB-vocal-score	Four_002dpart-SATB-vocal-score
+Écriture d'une partition à partir de zéro	Building-a-score-from-scratch	Building-a-score-from-scratch
+Économie de saisie grâce aux identificateurs et fonctions	Saving-typing-with-variables-and-functions	Saving-typing-with-variables-and-functions
+Conducteurs et parties	Scores-and-parts	Scores-and-parts
+Retouche de partition	Tweaking-output	Tweaking-output
+Retouches élémentaires	Tweaking-basics	Tweaking-basics
+Introduction aux retouches	Introduction-to-tweaks	Introduction-to-tweaks
+Objets et interfaces	Objects-and-interfaces	Objects-and-interfaces
+Conventions de nommage des objets et propriétés	Naming-conventions-of-objects-and-properties	Naming-conventions-of-objects-and-properties
+Méthodes de retouche	Tweaking-methods	Tweaking-methods
+La commande override	Tweaking-methods	The-override-command
+La commande revert	Tweaking-methods	The-revert-command
+Le préfixe once	Tweaking-methods	The-once-prefix
+La commande overrideProperty	Tweaking-methods	The-overrideProperty-command
+La commande tweak	Tweaking-methods	The-tweak-command
+Le préfixe single	Tweaking-methods	The-single-prefix
+Le manuel de référence des propriétés internes	The-Internals-Reference-manual	The-Internals-Reference-manual
+Propriétés des objets de rendu	Properties-of-layout-objects	Properties-of-layout-objects
+Propriétés listées par interface	Properties-found-in-interfaces	Properties-found-in-interfaces
+Types de propriétés	Types-of-properties	Types-of-properties
+Apparence des objets	Appearance-of-objects	Appearance-of-objects
+Visibilité et couleur des objets	Visibility-and-color-of-objects	Visibility-and-color-of-objects
+La propriété stencil	Visibility-and-color-of-objects	The-stencil-property
+La propriété break-visibility	Visibility-and-color-of-objects	The-break_002dvisibility-property
+La propriété transparent	Visibility-and-color-of-objects	The-transparent-property
+La propriété color	Visibility-and-color-of-objects	The-color-property
+Taille des objets	Size-of-objects	Size-of-objects
+Longueur et épaisseur des objets	Length-and-thickness-of-objects	Length-and-thickness-of-objects
+Positionnement des objets	Placement-of-objects	Placement-of-objects
+Comportement automatique	Automatic-behavior	Automatic-behavior
+Objets inclus dans la portée	Within_002dstaff-objects	Within_002dstaff-objects
+La propriété direction	Within_002dstaff-objects	The-direction-property
+Doigtés	Within_002dstaff-objects	Fingering
+Objets hors de la portée	Outside_002dstaff-objects	Outside_002dstaff-objects
+La propriété outside-staff-priority	Outside_002dstaff-objects	The-outside_002dstaff_002dpriority-property
+La commande textLengthOn	Outside_002dstaff-objects	The-textLengthOn-command
+Positionnement des nuances	Outside_002dstaff-objects	Dynamics-placement
+Dimensionnement des objets graphiques	Outside_002dstaff-objects	Grob-sizing
+Espacement vertical	Vertical-spacing	Vertical-spacing
+Collisions d'objets	Collisions-of-objects	Collisions-of-objects
+Déplacement d'objets	Moving-objects	Moving-objects
+Correction des collisions d'objets	Fixing-overlapping-notation	Fixing-overlapping-notation
+La propriété padding	Fixing-overlapping-notation	The-padding-property
+La propriété right-padding	Fixing-overlapping-notation	The-right_002dpadding-property
+La propriété staff-padding	Fixing-overlapping-notation	The-staff_002dpadding-property
+La propriété self-alignment-X	Fixing-overlapping-notation	The-self_002dalignment_002dX-property
+La propriété staff-position	Fixing-overlapping-notation	The-staff_002dposition-property
+La propriété extra-offset	Fixing-overlapping-notation	The-extra_002doffset-property
+La propriété positions	Fixing-overlapping-notation	The-positions-property
+La propriété force-hshift	Fixing-overlapping-notation	The-force_002dhshift-property
+Exemple concret	Real-music-example	Real-music-example
+Autres retouches	Further-tweaking	Further-tweaking
+Autres utilisations des retouches	Other-uses-for-tweaks	Other-uses-for-tweaks
+Liaison entre plusieurs voix	Other-uses-for-tweaks	Tying-notes-across-voices
+Rendu MIDI d'un point d'orgue	Other-uses-for-tweaks	Simulating-a-fermata-in-MIDI
+Utilisation de variables dans les retouches	Using-variables-for-layout-adjustments	Using-variables-for-layout-adjustments
+Feuilles de style	Style-sheets	Style-sheets
+Autres sources de documentation	Other-sources-of-information	Other-sources-of-information
+Retouches avancées avec Scheme	Advanced-tweaks-with-Scheme	Advanced-tweaks-with-Scheme
+Modèles	Templates	Templates
+Gabarits préprogrammés	Built_002din-templates	Built_002din-templates
+Gabarit pour chœur à quatre voix mixtes	SATB-template	SATB-template
+Gabarit pour double chœur à quatre voix mixtes	SSAATTBB-template	SSAATTBB-template
+Modèles pour portée unique	Single-staff-templates	Single-staff-templates
+Notes seules	Notes-only	Notes-only
+Notes et paroles	Notes-and-lyrics	Notes-and-lyrics
+Notes et accords	Notes-and-chords	Notes-and-chords
+Notes paroles et accords	Notes-lyrics_002c-and-chords	Notes-lyrics_002c-and-chords
+Modèles pour piano	Piano-templates	Piano-templates
+Piano seul	Solo-piano	Solo-piano
+Chant et accompagnement	Piano-and-melody-with-lyrics	Piano-and-melody-with-lyrics
+Piano et paroles entre les portées	Piano-centered-lyrics	Piano-centered-lyrics
+Modèles pour quatuor à cordes	String-quartet-templates	String-quartet-templates
+Quatuor à cordes simple	String-quartet	String-quartet
+Parties pour quatuor à cordes	String-quartet-parts	String-quartet-parts
+Modèles pour ensemble vocal	Vocal-ensembles-templates	Vocal-ensembles-templates
+Partition pour chœur SATB	SATB-vocal-score	SATB-vocal-score
+Partition pour chœur SATB avec réduction pour piano	SATB-vocal-score-and-automatic-piano-reduction	SATB-vocal-score-and-automatic-piano-reduction
+Partition pour chœur SATB avec alignement des contextes	SATB-with-aligned-contexts	SATB-with-aligned-contexts
+Chœur à quatre voix mixtes sur quatre portées	SATB-on-four-staves	SATB-on-four-staves
+Couplet pour solo et refrain à deux voix	Solo-verse-and-two_002dpart-refrain	Solo-verse-and-two_002dpart-refrain
+Hymnes et cantiques	Hymn-tunes	Hymn-tunes
+Psalmodie	Psalms	Psalms
+Orchestre	Orchestral-templates	Orchestral-templates
+Orchestre chœur et piano	Orchestra-choir-and-piano	Orchestra-choir-and-piano
+Exemples de notation ancienne	Ancient-notation-templates	Ancient-notation-templates
+Transcription de musique mensurale	Transcription-of-mensural-music	Transcription-of-mensural-music
+Transcription du grégorien	Gregorian-transcription-template	Gregorian-transcription-template
+Autres modèles	Other-templates	Other-templates
+Symboles de jazz	Jazz-combo	Jazz-combo
+GNU Free Documentation License	GNU-Free-Documentation-License	GNU-Free-Documentation-License
+ADDENDUM: How to use this License for your documents	ADDENDUM_003a-How-to-use-this-License-for-your-documents	ADDENDUM_003a-How-to-use-this-License-for-your-documents
+Index de LilyPond	LilyPond-index	LilyPond-index

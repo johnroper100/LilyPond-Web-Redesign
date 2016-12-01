@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+ texidocde = "
+Die Abkürzungen sind in der Datei @file{ly/script-init.ly} definiert, wo
+den Variablen @code{dashHat}, @code{dashPlus}, @code{dashDash},
+@code{dashBar}, @code{dashLarger}, @code{dashDot} und
+@code{dashUnderscore} Standardwerte zugewiesen werden.  Diese Standardwerte
+können verändert werden.  Um zum Beispiel die Abkürzung
+@code{-+} (@code{dashPlus}) mit dem Triller anstatt mit dem +-Symbol zu
+assoziieren, muss der Wert @code{trill} der Variable
+@code{dashPlus} zugewiesen werden:
+
+"
+  doctitlede = "Die Standardwerte der Abkürzungen von Artikulationen verändern"

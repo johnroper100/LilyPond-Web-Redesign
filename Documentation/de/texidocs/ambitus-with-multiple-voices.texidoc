@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Indem man den @code{Ambitus_engraver} im @code{Staff}-Kontext
+hinzufügt, erhält man einen einzigen Ambitus pro System, auch in dem
+Fall, dass mehrere Stimmen sich im gleichen System befinden.
+"
+  doctitlede = "Ambitus mit vielen Stimmen"

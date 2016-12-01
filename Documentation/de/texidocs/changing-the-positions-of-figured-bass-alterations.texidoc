@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Versetzungszeichen und Pluszeichen können vor oder nach den Ziffern erscheinen,
+je nach den Einstellungen der @code{figuredBassAlterationDirection} und
+@code{figuredBassPlusDirection}-Eigenschaften.
+
+"
+  doctitlede = "Positionen von Generalbass-Alterationszeichen verändern"

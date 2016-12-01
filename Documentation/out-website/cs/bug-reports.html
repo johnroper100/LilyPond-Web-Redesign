@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Autorské právo C 2009-2010 autoři.
+
+Tento soubor dokládá internetový výstup LilyPondu.
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on November 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; Zápis not pro každého: Hlášení chyb</title>
+
+<meta name="description" content="LilyPond &ndash; Zápis not pro každého: Hlášení chyb">
+<meta name="keywords" content="LilyPond &ndash; Zápis not pro každého: Hlášení chyb">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... Notová sazba pro každého">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index_abt.html#SEC_About" rel="help" title="About This Document">
+<link href="community.html#community" rel="up" title="Společenství">
+<link href="news.html#news" rel="next" title="Starší novinky">
+<link href="tiny-examples.html#tiny-examples" rel="previous" title="Malé příklady">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="cs" class="web devStatus">
+
+<div id="main">
+<a name="Hl_00e1_0161en_00ed-chyb"></a>
+
+<a name="bug-reports"></a>
+<h2 class="unnumberedsec">Hlášení chyb</h2>
+
+<div class="column-center-top"><a name="g_t1_002e-krok_003a-Zname-chyby"></a>
+<h3 class="subheading">1. krok: Známé chyby</h3>
+
+<p>Když máte vstupní kód, který vytváří pád programu nebo
+chybnou sazbu not, potom je to ta chyba.  Seznam se známými
+chybami je při sledování chyb Google:
+</p>
+<blockquote><pre class="example"><a href="http://code.google.com/p/lilypond/issues/list">http://code.google.com/p/lilypond/issues/list</a>
+</pre></blockquote>
+
+<div class="warning"><p><strong>Pozor:</strong> Sami, prosím, <strong>NEPŘIDÁVEJTE</strong> nová hlášení chyb!
+Když je chybu možné vidět ve sledovači chyb,
+můžete sami přidat další informace.
+</p>
+</div>
+
+</div>
+
+<div class="column-left-bottom"><a name="g_t2_002e-krok_003a-Vytvoreni-hlaseni-o-chybe"></a>
+<h3 class="subheading">2. krok: Vytvoření hlášení o chybě</h3>
+
+<p>Pokud se vám podařilo odhalit chybu, která není v seznamu,
+pomozte nám, prosím, vytvořením hlášení o chybě.
+</p>
+<div class="warning"><p><strong>Pozor:</strong> Hlášení o chybách přijímáme jen jako
+<a href="tiny-examples.html">malé příklady</a>.  Máme velmi omezené zdroje
+na zpracování hlášení o chybách, a z toho důvodu každý příklad, který není malý,
+je odmítnut.  Skoro každou chybu lze předvést s pomocí čtyř
+anebo ještě méně not!
+</p>
+</div>
+<p>Příklad dobrého hlášení o chybě:
+</p>
+<blockquote><pre class="example">%% the octavation command doesn't
+%% change the output at all!
+
+\version &quot;2.10.0&quot;
+\relative c''' {
+  c1
+  #(set-octavation 1)
+  c1
+}
+</pre></blockquote>
+
+
+</div>
+<div class="column-right-bottom"><a name="g_t3_002e-krok_003a-Poslani-hlaseni-o-chybe"></a>
+<h3 class="subheading">3. krok:  Poslání hlášení o chybě</h3>
+
+<p>Když jste se ujistili, že chyba ještě není známá, a
+vytvořili hlášení o chybě, pošlete nám je, prosím!
+</p>
+<div class="keep-bullets"><ul>
+<li>
+Pokud již odebíráte poštovní seznam <a href="mailto:bug-lilypond@gnu.org">+bug-lilypond@gnu.org</a>, můžete zcela prostě poslat
+dopis elektronickou poštou.
+
+</li><li>
+Pokud členy poštovního seznamu nejste, přesto můžete poslat
+hlášení o chybě přes webové rozhraní
+<a href="http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs">gmane lilypond.bugs</a>.
+
+<p>Na seznamu je však přesné prověření, které brání tomu,
+aby člověk dostal svůj dopis nahoru.  Toto prověření je často
+vyburcováno nesprávně soubory LilyPondu.  Proto přidejte
+</p>
+<blockquote><pre class="example">&gt; I'm not top posting.
+</pre></blockquote>
+
+<p>(<em>Musíte</em> vložit <code>&gt;</code>) na začátek svého hlášení.
+</p>
+</li></ul>
+
+</div>
+<p>Když bylo vaše hlášení o chybě zasláno na seznam, vyšetří naši
+odklízeči chyb (angl. bug squad) tuto zprávu.  Počkejte, prosím,
+24 hodin, neboť máme jen malý počet pomocníků.  Budete případně požádáni o více informací,
+nebo bude zpráva přidána do sledovače, a vy budete informováni,
+jaké dostala číslo.
+</p>
+<p>Můžete chybu označit tak, že vždy obdržíte dopis, když se
+pro tuto chybu přihodí nějaká činnost.  K tomu potřebujete mít
+účet u Google.
+</p>
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Thanks to <a href="http://www.webdev.nl/">webdev.nl</a> for hosting <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Uvod" href="introduction.html">Úvod</a>  </li>
+  <li class=""><a name="toc-Stazeni" href="download.html">Stažení</a>  </li>
+  <li class=""><a name="toc-Prirucky" href="manuals.html">Příručky</a>  </li>
+  <li class=" toc_current"><a name="toc-Spolecenstvi" href="community.html">Společenství</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Spolecenstvi" href="community.html">Společenství</a></li>
+    <li class=""><a name="toc-Spojeni" href="contact.html">Spojení</a>    </li>
+    <li class=""><a name="toc-Male-priklady" href="tiny-examples.html">Malé příklady</a>    </li>
+    <li class=" toc_current"><a name="toc-Hlaseni-chyb" href="bug-reports.html">Hlášení chyb</a>    </li>
+    <li class=""><a name="toc-Pomozte-nam" href="help-us.html">Pomozte nám</a>    </li>
+    <li class=""><a name="toc-Vyvoj" href="development.html">Vývoj</a>    </li>
+    <li class=""><a name="toc-Autori" href="authors.html">Autoři</a>    </li>
+    <li class=""><a name="toc-Spisy-1" href="publications.html">Spisy</a>    </li>
+    <li class=""><a name="toc-Starsi-novinky" href="news.html">Starší novinky</a>    </li>
+  </ul>
+  </li>
+<li>
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Google Search">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Search">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

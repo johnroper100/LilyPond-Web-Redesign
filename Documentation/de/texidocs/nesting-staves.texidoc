@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Die Eigenschaft @code{systemStartDelimiterHierarchy} kann eingesetzt
+werden, um komplizierte geschachtelte Systemklammern zu erstellen.  Der
+Befehl @code{\\set StaffGroup.systemStartDelimiterHierarchy} nimmt eine
+Liste mit der Anzahl der Systeme, die ausgegeben werden, auf.  Vor jedem
+System kann eine Systemanfangsklammer angegeben werden.  Sie muss in Klammern eingefügt
+werden und umfasst so viele Systeme, wie die Klammer einschließt.  Elemente
+in der Liste können ausgelassen werden, aber die erste Klammer umfasst immer
+die gesamte Gruppe.  Die Möglichkeiten der Anfangsklammer sind: @code{SystemStartBar},
+@code{SystemStartBracket}, @code{SystemStartBrace} und
+@code{SystemStartSquare}.
+
+"
+  doctitlede = "Systeme schachteln"

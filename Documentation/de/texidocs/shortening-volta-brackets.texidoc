@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Volta-Klammern werden normalerweise über alle Noten der Klammer gezogen, aber
+es ist möglich sie zu verkürzen.  Hierzu muss
+@code{voltaSpannerDuration} definiert werden, in dem Beispiel etwa als
+3/4, sodass die Klammer nur einen Takt dauert.
+
+"
+  doctitlede = "Volta-Klammern verkürzen"

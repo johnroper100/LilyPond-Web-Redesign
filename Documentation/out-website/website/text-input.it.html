@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2003-2015 degli autori.
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on Novembre 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; Notazione musicale per tutti: Input testuale</title>
+
+<meta name="description" content="LilyPond &ndash; Notazione musicale per tutti: Input testuale">
+<meta name="keywords" content="LilyPond &ndash; Notazione musicale per tutti: Input testuale">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.it.html#top" rel="start" title="LilyPond... notazione musicale per tutti">
+<link href="index_toc.it.html#SEC_Contents" rel="contents" title="Indice">
+<link href="index_abt.it.html#SEC_About" rel="help" title="Informazioni su questo documento">
+<link href="introduction.it.html#introduction" rel="up" title="Introduzione">
+<link href="attic.it.html#attic" rel="next" title="Soffitta">
+<link href="reviews.it.html#reviews" rel="previous" title="Recensioni">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+<!-- Google tracking !-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68969-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body lang="it" class="web devStatus">
+
+<div id="main">
+<a name="Input-testuale"></a>
+
+<a name="text-input"></a>
+<h2 class="unnumberedsec">Input testuale</h2>
+
+
+<div class="column-center-top"><a name="g_t_201cCompilare_201d-Musica"></a>
+<h3 class="subheading">&ldquo;Compilare&rdquo; Musica</h3>
+
+<div class="float-right">
+  <a class="clickable" href="pictures/nereid-shot.png">
+    <img src="pictures/nereid-shot-small.png" alt="nereid-shot-small">
+  </a>
+  <p style="text-align: center">
+    (clicca per ingrandire)
+  </p>
+</div>
+<p>LilyPond è un sistema <em>compilato</em>: viene eseguito su un file di testo
+che descrive la musica.  L&rsquo;output risultante può essere visualizzato sullo
+schermo o stampato.  In un certo senso, LilyPond è più simile a un linguaggio
+di programmazione che a un software grafico per la creazione di spartiti.
+</p>
+<p>Non si scrive la musica trascinando le note da una barra degli strumenti grafica
+e mettendole su una partitura che si aggiorna in modo dinamico; si scrive
+musica digitando del testo.  Questo testo viene interpretato (o &ldquo;compilato&rdquo;)
+da LilyPond, che produce degli spartiti di elevata qualità.
+</p>
+<p>Chi è abituato alle interfacce grafiche dovrà imparare un nuovo modo di
+lavorare, ma ne vale assolutamente la pena se si considerano i risultati!
+</p>
+<div class="warning"><p><strong>Nota:</strong> Presentiamo una rapida panoramica del nostro input testuale &ndash; non è
+complicato come sembra!  Non c&rsquo;è bisogno di comprendere ogni dettaglio
+di questi esempi; la nostra documentazione per i principianti si occupa
+di tutto questo a un ritmo molto più graduale.
+</p>
+</div>
+
+<a name="E-semplice-come-l_0027A-B-C"></a>
+<h4 class="subsubheading">È semplice come l&rsquo;A B C</h4>
+
+<p>Le note vengono codificate con lettere e numeri.  I comandi speciali sono
+inseriti con barre inverse (backslash).
+</p>
+<img class="float-center" src="pictures/text-input-1-annotate-it.png" alt="text-input-1-annotate-it"><img class="float-center" src="pictures/text-input-1-output.png" alt="text-input-1-output">
+<p>Le alterazioni si ottengono con nomi diversi: si aggiunge <code>-is</code> per
+il diesis, e <code>-es</code> per il bemolle (questi sono i nomi delle note in
+olandese, ma sono disponibili altre lingue).  LilyPond calcola dove mettere
+le alterazioni.
+</p>
+<img class="float-center" src="pictures/text-input-2-annotate-it.png" alt="text-input-2-annotate-it"><img class="float-center" src="pictures/text-input-2-output.png" alt="text-input-2-output">
+
+<a name="Musica-Pop"></a>
+<h4 class="subsubheading">Musica Pop</h4>
+
+<p>Testo e accordi possono essere combinati per ottenere uno spartito semplificato:
+</p>
+<img class="float-center" src="pictures/text-input-pop-annotate-it.png" alt="text-input-pop-annotate-it"><img class="float-center" src="pictures/text-input-pop-output.png" alt="text-input-pop-output">
+
+
+<a name="Parti-per-orchestra"></a>
+<h4 class="subsubheading">Parti per orchestra</h4>
+
+<p>Il file di input contiene le note del brano musicale.  La partitura e
+le parti possono essere ottenute da un solo file di input, cosicché la
+modifica di una nota interesserà sempre la partitura e le parti.  Per
+poter includere la stessa musica in più punti, occorre assegnare alla
+musica una &ldquo;variabile&rdquo; (un nome).
+</p>
+<img class="float-center" src="pictures/text-input-parts-both-annotate-it.png" alt="text-input-parts-both-annotate-it">
+
+<p>Questa variabile viene poi usata in una parte singola (qui trasposta, con
+pause abbreviate che si estendono per diverse misure):
+</p>
+<img class="float-center" src="pictures/text-input-parts-single-annotate-it.png" alt="text-input-parts-single-annotate-it"><img class="float-center" src="pictures/text-input-parts-single-output.png" alt="text-input-parts-single-output">
+
+<p>La stessa variabile viene utilizzata nella partitura completa (qui in
+altezza reale):
+</p>
+<img class="float-center" src="pictures/text-input-score-annotate-it.png" alt="text-input-score-annotate-it"><img class="float-center" src="pictures/text-input-score-output.png" alt="text-input-score-output">
+
+<a name="Documentazione-per-il-principiante"></a>
+<h4 class="subsubheading">Documentazione per il principiante</h4>
+
+<p>Comprendiamo il fatto che molti utenti trovino questo modo di scrivere
+musica un po&rsquo; strano.  Per questo motivo, abbiamo scritto un&rsquo;ampia documentazione
+per aiutare i nuovi utenti, a cominciare dal manuale di <a href="learning.it.html">Apprendimento</a>.  Il Manuale
+di Apprendimento è il luogo migliore da cui iniziare, perché molte domande trovano
+risposta prima ancora di manifestarsi!
+</p>
+<p>Talvolta i nuovi utenti sono confusi, senza motivo, da alcuni aspetti del
+comportamento di LilyPond.  Leggi la documentazione prima di pensare che
+LilyPond non stia funzionando bene.
+</p>
+<p>Informazioni più approfondite sono disponibili nei <a href="manuals.it.html">Manuali</a>.
+</p>
+<p>Ben Lemon, un utente di LilyPond, ha creato una serie di
+<a href="http://benlemon.me/blog/music/lilypond/operation-lilypond">video tutorial</a>
+sul suo blog che sono rivolti ai nuovi utenti.
+</p>
+
+<a name="Editing-facilitato-2"></a>
+<h4 class="subsubheading">Editing facilitato</h4>
+
+<div class="float-right">
+  <a class="clickable" href="pictures/lilykde-screenshot.png">
+    <img src="pictures/lilykde-screenshot-small.png" alt="lilykde-screenshot-small">
+  </a>
+  <p style="text-align: center">
+    (clicca per ingrandire)
+  </p>
+</div>
+<p>L&rsquo;obiettivo primario di LilyPond è produrre spartiti di
+elevata qualità; creare un interfaccia grafica (GUI)
+ci distrarrebbe da questo scopo.  Tuttavia esistono altri
+progetti che hanno lo scopo di rendere più facile la creazione di file
+di input per LilyPond.
+</p>
+<p>Alcuni ambienti di editing includono l&rsquo;evidenziatura della sintassi, il
+completamento automatico dei comandi, e modelli preimpostati.  Altri
+programmi forniscono una vera e propria interfaccia grafica che consente
+la manipolazione diretta di una partitura grafica.  Per maggiori informazioni,
+si veda <a href="easier-editing.it.html">Editing facilitato</a>.
+</p>
+
+</div>
+<div class="column-center-bottom"><a name="E-ora_003f-4"></a>
+<h3 class="subheading">E ora?</h3>
+
+<p>Adesso sei pronto a <a href="download.it.html">scaricare LilyPond</a>.  Non sei
+ancora convinto?  Leggi a proposito dell&rsquo; <a href="easier-editing.it.html">Editing facilitato</a>.
+</p>
+
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="footer">
+<p id="languages">
+<!-- These links were autogenerated by /home/johnroper100/lilypond-git/scripts/build/website_post.py -->
+Altre lingue: <a href="text-input.html">English</a>, <a href="text-input.ca.html">Català</a>, <a href="text-input.cs.html">Česky</a>, <a href="text-input.de.html">Deutsch</a>, <a href="text-input.es.html">Español</a>, <a href="text-input.fr.html">Français</a>, <a href="text-input.hu.html">Magyar</a>, <a href="text-input.ja.html">日本語</a>, <a href="text-input.nl.html">Nederlands</a>, <a href="text-input.zh.html">中文</a>.
+<br>
+About <a href="http://www.lilypond.org/website/misc/browser-language">automatic language selection</a>.
+</p>
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+Grazie a <a href="http://www.webdev.nl/">webdev.nl</a> per l'hosting di <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.it.html"><span>LilyPond</span></a></li>
+  <li class=" toc_current"><a name="toc-Introduzione-1" href="introduction.it.html">Introduzione</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Introduzione-1" href="introduction.it.html">Introduzione</a></li>
+    <li class=""><a name="toc-Funzionalita" href="features.it.html">Funzionalità</a>    </li>
+    <li class=""><a name="toc-Esempi-1" href="examples.it.html">Esempi</a>    </li>
+    <li class=""><a name="toc-Liberta" href="freedom.it.html">Libertà</a>    </li>
+    <li class=""><a name="toc-Storia-1" href="background.it.html">Storia</a>    </li>
+    <li class=""><a name="toc-Produzioni-1" href="productions.it.html">Produzioni</a>    </li>
+    <li class=""><a name="toc-Recensioni-1" href="reviews.it.html">Recensioni</a>    </li>
+    <li class=" toc_current"><a name="toc-Input-testuale-1" href="text-input.it.html">Input testuale</a>    </li>
+    <li class=""><a name="toc-Editing-facilitato-1" href="easier-editing.it.html">Editing facilitato</a>    </li>
+  </ul>
+  </li>
+  <li class=""><a name="toc-Download-1" href="download.it.html">Download</a>  </li>
+  <li class=""><a name="toc-Manuali-1" href="manuals.it.html">Manuali</a>  </li>
+  <li class=""><a name="toc-Comunita" href="community.it.html">Comunità</a>  </li>
+<li>
+<!--
+    Translation of GIT committish: 1df9fc42197a6b2931f448cfba717527aead5e5a
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Cerca con Google">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Cerca">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</div>
+</body>
+</html>

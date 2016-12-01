@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+texidocde = "
+Überbindungen können manuell gesetzt werden, indem man die
+@code{tie-configuration}-Eigenschaft des @code{TieColumn}-Objekts
+beeinflusst.  Die erste Zahl zeigt den Abstand von der Mitte in
+Notensystemabständen an, die zweite Zahl zeigt die Richtung an (1 = nach oben,
+-1 = nach unten).
+
+"
+  doctitlede = "Bindebögen manuell setzen"
+
+

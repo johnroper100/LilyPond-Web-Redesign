@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Ganztaktwiederholungen mit mehr als zwei Wiederholungen erhalten einen
+Zähler, wenn man die entsprechende Eigenschaft einsetzt:
+
+"
+  doctitlede = "Prozent-Wiederholungen zählen"

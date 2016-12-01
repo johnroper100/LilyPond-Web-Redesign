@@ -1,0 +1,2700 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Programming work
+@chapter Programming work
+
+@menu
+* Overview of LilyPond architecture::
+* LilyPond programming languages::
+* Programming without compiling::
+* Finding functions::
+* Code style::
+* Warnings Errors Progress and Debug Output::
+* Debugging LilyPond::
+* Tracing object relationships::
+* Adding or modifying features::
+* Iterator tutorial::
+* Engraver tutorial::
+* Callback tutorial::
+* Understanding pure properties::
+* LilyPond scoping::
+* Scheme->C interface::
+* LilyPond miscellany::
+@end menu
+
+@node Overview of LilyPond architecture
+@section Overview of LilyPond architecture
+
+LilyPond processes the input file into graphical and musical output in a
+number of stages.  This process, along with the types of routines that
+accomplish the various stages of the process, is described in this section.  A
+more complete description of the LilyPond architecture and internal program
+execution is found in Erik Sandberg's
+@uref{http://lilypond.org/website/pdf/thesis-erik-sandberg.pdf, master's
+thesis}.
+
+The first stage of LilyPond processing is @emph{parsing}.  In the parsing
+process, music expressions in LilyPond input format are converted to music
+expressions in Scheme format.  In Scheme format, a music expression is a list
+in tree form, with nodes that indicate the relationships between various music
+events.  The LilyPond parser is written in Bison.
+
+The second stage of LilyPond processing is @emph{iterating}.  Iterating
+assigns each music event to a context, which is the environment in which the
+music will be finally engraved.  The context is responsible for all further
+processing of the music.  It is during the iteration stage that contexts are
+created as necessary to ensure that every note has a Voice type context (e.g.
+Voice, TabVoice, DrumVoice, CueVoice, MensuralVoice, VaticanaVoice,
+GregorianTranscriptionVoice), that the Voice type contexts exist in
+appropriate Staff type contexts, and that parallel Staff type contexts exist
+in StaffGroup type contexts.  In addition, during the iteration stage each
+music event is assigned a moment, or a time in the music when the event
+begins.
+
+Each type of music event has an associated iterator.  Iterators are defined in
+@file{*-iterator.cc}.  During iteration, an
+event's iterator is called to deliver that music event to the appropriate
+context(s).
+
+The final stage of LilyPond processing is @emph{translation}.  During
+translation, music events are prepared for graphical or midi output.  The
+translation step is accomplished by the polymorphic base class Translator
+through its two derived classes: Engraver (for graphical output) and
+Performer (for midi output).
+
+Translators are defined in C++ files named @file{*-engraver.cc}
+and @file{*-performer.cc}.
+Much of the work of translating is handled by Scheme functions,
+which is one of the keys to LilyPond's exceptional flexibility.
+
+@sourceimage{architecture-diagram,,,png}
+
+
+@node LilyPond programming languages
+@section LilyPond programming languages
+
+Programming in LilyPond is done in a variety of programming languages.  Each
+language is used for a specific purpose or purposes.  This section describes
+the languages used and provides links to reference manuals and tutorials for
+the relevant language.
+
+@subsection C++
+
+The core functionality of LilyPond is implemented in C++.
+
+C++ is so ubiquitous that it is difficult to identify either a reference
+manual or a tutorial.  Programmers unfamiliar with C++ will need to spend some
+time to learn the language before attempting to modify the C++ code.
+
+The C++ code calls Scheme/GUILE through the GUILE interface, which is
+documented in the
+@uref{http://www.gnu.org/software/guile/manual/html_node/index.html, GUILE
+  Reference Manual}.
+
+@subsection Flex
+
+The LilyPond lexer is implemented in Flex, an implementation of the Unix lex
+lexical analyser generator.  Resources for Flex can be found
+@uref{http://flex.sourceforge.net/, here}.
+
+@subsection GNU Bison
+
+The LilyPond parser is implemented in Bison, a GNU parser generator.  The
+Bison homepage is found at @uref{http://www.gnu.org/software/bison/,
+gnu.org}.  The manual (which includes both a reference and tutorial) is
+@uref{http://www.gnu.org/software/bison/manual/index.html, available} in a
+variety of formats.
+
+@subsection GNU Make
+
+GNU Make is used to control the compiling process and to build the
+documentation and the website.  GNU Make documentation is available at
+@uref{http://www.gnu.org/software/make/manual/, the GNU website}.
+
+@subsection GUILE or Scheme
+
+GUILE is the dialect of Scheme that is used as LilyPond's extension language.
+Many extensions to LilyPond are written entirely in GUILE.  The
+@uref{http://www.gnu.org/software/guile/manual/html_node/index.html,
+GUILE Reference Manual} is available online.
+
+@uref{http://mitpress.mit.edu/sicp/full-text/book/book.html, Structure and
+Interpretation of Computer Programs}, a popular textbook used to teach
+programming in Scheme is available in its entirety online.
+
+An introduction to Guile/Scheme as used in LilyPond can be found in the
+@rextend{Scheme tutorial}.
+
+@subsection MetaFont
+
+MetaFont is used to create the music fonts used by LilyPond.  A MetaFont
+tutorial is available at @uref{http://metafont.tutorial.free.fr/, the
+METAFONT tutorial page}.
+
+@subsection PostScript
+
+PostScript is used to generate graphical output.  A brief PostScript tutorial
+is @uref{http://local.wasp.uwa.edu.au/~pbourke/dataformats/postscript/,
+available online}.  The
+@uref{http://www.adobe.com/products/postscript/pdfs/PLRM.pdf, PostScript Language
+Reference} is available online in PDF format.
+
+@subsection Python
+
+Python is used for XML2ly and is used for building the documentation and the
+website.
+
+Python documentation is available at @uref{http://www.python.org/doc/,
+python.org}.
+
+@node Programming without compiling
+@section Programming without compiling
+
+Much of the development work in LilyPond takes place by changing @file{*.ly} or
+@file{*.scm} files.  These changes can be made without compiling LilyPond.  Such
+changes are described in this section.
+
+
+@subsection Modifying distribution files
+
+Much of LilyPond is written in Scheme or LilyPond input files.  These
+files are interpreted when the program is run, rather than being compiled
+when the program is built, and are present in all LilyPond distributions.
+You will find @file{.ly} files in the @file{ly/} directory and the Scheme files in the
+@file{scm/} directory.  Both Scheme files and @file{.ly} files can be modified and
+saved with any text editor.  It's probably wise to make a backup copy of
+your files before you modify them, although you can reinstall if the
+files become corrupted.
+
+Once you've modified the files, you can test the changes just by running
+LilyPond on some input file.  It's a good idea to create a file that
+demonstrates the feature you're trying to add.  This file will eventually
+become a regression test and will be part of the LilyPond distribution.
+
+@subsection Desired file formatting
+
+Files that are part of the LilyPond distribution have Unix-style line
+endings (LF), rather than DOS (CR+LF) or MacOS 9 and earlier (CR).  Make
+sure you use the necessary tools to ensure that Unix-style line endings are
+preserved in the patches you create.
+
+Tab characters should not be included in files for distribution.  All
+indentation should be done with spaces.  Most editors have settings to
+allow the setting of tab stops and ensuring that no tab characters are
+included in the file.
+
+Scheme files and LilyPond files should be written according to standard
+style guidelines.  Scheme file guidelines can be found at
+@uref{http://community.schemewiki.org/?scheme-style}.  Following these
+guidelines will make your code easier to read.  Both you and others that
+work on your code will be glad you followed these guidelines.
+
+For LilyPond files, you should follow the guidelines for LilyPond snippets
+in the documentation.  You can find these guidelines at
+@ref{Texinfo introduction and usage policy}.
+
+@node Finding functions
+@section Finding functions
+
+When making changes or fixing bugs in LilyPond, one of the initial
+challenges is finding out where in the code tree the functions to
+be modified live.  With nearly 3000 files in the source tree,
+trial-and-error searching is generally ineffective.  This section
+describes a process for finding interesting code.
+
+@subsection Using the ROADMAP
+
+The file ROADMAP is located in the main directory of the lilypond source.
+ROADMAP lists all of the directories in the LilyPond source tree, along
+with a brief description of the kind of files found in each directory.
+This can be a very helpful tool for deciding which directories to search
+when looking for a function.
+
+
+@subsection Using grep to search
+
+Having identified a likely subdirectory to search, the grep utility can
+be used to search for a function name.  The format of the grep command is
+
+@example
+grep -i functionName subdirectory/*
+@end example
+
+This command will search all the contents of the directory subdirectory/
+and display every line in any of the files that contains
+functionName.  The @option{-i} option makes @command{grep} ignore
+case -- this can be very useful if you are not yet familiar with
+our capitalization conventions.
+
+The most likely directories to grep for function names are @file{scm/} for
+scheme files, ly/ for lilypond input (@file{*.ly}) files, and @file{lily/} for C++
+files.
+
+
+@subsection Using git grep to search
+
+If you have used git to obtain the source, you have access to a
+powerful tool to search for functions.  The command:
+
+@example
+git grep functionName
+@end example
+
+will search through all of the files that are present in the git
+repository looking for functionName.  It also presents the results
+of the search using @code{less}, so the results are displayed one page
+at a time.
+
+@subsection Searching on the git repository at Savannah
+
+You can also use the equivalent of git grep on the Savannah server.
+
+@itemize
+
+@item
+Go to http://git.sv.gnu.org/gitweb/?p=lilypond.git
+
+@item
+In the pulldown box that says commit, select grep.
+
+@item
+Type functionName in the search box, and hit enter/return
+
+@end itemize
+
+This will initiate a search of the remote git repository.
+
+
+@node Code style
+@section Code style
+
+This section describes style guidelines for LilyPond
+source code.
+
+@menu
+* Languages::
+* Filenames::
+* Indentation::
+* Naming conventions::
+* Broken code::
+* Code comments::
+* Handling errors::
+* Localization::
+@end menu
+
+
+@node Languages
+@subsection Languages
+
+C++ and Python are preferred.  Python code should use PEP 8.
+
+
+@node Filenames
+@subsection Filenames
+
+Definitions of classes that are only accessed via pointers (*) or
+references (&) shall not be included as include files.
+
+@verbatim
+   filenames
+
+        ".hh"   Include files
+             ".cc"      Implementation files
+             ".icc"     Inline definition files
+             ".tcc"     non inline Template defs
+
+   in emacs:
+
+             (setq auto-mode-alist
+                   (append '(("\\.make$" . makefile-mode)
+                        ("\\.cc$" . c++-mode)
+                        ("\\.icc$" . c++-mode)
+                        ("\\.tcc$" . c++-mode)
+                        ("\\.hh$" . c++-mode)
+                        ("\\.pod$" . text-mode)
+                        )
+                      auto-mode-alist))
+@end verbatim
+
+The class Class_name is coded in @q{class-name.*}
+
+
+@node Indentation
+@subsection Indentation
+
+Standard GNU coding style is used.
+
+@subsubheading Indenting files with @code{fixcc.py} (recommended)
+
+LilyPond provides a python script that will adjust the indentation
+and spacing on a @code{.cc} or @code{.hh} file to very near the
+GNU standard:
+
+@example
+scripts/auxiliar/fixcc.py FILENAME
+@end example
+
+This can be run on all files at once, but this is not recommended
+for normal contributors or developers.
+
+@smallexample
+scripts/auxiliar/fixcc.py \
+  $(find flower lily -name '*cc' -o -name '*hh' | grep -v /out)
+@end smallexample
+
+
+@subsubheading Indenting with emacs
+
+The following hooks will produce indentation which is similar to
+our official indentation as produced with @code{fixcc.py}.
+
+@example
+(add-hook 'c++-mode-hook
+     '(lambda ()
+        (c-set-style "gnu")
+        (setq indent-tabs-mode nil))
+@end example
+
+If you like using font-lock, you can also add this to your
+@file{.emacs}:
+
+@example
+(setq font-lock-maximum-decoration t)
+(setq c++-font-lock-keywords-3
+      (append
+       c++-font-lock-keywords-3
+       '(("\\b\\(a-zA-Z_?+_\\)\\b" 1 font-lock-variable-name-face) ("\\b\\(A-Z?+a-z_?+\\)\\b" 1 font-lock-type-face))
+       ))
+@end example
+
+
+@subsubheading Indenting with vim
+
+Although emacs indentation is the GNU standard, correct
+indentation for C++ files can be achieved by using the settings
+recommended in the
+@url{https://gcc.gnu.org/wiki/FormattingCodeForGCC, GNU GCC Wiki}.
+Save the following in @file{~/.vim/after/ftplugin/cpp.vim}:
+
+@example
+setlocal cindent
+setlocal cinoptions=>4,n-2,@{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
+setlocal shiftwidth=2
+setlocal softtabstop=2
+setlocal textwidth=79
+setlocal fo-=ro fo+=cql
+" use spaces instead of tabs
+setlocal expandtab
+" remove trailing whitespace on write
+autocmd BufWritePre * :%s/\s\+$//e
+@end example
+
+With these settings, files can be reindented automatically by
+highlighting the lines to be indented in visual mode (use V to
+enter visual mode) and pressing @code{=}, or a single line
+correctly indented in normal mode by pressing @code{==}.
+
+A @file{scheme.vim} file will help improve the indentation of
+Scheme code.  This one was suggested by Patrick McCarty.  It
+should be saved in @file{~/.vim/after/syntax/scheme.vim}.
+
+@example
+" Additional Guile-specific 'forms'
+syn keyword schemeSyntax define-public define*-public
+syn keyword schemeSyntax define* lambda* let-keywords*
+syn keyword schemeSyntax defmacro defmacro* define-macro
+syn keyword schemeSyntax defmacro-public defmacro*-public
+syn keyword schemeSyntax use-modules define-module
+syn keyword schemeSyntax define-method define-class
+
+" Additional LilyPond-specific 'forms'
+syn keyword schemeSyntax define-markup-command define-markup-list-command
+syn keyword schemeSyntax define-safe-public define-music-function
+syn keyword schemeSyntax def-grace-function
+
+" All of the above should influence indenting too
+setlocal lw+=define-public,define*-public
+setlocal lw+=define*,lambda*,let-keywords*
+setlocal lw+=defmacro,defmacro*,define-macro
+setlocal lw+=defmacro-public,defmacro*-public
+setlocal lw+=use-modules,define-module
+setlocal lw+=define-method,define-class
+setlocal lw+=define-markup-command,define-markup-list-command
+setlocal lw+=define-safe-public,define-music-function
+setlocal lw+=def-grace-function
+
+" These forms should not influence indenting
+setlocal lw-=if
+setlocal lw-=set!
+
+" Try to highlight all ly: procedures
+syn match schemeFunc "ly:[^) ]\+"
+@end example
+
+For documentation work on texinfo files, identify the file
+extensions used as texinfo files in your @file{.vim/filetype.vim}:
+
+@example
+if exists("did_load_filetypes")
+  finish
+endif
+augroup filetypedetect
+  au! BufRead,BufNewFile *.itely setfiletype texinfo
+  au! BufRead,BufNewFile *.itexi setfiletype texinfo
+  au! BufRead,BufNewFile *.tely  setfiletype texinfo
+augroup END
+@end example
+
+and add these settings in @file{.vim/after/ftplugin/texinfo.vim}:
+
+@example
+setlocal expandtab
+setlocal shiftwidth=2
+setlocal textwidth=66
+@end example
+
+@node Naming conventions
+@subsection Naming Conventions
+
+Naming conventions have been established for LilyPond
+source code.
+
+@subheading Classes and Types
+
+Classes begin with an uppercase letter, and words
+in class names are separated with @code{_}:
+
+@verbatim
+This_is_a_class
+@end verbatim
+
+@subheading Members
+
+Member variable names end with an underscore:
+
+@verbatim
+Type Class::member_
+@end verbatim
+
+@subheading Macros
+
+Macro names should be written in uppercase completely,
+with words separated by @code{_}:
+
+@verbatim
+THIS_IS_A_MACRO
+@end verbatim
+
+@subheading Variables
+
+Variable names should be complete words, rather than abbreviations.
+For example, it is preferred to use @code{thickness} rather than
+@code{th} or @code{t}.
+
+Multi-word variable names in C++ should have the words separated
+by the underscore character (@q{_}):
+
+@verbatim
+cxx_multiword_variable
+@end verbatim
+
+Multi-word variable names in Scheme should have the words separated
+by a hyphen (@q{-}):
+
+@verbatim
+scheme-multiword-variable
+@end verbatim
+
+@node Broken code
+@subsection Broken code
+
+Do not write broken code.  This includes hardwired dependencies,
+hardwired constants, slow algorithms and obvious limitations.  If
+you can not avoid it, mark the place clearly, and add a comment
+explaining shortcomings of the code.
+
+Ideally, the comment marking the shortcoming would include
+TODO, so that it is marked for future fixing.
+
+We reject broken-in-advance on principle.
+
+
+@node Code comments
+@subsection Code comments
+
+Comments may not be needed if descriptive variable names are used
+in the code and the logic is straightforward.  However, if the
+logic is difficult to follow, and particularly if non-obvious
+code has been included to resolve a bug, a comment describing
+the logic and/or the need for the non-obvious code should be included.
+
+There are instances where the current code could be commented better.
+If significant time is required to understand the code as part of
+preparing a patch, it would be wise to add comments reflecting your
+understanding to make future work easier.
+
+
+@node Handling errors
+@subsection Handling errors
+
+As a general rule, you should always try to continue computations,
+even if there is some kind of error.  When the program stops, it
+is often very hard for a user to pinpoint what part of the input
+causes an error.  Finding the culprit is much easier if there is
+some viewable output.
+
+So functions and methods do not return errorcodes, they never
+crash, but report a programming_error and try to carry on.
+
+Error and warning messages need to be localized.
+
+
+@node Localization
+@subsection Localization
+
+This document provides some guidelines to help programmers write
+proper user
+messages.  To help translations, user messages must follow
+uniform conventions.  Follow these rules when coding for LilyPond.
+Hopefully, this can be replaced by general GNU guidelines in the
+future.  Even better would be to have an English (en_BR, en_AM)
+guide helping programmers writing consistent messages for all GNU
+programs.
+
+Non-preferred messages are marked with `+'.  By convention,
+ungrammatical examples are marked with `*'.  However, such ungrammatical
+examples may still be preferred.
+
+@itemize
+
+@item
+Every message to the user should be localized (and thus be marked
+for localization).  This includes warning and error messages.
+
+@item
+Do not localize/gettextify:
+
+@itemize
+@item
+`programming_error ()'s
+
+@item
+`programming_warning ()'s
+
+@item
+debug strings
+
+@item
+output strings (PostScript, TeX, etc.)
+
+@end itemize
+
+@item
+Messages to be localized must be encapsulated in `_ (STRING)' or
+`_f (FORMAT, ...)'. E.g.:
+
+@example
+warning (_ ("need music in a score"));
+error (_f ("cannot open file: `%s'", file_name));
+@end example
+
+In some rare cases you may need to call `gettext ()' by hand.  This
+happens when you pre-define (a list of) string constants for later
+use.  In that case, you'll probably also need to mark these string
+constants for translation, using `_i (STRING)'.  The `_i' macro is
+a no-op, it only serves as a marker for `xgettext'.
+
+@example
+char const* messages[] = @{
+  _i ("enable debugging output"),
+  _i ("ignore lilypond version"),
+  0
+@};
+
+void
+foo (int i)
+@{
+  puts (gettext (messages i));
+@}
+@end example
+
+See also @file{flower/getopt-long.cc} and @file{lily/main.cc}.
+
+@item
+Do not use leading or trailing whitespace in messages.  If you need
+whitespace to be printed, prepend or append it to the translated
+message
+
+@example
+message ("Calculating line breaks..." + " ");
+@end example
+
+@item
+Error or warning messages displayed with a file name and line
+number never start with a capital, eg,
+
+@example
+foo.ly: 12: not a duration: 3
+@end example
+
+Messages containing a final verb, or a gerund (`-ing'-form) always
+start with a capital.  Other (simpler) messages start with a
+lowercase letter
+
+@example
+Processing foo.ly...
+`foo': not declared.
+Not declaring: `foo'.
+@end example
+
+@item
+Avoid abbreviations or short forms, use `cannot' and `do not'
+rather than `can't' or `don't'
+To avoid having a number of different messages for the same
+situation, well will use quoting like this `"message: `%s'"' for all
+strings.  Numbers are not quoted:
+
+@example
+_f ("cannot open file: `%s'", name_str)
+_f ("cannot find character number: %d", i)
+@end example
+
+@item
+Think about translation issues.  In a lot of cases, it is better to
+translate a whole message.  English grammar must not be imposed on the
+translator.  So, instead of
+
+@example
+stem at  + moment.str () +  does not fit in beam
+@end example
+
+have
+
+@example
+_f ("stem at %s does not fit in beam", moment.str ())
+@end example
+
+@item
+Split up multi-sentence messages, whenever possible.  Instead of
+
+@example
+warning (_f ("out of tune!  Can't find: `%s'", "Key_engraver"));
+warning (_f ("cannot find font `%s', loading default", font_name));
+@end example
+
+rather say:
+
+@example
+warning (_ ("out of tune:"));
+warning (_f ("cannot find: `%s', "Key_engraver"));
+warning (_f ("cannot find font: `%s', font_name));
+warning (_f ("Loading default font"));
+@end example
+
+@item
+If you must have multiple-sentence messages, use full punctuation.
+Use two spaces after end of sentence punctuation.  No punctuation
+(esp. period) is used at the end of simple messages.
+
+@example
+_f ("Non-matching braces in text `%s', adding braces", text)
+_ ("Debug output disabled.  Compiled with NPRINT.")
+_f ("Huh?  Not a Request: `%s'.  Ignoring.", request)
+@end example
+
+@item
+Do not modularize too much; words frequently cannot be translated
+without context.  It is probably safe to treat most occurrences of
+words like stem, beam, crescendo as separately translatable words.
+
+@item
+When translating, it is preferable to put interesting information
+at the end of the message, rather than embedded in the middle.
+This especially applies to frequently used messages, even if this
+would mean sacrificing a bit of eloquence.  This holds for original
+messages too, of course.
+
+@example
+en: cannot open: `foo.ly'
++   nl: kan `foo.ly' niet openen (1)
+kan niet openen: `foo.ly'*   (2)
+niet te openen: `foo.ly'*    (3)
+@end example
+
+
+The first nl message, although grammatically and stylistically
+correct, is not friendly for parsing by humans (even if they speak
+dutch).  I guess we would prefer something like (2) or (3).
+
+@item
+Do not run make po/po-update with GNU gettext < 0.10.35
+
+@end itemize
+
+
+@node Warnings Errors Progress and Debug Output
+@section Warnings, Errors, Progress and Debug Output
+
+@unnumberedsubsec Available log levels
+
+LilyPond has several loglevels, which specify how verbose the output on
+the console should be:
+@itemize
+@item NONE: No output at all, even on failure
+@item ERROR: Only error messages
+@item WARN: Only error messages and warnings
+@item BASIC_PROGRESS: Warnings, errors and basic progress (success, etc.)
+@item PROGRESS: Warnings, errors and full progress messages
+@item INFO: Warnings, errors, progress and more detailed information (default)
+@item DEBUG: All messages, including full debug messages (very verbose!)
+@end itemize
+
+The loglevel can either be set with the environment variable
+@code{LILYPOND_LOGLEVEL} or on the command line with the @option{--loglevel=...}
+option.
+
+@unnumberedsubsec Functions for debug and log output
+
+LilyPond has two different types of error and log functions:
+@itemize 
+
+@item
+If a warning or error is caused by an identified position in the input file,
+e.g. by a grob or by a music expression, the functions of the @code{Input}
+class provide logging functionality that prints the position of the message
+in addition to the message.
+
+@item
+If a message can not be associated with a particular position in an input file,
+e.g. the output file cannot be written, then the functions in the 
+@code{flower/include/warn.hh} file will provide logging functionality that 
+only prints out the message, but no location.
+
+@end itemize
+
+There are also Scheme functions to access all of these logging functions from
+scheme.  In addition, the Grob class contains some convenience wrappers for
+even easier access to these functions.
+
+The message and debug functions in @code{warn.hh} also have an optional 
+argument @code{newline}, which specifies whether the message should always
+start on a new line or continue a previous message.
+By default, @code{progress_indication} does NOT start on a new line, but rather
+continue the previous output.  They also do not have a particular input
+position associated, so there are no progress functions in the Input class.
+All other functions by default start their output on a new line.
+
+The error functions come in three different flavors: fatal error messages,
+programming error messages and normal error messages.  Errors written
+by the @code{error ()} function will cause LilyPond to exit immediately,
+errors by @code{Input::error ()} will continue the compilation, but
+return a non-zero return value of the LilyPond call (i.e. indicate an
+unsuccessful program execution).  All other errors will be printed on the
+console, but not exit LilyPond or indicate an unsuccessful return code.
+Their only differences to a warnings are the displayed text and that
+they will be shown with loglevel @code{ERROR}.
+
+If the Scheme option @code{warning-as-error} is set, any warning will be
+treated as if @code{Input::error} was called.
+
+
+@unnumberedsubsec All logging functions at a glance
+
+@multitable @columnfractions 0.16 0.42 0.42
+@headitem
+@tab C++, no location
+@tab C++ from input location
+
+@item ERROR
+@tab @code{error ()}, @code{programming_error (msg)}, @code{non_fatal_error (msg)}
+@tab @code{Input::error (msg)}, @code{Input::programming_error (msg)}
+
+@item WARN
+@tab @code{warning (msg)}
+@tab @code{Input::warning (msg)}
+
+@item BASIC
+@tab @code{basic_progress (msg)}
+@tab -
+
+@item PROGRESS
+@tab @code{progress_indication (msg)}
+@tab -
+
+@item INFO
+@tab @code{message (msg)}
+@tab @code{Input::message (msg)}
+
+@item DEBUG
+@tab @code{debug_output (msg)}
+@tab @code{Input::debug_output (msg)}
+
+@item @tab @tab
+
+@headitem
+@tab C++ from a Grob
+@tab Scheme, music expression
+
+@item ERROR
+@tab @code{Grob::programming_error (msg)}
+@tab -
+
+@item WARN
+@tab @code{Grob::warning (msg)}
+@tab @code{(ly:music-warning music msg)}
+
+@item BASIC
+@tab -
+@tab -
+
+@item PROGRESS
+@tab -
+@tab -
+
+@item INFO
+@tab -
+@tab @code{(ly:music-message music msg)}
+
+@item DEBUG
+@tab -
+@tab -
+
+@item @tab @tab
+
+@headitem
+@tab Scheme, no location
+@tab Scheme, input location
+
+@item ERROR
+@tab -
+@tab @code{(ly:error msg args)}, @code{(ly:programming-error msg args)}
+
+@item WARN
+@tab @code{(ly:warning msg args)}
+@tab @code{(ly:input-warning input msg args)}
+
+@item BASIC
+@tab @code{(ly:basic-progress msg args)}
+@tab -
+
+@item PROGRESS
+@tab @code{(ly:progress msg args)}
+@tab -
+
+@item INFO
+@tab @code{(ly:message msg args)}
+@tab @code{(ly:input-message input msg args)}
+
+@item DEBUG
+@tab @code{(ly:debug msg args)}
+@tab -
+
+@end multitable
+
+
+
+
+@node Debugging LilyPond
+@section Debugging LilyPond
+
+The most commonly used tool for debugging LilyPond is the GNU
+debugger gdb.  The gdb tool is used for investigating and debugging
+core LilyPond code written in C++.  Another tool is available for
+debugging Scheme code using the Guile debugger.  This section
+describes how to use both gdb and the Guile Debugger.
+
+@menu
+* Debugging overview::
+* Debugging C++ code::
+* Debugging Scheme code::
+@end menu
+
+@node Debugging overview
+@subsection Debugging overview
+
+Using a debugger simplifies troubleshooting in at least two ways.
+
+First, breakpoints can be set to pause execution at any desired point.
+Then, when execution has paused, debugger commands can be issued to
+explore the values of various variables or to execute functions.
+
+Second, the debugger can display a stack trace, which shows the
+sequence in which functions have been called and the arguments
+passed to the called functions.
+
+@node Debugging C++ code
+@subsection Debugging C++ code
+
+The GNU debugger, gdb, is the principal tool for debugging C++ code.
+
+@subheading Compiling LilyPond for use with gdb
+
+In order to use gdb with LilyPond, it is necessary to compile
+LilyPond with debugging information.  This is the current default
+mode of compilation.  Often debugging becomes more complicated
+when the compiler has optimised variables and function calls away.
+In that case it may be helpful to run the following command in the
+main LilyPond source directory:
+
+@example
+./configure --disable-optimising
+make
+@end example
+
+This will create a version of LilyPond with minimal optimization
+which will allow the debugger to access all variables and step
+through the source code in-order.  It may not accurately reproduce
+bugs encountered with the optimized version, however.
+
+You should not do @var{make install} if you want to use a debugger
+with LilyPond.  The @var{make install} command will strip debugging
+information from the LilyPond binary.
+
+@subheading Typical gdb usage
+
+Once you have compiled the LilyPond image with the necessary
+debugging information it will have been written to a location in a
+subfolder of your current working directory:
+
+@example
+out/bin/lilypond
+@end example
+
+This is important as you will need to let gdb know where to find the
+image containing the symbol tables.  You can invoke gdb from the
+command line using the following:
+
+@example
+gdb out/bin/lilypond
+@end example
+@noindent
+This loads the LilyPond symbol tables into gdb.  Then, to run
+LilyPond on @file{test.ly} under the debugger, enter the following:
+
+@example
+run test.ly
+@end example
+
+@noindent
+at the gdb prompt.
+
+As an alternative to running gdb at the command line you may try
+a graphical interface to gdb such as ddd:
+
+@example
+ddd out/bin/lilypond
+@end example
+
+You can also use sets of standard gdb commands stored in a .gdbinit
+file (see next section).
+
+@subheading Typical .gdbinit files
+
+The behavior of gdb can be readily customized through the use of a
+@var{.gdbinit} file.  A @var{.gdbinit} file is a file named
+@var{.gdbinit} (notice the @qq{.} at the beginning of the file name)
+that is placed in a user's home directory.
+
+The @var{.gdbinit} file below is from Han-Wen.  It sets breakpoints
+for all errors and defines functions for displaying scheme objects
+(ps), grobs (pgrob), and parsed music expressions (pmusic).
+
+@example
+file $LILYPOND_GIT/build/out/bin/lilypond
+b programming_error
+b Grob::programming_error
+
+define ps
+   print ly_display_scm($arg0)
+end
+define pgrob
+  print ly_display_scm($arg0->self_scm_)
+  print ly_display_scm($arg0->mutable_property_alist_)
+  print ly_display_scm($arg0->immutable_property_alist_)
+  print ly_display_scm($arg0->object_alist_)
+end
+define pmusic
+  print ly_display_scm($arg0->self_scm_)
+  print ly_display_scm($arg0->mutable_property_alist_)
+  print ly_display_scm($arg0->immutable_property_alist_)
+end
+@end example
+
+@node Debugging Scheme code
+@subsection Debugging Scheme code
+
+Scheme code can be developed using the Guile command line
+interpreter @code{top-repl}.  You can either investigate
+interactively using just Guile or you can use the debugging
+tools available within Guile.
+
+@subheading Using Guile interactively with LilyPond
+
+In order to experiment with Scheme programming in the LilyPond
+environment, it is necessary to have a Guile interpreter that
+has all the LilyPond modules loaded.  This requires the following
+steps.
+
+First, define a Scheme symbol for the active module in the @file{.ly} file:
+
+@example
+#(module-define! (resolve-module '(guile-user))
+                 'lilypond-module (current-module))
+@end example
+
+Now place a Scheme function in the @file{.ly} file that gives an
+interactive Guile prompt:
+
+@example
+#(top-repl)
+@end example
+
+When the @file{.ly} file is compiled, this causes the compilation to be
+interrupted and an interactive guile prompt to appear.  Once the
+guile prompt appears, the LilyPond active module must be set as the
+current guile module:
+
+@example
+guile> (set-current-module lilypond-module)
+@end example
+
+You can demonstrate these commands are operating properly by typing the name
+of a LilyPond public scheme function to check it has been defined:
+
+@example
+guile> fret-diagram-verbose-markup
+#<procedure fret-diagram-verbose-markup (layout props marking-list)>
+@end example
+
+If the LilyPond module has not been correctly loaded, an error
+message will be generated:
+
+@example
+guile> fret-diagram-verbose-markup
+ERROR: Unbound variable: fret-diagram-verbose-markup
+ABORT: (unbound-variable)
+@end example
+
+Once the module is properly loaded, any valid LilyPond Scheme
+expression can be entered at the interactive prompt.
+
+After the investigation is complete, the interactive guile
+interpreter can be exited:
+
+@example
+guile> (quit)
+@end example
+
+The compilation of the @file{.ly} file will then continue.
+
+@subheading Using the Guile debugger
+
+To set breakpoints and/or enable tracing in Scheme functions, put
+
+@example
+\include "guile-debugger.ly"
+@end example
+
+in your input file after any scheme procedures you have defined in
+that file.  This will invoke the Guile command-line after having set
+up the environment for the debug command-line.  When your input file
+is processed, a guile prompt will be displayed.  You may now enter
+commands to set up breakpoints and enable tracing by the Guile debugger.
+
+@subheading Using breakpoints
+
+At the guile prompt, you can set breakpoints with
+the @code{set-break!} procedure:
+
+@example
+guile> (set-break! my-scheme-procedure)
+@end example
+
+Once you have set the desired breakpoints, you exit the guile repl frame
+by typing:
+
+@example
+guile> (quit)
+@end example
+
+Then, when one of the scheme routines for which you have set
+breakpoints is entered, guile will interrupt execution in a debug
+frame.  At this point you will have access to Guile debugging
+commands.  For a listing of these commands, type:
+
+@example
+debug> help
+@end example
+
+Alternatively you may code the breakpoints in your LilyPond source
+file using a command such as:
+
+@example
+#(set-break! my-scheme-procedure)
+@end example
+
+immediately after the @code{\include} statement.  In this case the
+breakpoint will be set straight after you enter the @code{(quit)}
+command at the guile prompt.
+
+Embedding breakpoint commands like this is particularly useful if
+you want to look at how the Scheme procedures in the @file{.scm}
+files supplied with LilyPond work.  To do this, edit the file in
+the relevant directory to add this line near the top:
+
+@example
+(use-modules (scm guile-debugger))
+@end example
+
+Now you can set a breakpoint after the procedure you are interested
+in has been declared.  For example, if you are working on routines
+called by @var{print-book-with} in @file{lily-library.scm}:
+
+@example
+(define (print-book-with book process-procedure)
+  (let* ((paper (ly:parser-lookup '$defaultpaper))
+         (layout (ly:parser-lookup '$defaultlayout))
+         (outfile-name (get-outfile-name book)))
+    (process-procedure book paper layout outfile-name)))
+
+(define-public (print-book-with-defaults book)
+  (print-book-with book ly:book-process))
+
+(define-public (print-book-with-defaults-as-systems book)
+  (print-book-with book ly:book-process-to-systems))
+@end example
+
+At this point in the code you could add this to set a breakpoint at
+print-book-with:
+
+@example
+(set-break! print-book-with)
+@end example
+
+@subheading Tracing procedure calls and evaluator steps
+
+Two forms of trace are available:
+
+@example
+(set-trace-call! my-scheme-procedure)
+@end example
+
+and
+
+@example
+(set-trace-subtree! my-scheme-procedure)
+@end example
+
+@code{set-trace-call!} causes Scheme to log a line to the standard
+output to show when the procedure is called and when it exits.
+
+@code{set-trace-subtree!} traces every step the Scheme evaluator
+performs in evaluating the procedure.
+
+@node Tracing object relationships
+@section Tracing object relationships
+
+Understanding the LilyPond source often boils down to figuring out what
+is happening to the Grobs.  Where (and why) are they being created,
+modified and destroyed? Tracing Lily through a debugger in order to
+identify these relationships can be time-consuming and tedious.
+
+In order to simplify this process, a facility has been added to
+display the grobs that are created and the properties that are set
+and modified.  Although it can be complex to get set up, once set up
+it easily provides detailed information about the life of grobs
+in the form of a network graph.
+
+Each of the steps necessary to use the graphviz utility
+is described below.
+
+@enumerate
+
+@item Installing graphviz
+
+In order to create the graph of the object relationships, it is
+first necessary to install Graphviz.  Graphviz is available for a
+number of different platforms:
+
+@example
+@uref{http://www.graphviz.org/Download..php}
+@end example
+
+@item Modifying config.make
+
+In order for the Graphviz tool to work, config.make must be modified.
+It is probably a good idea to first save a copy of config.make under
+a different name.
+
+In order to have the required functionality available, LilyPond
+needs to be compiled with the option @option{-DDEBUG}.  You can
+achieve this by configuring with
+
+@example
+./configure --enable-checking
+@end example
+
+@item Rebuilding LilyPond
+
+The executable code of LilyPond must be rebuilt from scratch:
+
+@example
+make clean && make
+@end example
+
+@item Create a graphviz-compatible @file{.ly} file
+
+In order to use the graphviz utility, the @file{.ly} file must include
+@file{ly/graphviz-init.ly}, and should then specify the
+grobs and symbols that should be tracked.  An example of this
+is found in @file{input/regression/graphviz.ly}.
+
+@item Run LilyPond with output sent to a log file
+
+The Graphviz data is sent to stderr by LilyPond, so it is
+necessary to redirect stderr to a logfile:
+
+@example
+lilypond graphviz.ly 2> graphviz.log
+@end example
+
+@item Edit the logfile
+
+The logfile has standard LilyPond output, as well as the Graphviz
+output data.  Delete everything from the beginning of the file
+up to but not including the first occurrence of @code{digraph}.
+
+Also, delete the final LilyPond message about success from the end
+of the file.
+
+@item Process the logfile with @code{dot}
+
+The directed graph is created from the log file with the program
+@code{dot}:
+
+@example
+dot -Tpdf graphviz.log > graphviz.pdf
+@end example
+
+@end enumerate
+
+The pdf file can then be viewed with any pdf viewer.
+
+When compiled with @option{-DDEBUG}, LilyPond may run slower
+than normal.  The original configuration can be restored by rerunning
+@code{./configure} with @option{--disable-checking}.  Then
+rebuild LilyPond with
+
+@example
+make clean && make
+@end example
+
+
+@node Adding or modifying features
+@section Adding or modifying features
+
+When a new feature is to be added to LilyPond, it is necessary to
+ensure that the feature is properly integrated to maintain
+its long-term support.  This section describes the steps necessary
+for feature addition and modification.
+
+
+@menu
+* Write the code::
+* Write regression tests::
+* Write convert-ly rule::
+* Automatically update documentation::
+* Manually update documentation::
+* Edit changes.tely::
+* Verify successful build::
+* Verify regression tests::
+* Post patch for comments::
+* Push patch::
+* Closing the issues::
+@end menu
+
+@node Write the code
+@subsection Write the code
+
+You should probably create a new git branch for writing the code, as that
+will separate it from the master branch and allow you to continue
+to work on small projects related to master.
+
+Please be sure to follow the rules for programming style discussed
+earlier in this chapter.
+
+
+@node Write regression tests
+@subsection Write regression tests
+
+In order to demonstrate that the code works properly, you will
+need to write one or more regression tests.  These tests are
+typically @file{.ly} files that are found in @file{input/regression}.
+
+Regression tests should be as brief as possible to demonstrate the
+functionality of the code.
+
+Regression tests should generally cover one issue per test.  Several
+short, single-issue regression tests are preferred to a single, long,
+multiple-issue regression test.
+
+If the change in the output is small or easy to overlook, use bigger
+staff size -- 40 or more (up to 100 in extreme cases).  Size 30 means
+"pay extra attention to details in general".
+
+Use existing regression tests as templates to demonstrate the type of
+header information that should be included in a regression test.
+
+
+@node Write convert-ly rule
+@subsection Write convert-ly rule
+
+If the modification changes the input syntax, a convert-ly rule
+should be written to automatically update input files from older
+versions.
+
+convert-ly rules are found in python/convertrules.py
+
+If possible, the convert-ly rule should allow automatic updating
+of the file.  In some cases, this will not be possible, so the
+rule will simply point out to the user that the feature needs
+manual correction.
+
+@subsubheading Updating version numbers
+
+If a development release occurs between you writing your patch and
+having it approved+pushed, you will need to update the version
+numbers in your tree.  This can be done with:
+
+@example
+scripts/auxiliar/update-patch-version old.version.number new.version.number
+@end example
+
+It will change all files in git, so use with caution and examine
+the resulting diff.
+
+
+@node Automatically update documentation
+@subsection Automatically update documentation
+
+@command{convert-ly} should be used to update the documentation,
+the snippets, and the regression tests.  This not only makes the
+necessary syntax changes, it also tests the @command{convert-ly}
+rules.
+
+The automatic updating is performed by moving to the top-level
+source directory, then running:
+
+@example
+scripts/auxiliar/update-with-convert-ly.sh
+@end example
+
+If you did an out-of-tree build, pass in the relative path:
+
+@example
+LILYPOND_BUILD_DIR=../build-lilypond/ scripts/auxiliar/update-with-convert-ly.sh
+@end example
+
+
+@node Manually update documentation
+@subsection Manually update documentation
+
+Where the convert-ly rule is not able to automatically update the inline
+LilyPond code in the documentation (i.e. if a NOT_SMART rule is used), the
+documentation must be manually updated.  The inline snippets that require
+changing must be changed in the English version of the docs and all
+translated versions.  If the inline code is not changed in the
+translated documentation, the old snippets will show up in the
+English version of the documentation.
+
+Where the convert-ly rule is not able to automatically update snippets
+in Documentation/snippets/, those snippets must be manually updated.
+Those snippets should be copied to Documentation/snippets/new.  The
+comments at the top of the snippet describing its automatic generation
+should be removed.  All translated texidoc strings should be removed.
+The comment @qq{% begin verbatim} should be removed.  The syntax of
+the snippet should then be manually edited.
+
+Where snippets in Documentation/snippets are made obsolete, the snippet
+should be copied to Documentation/snippets/new.  The comments and
+texidoc strings should be removed as described above.  Then the body
+of the snippet should be changed to:
+
+@example
+\markup @{
+  This snippet is deprecated as of version X.Y.Z and
+  will be removed from the documentation.
+@}
+@end example
+
+@noindent
+where X.Y.Z is the version number for which the convert-ly rule was
+written.
+
+Update the snippet files by running:
+
+@example
+scripts/auxiliar/makelsr.py
+@end example
+
+Where the convert-ly rule is not able to automatically update regression
+tests, the regression tests in input/regression should be manually
+edited.
+
+Although it is not required, it is helpful if the developer
+can write relevant material for inclusion in the Notation
+Reference.  If the developer does not feel qualified to write
+the documentation, a documentation editor will be able to
+write it from the regression tests.  In this case the developer
+should raise a new issue with the Type=Documentation tag containing
+a reference to the original issue number and/or the committish of
+the pushed patch so that the need for new documention is not
+overlooked.
+
+Any text that is added to or removed from the documentation should
+be changed only in the English version.
+
+
+@node Edit changes.tely
+@subsection Edit changes.tely
+
+An entry should be added to Documentation/changes.tely to describe
+the feature changes to be implemented.  This is especially important
+for changes that change input file syntax.
+
+Hints for changes.tely entries are given at the top of the file.
+
+New entries in changes.tely go at the top of the file.
+
+The changes.tely entry should be written to show how the new change
+improves LilyPond, if possible.
+
+
+@node Verify successful build
+@subsection Verify successful build
+
+When the changes have been made, successful completion must be
+verified by doing
+
+@example
+make all
+make doc
+@end example
+
+When these commands complete without error, the patch is
+considered to function successfully.
+
+Developers on Windows who are unable to build LilyPond should
+get help from a GNU/Linux or OSX developer to do the make tests.
+
+
+@node Verify regression tests
+@subsection Verify regression tests
+
+In order to avoid breaking LilyPond, it is important to verify that
+the regression tests succeed, and that no unwanted changes are
+introduced into the output.  This process is described in
+@ref{Regtest comparison}.
+
+@subheading Typical developer's edit/compile/test cycle
+
+@itemize
+@item
+Initial test:
+
+@example
+make [-j@var{X}]
+make [-j@var{X} CPU_COUNT=@var{X}] test-baseline
+make [-j@var{X} CPU_COUNT=@var{X}] check
+@end example
+
+@item
+Edit/compile/test cycle:
+
+@example
+@emph{## edit source files, then...}
+
+make clean                       @emph{## only if needed (see below)}
+make [-j@var{X}]                       @emph{## only if needed (see below)}
+make [-j@var{X} CPU_COUNT=@var{X}] test-redo @emph{## redo files differing from baseline}
+make [-j@var{X} CPU_COUNT=@var{X}] check
+@end example
+
+@item
+Reset:
+
+@example
+make test-clean
+@end example
+@end itemize
+
+If you modify any source files that have to be compiled (such as
+@file{.cc} or @file{.hh} files in @file{flower/} or @file{lily/}),
+then you must run @command{make} before @command{make test-redo},
+so @command{make} can compile the modified files and relink all
+the object files.  If you only modify files which are interpreted,
+like those in the @file{scm/} and @file{ly/} directories, then
+@command{make} is not needed before @command{make test-redo}.
+
+Also, if you modify any font definitions in the @file{mf/}
+directory then you must run @command{make clean} and
+@command{make} before running @command{make test-redo}.  This will
+recompile everything, whether modified or not, and takes a lot
+longer.
+
+Running @command{make@tie{}check} will leave an HTML page
+@file{out/test-results/index.html}.  This page shows all the
+important differences that your change introduced, whether in the
+layout, MIDI, performance or error reporting.
+
+You only need to use @command{make test-clean} to start from
+scratch, prior to running @command{make@tie{}test-baseline}. To
+check new modifications, all that is needed is to repeat
+@command{make@tie{}test-redo} and @command{make@tie{}test-check}
+(not forgetting @command{make} if needed).
+
+
+
+
+@node Post patch for comments
+@subsection Post patch for comments
+
+See @ref{Uploading a patch for review}.
+
+
+@node Push patch
+@subsection Push patch
+
+Once all the comments have been addressed, the patch can be pushed.
+
+If the author has push privileges, the author will push the patch.
+Otherwise, a developer with push privileges will push the patch.
+
+
+@node Closing the issues
+@subsection Closing the issues
+
+Once the patch has been pushed, all the relevant issues should be
+closed.
+
+On Rietveld, the author should log in and close the issue either by
+using the @q{Edit Issue} link, or by clicking the circled x icon
+to the left of the issue name.
+
+If the changes were in response to a feature request on the Google
+issue tracker for LilyPond, the author should change the status to
+Fixed and a tag @q{fixed_x_y_z} should be added, where the patch was
+fixed in version x.y.z.  If
+the author does not have privileges to change the status, an email
+should be sent to bug-lilypond requesting the BugMeister to change
+the status.
+
+
+@node Iterator tutorial
+@section Iterator tutorial
+
+TODO -- this is a placeholder for a tutorial on iterators
+
+Iterators are routines written in C++ that process music expressions
+and sent the music events to the appropriate engravers and/or
+performers.
+
+See a short example discussing iterators and their duties in
+@ref{Articulations on EventChord}.
+
+
+@node Engraver tutorial
+@section Engraver tutorial
+
+Engravers are C++ classes that catch music events and
+create the appropriate grobs for display on the page.  Though the
+majority of engravers are responsible for the creation of a single grob,
+in some cases (e.g. @code{New_fingering_engraver}), several different grobs
+may be created.
+
+Engravers listen for events and acknowledge grobs.  Events are passed to
+the engraver in time-step order during the iteration phase.  Grobs are
+made available to the engraver when they are created by other engravers
+during the iteration phase.
+
+
+@menu
+* Useful methods for information processing::
+* Translation process::
+* Preventing garbage collection for SCM member variables::
+* Listening to music events::
+* Acknowledging grobs::
+* Engraver declaration/documentation::
+@end menu
+
+@node Useful methods for information processing
+@subsection Useful methods for information processing
+
+An engraver inherits the following public methods from the Translator
+base class, which can be used to process listened events and acknowledged
+grobs:
+
+@itemize
+@item @code{virtual void initialize ()}
+@item @code{void start_translation_timestep ()}
+@item @code{void process_music ()}
+@item @code{void process_acknowledged ()}
+@item @code{void stop_translation_timestep ()}
+@item @code{virtual void finalize ()}
+@end itemize
+
+These methods are listed in order of translation time, with
+@code{initialize ()} and @code{finalize ()} bookending the whole
+process.  @code{initialize ()} can be used for one-time initialization
+of context properties before translation starts, whereas
+@code{finalize ()} is often used to tie up loose ends at the end of
+translation: for example, an unterminated spanner might be completed
+automatically or reported with a warning message.
+
+
+@node Translation process
+@subsection Translation process
+
+At each timestep in the music, translation proceeds by calling the
+following methods in turn:
+
+@code{start_translation_timestep ()} is called before any user
+information enters the translators, i.e., no property operations
+(\set, \override, etc.) or events have been processed yet.
+
+@code{process_music ()} and @code{process_acknowledged ()} are called
+after all events in the current time step have been heard, or all
+grobs in the current time step have been acknowledged.  The latter
+tends to be used exclusively with engravers which only acknowledge
+grobs, whereas the former is the default method for main processing
+within engravers.
+
+@code{stop_translation_timestep ()} is called after all user
+information has been processed prior to beginning the translation for
+the next timestep.
+
+
+@node Preventing garbage collection for SCM member variables
+@subsection Preventing garbage collection for SCM member variables
+
+In certain cases, an engraver might need to ensure private Scheme
+variables (with type SCM) do not get swept away by Guile's garbage
+collector: for example, a cache of the previous key signature which
+must persist between timesteps.  The method
+@code{virtual derived_mark () const} can be used in such cases:
+
+@example
+Engraver_name::derived_mark ()
+@{
+  scm_gc_mark (private_scm_member_)
+@}
+@end example
+
+
+@node Listening to music events
+@subsection Listening to music events
+
+External interfaces to the engraver are implemented by protected
+macros including one or more of the following:
+
+@itemize
+@item @code{DECLARE_TRANSLATOR_LISTENER (event_name)}
+@item @code{IMPLEMENT_TRANSLATOR_LISTENER (Engraver_name, event_name)}
+@end itemize
+
+@noindent
+where @var{event_name} is the type of event required to provide the
+input the engraver needs and @var{Engraver_name} is the name of the
+engraver.
+
+Following declaration of a listener, the method is implemented as follows:
+
+@example
+IMPLEMENT_TRANSLATOR_LISTENER (Engraver_name, event_name)
+void
+Engraver_name::listen_event_name (Stream event *event)
+@{
+  ...body of listener method...
+@}
+@end example
+
+
+@node Acknowledging grobs
+@subsection Acknowledging grobs
+
+Some engravers also need information from grobs as they are created
+and as they terminate.  The mechanism and methods to obtain this
+information are set up by the macros:
+
+@itemize
+@item @code{DECLARE_ACKNOWLEDGER (grob_interface)}
+@item @code{DECLARE_END_ACKNOWLEDGER (grob_interface)}
+@end itemize
+
+where @var{grob_interface} is an interface supported by the
+grob(s) which should be acknowledged.  For example, the following
+code would declare acknowledgers for a @code{NoteHead} grob (via the
+@code{note-head-interface}) and any grobs which support the
+@code{side-position-interface}:
+
+@example
+DECLARE_ACKNOWLEDGER (note_head)
+DECLARE_ACKNOWLEDGER (side_position)
+@end example
+
+The @code{DECLARE_END_ACKNOWLEDGER ()} macro sets up a spanner-specific
+acknowledger which will be called whenever a spanner ends.
+
+Following declaration of an acknowledger, the method is coded as follows:
+
+@example
+void
+Engraver_name::acknowledge_interface_name (Grob_info info)
+@{
+  ...body of acknowledger method...
+@}
+@end example
+
+Acknowledge functions are called in the order engravers are
+@code{\consist}-ed (the only exception is if you set
+@code{must-be-last} to @code{#t}).
+
+There will always be a call to @code{process-acknowledged ()} whenever
+grobs have been created, and @emph{reading} stuff from grobs should be
+delayed until then since other acknowledgers might @emph{write} stuff
+into a grob even after your acknowledger has been called.  So the basic
+workflow is to use the various acknowledgers to @emph{record} the grobs
+you are interested in and @emph{write} stuff into them (or do read/write
+stuff that more or less is accumulative and/or really unrelated to other
+engravers), and then use the @code{process-acknowledged ()} hook for
+processing (including @emph{reading}) the grobs you had recorded.
+
+You can create new grobs in @code{process-acknowledged ()}.  That will lead
+to a new cycle of @code{acknowledger ()} calls followed by a new cycle of
+@code{process-acknowledged ()} calls.
+
+Only when all those cycles are over is @code{stop-translator-timestep ()}
+called, and then creating grobs is no longer an option.  You can still
+@q{process} parts of the grob there (if that means just reading out
+properties and possibly setting context properties based on them) but
+@code{stop-translation-timestep ()} is a cleanup hook, and other engravers
+might have already cleaned up stuff you might have wanted to use.
+Creating grobs in there is not possible since engravers and other code may
+no longer be in a state where they could process them, possibly causing
+a crash.
+
+
+@node Engraver declaration/documentation
+@subsection Engraver declaration/documentation
+
+An engraver must have a public macro
+
+@itemize
+@item @code{TRANSLATOR_DECLARATIONS (Engraver_name)}
+@end itemize
+
+@noindent
+where @code{Engraver_name} is the name of the engraver.  This
+defines the common variables and methods used by every engraver.
+
+At the end of the engraver file, one or both of the following
+macros are generally called to document the engraver in the
+Internals Reference:
+
+@itemize
+@item @code{ADD_ACKNOWLEDGER (Engraver_name, grob_interface)}
+@item @code{ADD_TRANSLATOR (Engraver_name, Engraver_doc,
+    Engraver_creates, Engraver_reads, Engraver_writes)}
+@end itemize
+
+@noindent
+where @code{Engraver_name} is the name of the engraver, @code{grob_interface}
+is the name of the interface that will be acknowledged,
+@code{Engraver_doc} is a docstring for the engraver,
+@code{Engraver_creates} is the set of grobs created by the engraver,
+@code{Engraver_reads} is the set of properties read by the engraver,
+and @code{Engraver_writes} is the set of properties written by
+the engraver.
+
+The @code{ADD_ACKNOWLEDGER} and @code{ADD_TRANSLATOR} macros use a
+non-standard indentation system.  Each interface, grob, read property,
+and write property is on its own line, and the closing parenthesis
+and semicolon for the macro all occupy a separate line beneath the final
+interface or write property.  See existing engraver files for more
+information.
+
+
+@node Callback tutorial
+@section Callback tutorial
+
+TODO -- This is a placeholder for a tutorial on callback functions.
+
+
+@node Understanding pure properties
+@section Understanding pure properties
+
+@menu
+* Purity in LilyPond::
+* Writing a pure function::
+* How purity is defined and stored::
+* Where purity is used::
+* Case studies::
+* Debugging tips::
+@end menu
+
+Pure properties are some of the most difficult properties to understand
+in LilyPond but, once understood, it is much easier to work with
+horizontal spacing.  This document provides an overview of what it means
+for something to be @q{pure} in LilyPond, what this purity guarantees,
+and where pure properties are stored and used.  It finishes by
+discussing a few case studies for the pure programmer to save you some
+time and to prevent you some major headaches.
+
+
+@node Purity in LilyPond
+@subsection Purity in LilyPond
+Pure properties in LilyPond are properties that do not have any
+@q{side effects}.
+That is, looking up a pure property should never result in calls to the
+following functions:
+@itemize
+@item @code{set_property}
+@item @code{set_object}
+@item @code{suicide}
+@end itemize
+This means that, if the property is calculated via a callback, this callback
+must not only avoid the functions above but make sure that any functions
+it calls also avoid the functions above.  Also, to date in LilyPond, a pure
+function will always return the same value before line breaking (or, more
+precisely, before any version of @code{break_into_pieces} is called).  This
+convention makes it possible to cache pure functions and be more flexible
+about the order in which functions are called. For example; Stem #'length has
+a pure property that will @emph{never} trigger one of the functions listed
+above and will @emph{always} return the same value before line breaking,
+independent of where it is called.  Sometimes, this will be the actual length
+of the Stem.  But sometimes it will not.  For example; stem that links up
+with a beam will need its end set to the Y position of the beam at the stem's
+X position.  However, the beam's Y positions can only be known after the score
+is broken up in to several systems (a beam that has a shallow slope on a
+compressed line of music, for example, may have a steeper one on an
+uncompressed line).  Thus, we only call the impure version of the properties
+once we are @emph{absolutely certain} that all of the parameters needed to
+calculate their final value have been calculated.  The pure version provides a
+useful estimate of what this Stem length (or any property) will be, and
+the art of creating good pure properties is trying to get the estimation
+as close to the actual value as possible.
+
+Of course, like Gregory Peck and Tintin, some Grobs will have properties
+that will always be pure.  For example, the height of a note-head in
+not-crazy music will never depend on line breaking or other parameters
+decided late in the typesetting process.  Inversely, in rare cases,
+certain properties are difficult to estimate with pure values.  For
+example, the height of a Hairpin at a certain cross-section of its
+horizontal span is difficult to know without knowing the horizontal
+distance that the hairpin spans, and LilyPond provides an
+over-estimation by reporting the pure height as the entire height of the
+Hairpin.
+
+Purity, like for those living in a convent, is more like a contract than
+an @emph{a priori}.  If you write a pure-function, you are promising
+the user (and the developer who may have to clean up after you) that
+your function will not be dependent on factors that change at different
+stages of the compilation process (compilation of a score, not of
+LilyPond).
+
+One last oddity is that purity, in LilyPond, is currently limited
+exclusively to things that have to do with Y-extent and positioning.
+There is no concept of @q{pure X} as, by design, X is always the
+independent variable (i.e. from column X1 to column X2, what will be the
+Y height of a given grob).  Furthermore, there is no purity for
+properties like color, text, and other things for which a meaningful notion
+of estimation is either not necessary or has not yet been found.  For example,
+even if a color were susceptible to change at different points of the
+compilation process, it is not clear what a pure estimate of this color
+would be or how this pure color could be used.  Thus, in this document and
+in the source, you will see purity discussed almost interchangeably with
+Y-axis positioning issues.
+
+
+@node Writing a pure function
+@subsection Writing a pure function
+Pure functions take, at a minimum, three arguments: the @var{grob}, the
+starting column at which the function is being evaluated (hereafter
+referred to as @var{start}), and the end column at which the grob is
+being evaluated (hereafter referred to as @var{end}).  For items,
+@var{start} and @var{end} must be provided (meaning they are not optional)
+but will not have a meaningful impact on the result, as items only occupy
+one column and will thus yield a value or not (if they are not in the range
+from @var{start} to @var{end}).  For spanners however, @var{start} and
+@var{end} are important, as we may can get a better pure estimation of a
+slice of the spanner than considering it on the whole.  This is useful
+during line breaking, for example, when we want to estimate the Y-extent
+of a spanner broken at given starting and ending columns.
+
+
+@node How purity is defined and stored
+@subsection How purity is defined and stored
+Purity is defined in LilyPond with the creation of an unpure-pure container
+(unpure is not a word, but hey, neither was LilyPond until the 90s).  For example:
+
+@example
+#(define (foo grob)
+  '(-1 . 1))
+
+#(define (bar grob start end)
+  '(-2 . 2))
+
+\override Stem #'length = #(ly:make-unpure-pure-container foo bar)
+@end example
+
+Note that items can only ever have two pure heights: their actual pure height
+if they are between @q{start} and @q{end}, or an empty interval if they are
+not.  Thus, their pure property is cached to speed LilyPond up.  Pure
+heights for spanners are generally not cached as they change depending
+on the start and end values.  They are only cached in certain particular
+cases.  Before writing a lot of caching code, make sure that it is a
+value that will be reused a lot.
+
+
+@node Where purity is used
+@subsection Where purity is used
+Pure Y values must be used in any functions that are called before
+line breaking.  Examples of this can be seen in
+@code{Separation_items::boxes} to construct horizontal skylines and in
+@code{Note_spacing::stem_dir_correction} to correct for optical
+illusions in spacing.  Pure properties are also used in the calculation
+of other pure properties.  For example, the @code{Axis_group_interface}
+has pure functions that look up other pure functions.
+
+Purity is also implicitly used in any functions that should only ever
+return pure values.  For example, extra-spacing-height is only ever used
+before line-breaking and thus should never use values that would only be
+available after line breaking.  In this case, there is no need to create
+callbacks with pure equivalents because these functions, by design, need
+to be pure.
+
+To know if a property will be called before and/or after line-breaking
+is sometimes tricky and can, like all things in coding, be found by
+using a debugger and/or adding @var{printf} statements to see where they
+are called in various circumstances.
+
+
+@node Case studies
+@subsection Case studies
+In each of these case studies, we expose a problem in pure properties, a
+solution, and the pros and cons of this solution.
+
+@subheading Time signatures
+A time signature needs to prevent accidentals from passing over or under
+it, but its extent does not necessarily extend to the Y-position of
+accidentals.  LilyPond's horizontal spacing sometimes makes a line of
+music compact and, when doing so, allows certain columns to pass over
+each other if they will not collide.  This type of passing over is not
+desirable with time signatures in traditional engraving.  But how do we
+know if this passing over will happen before line breaking, as we are
+not sure what the X positions will be?  We need a pure estimation of how
+much extra spacing height the time signatures would need to prevent this
+form of passing over without making this height so large as to
+overly-distort the Y-extent of an system, which could result in a very
+@q{loose} looking score with lots of horizontal space between columns.
+So, to approximate this extra spacing height, we use the Y-extent of a
+time signature's next-door-neighbor grobs via the pure-from-neighbor
+interface.
+
+@itemize
+@item pros: By extending the extra spacing height of a time signature to
+that of its next-door-neighbors, we make sure that grobs to the right of
+it that could pass above or below it do not.
+
+@item cons: This over-estimation of the vertical height could prevent
+snug vertical spacing of systems, as the system will be registered as
+being taller at the point of the time signature than it actually is.
+This approach can be used for clefs and bar lines as well.
+@end itemize
+
+@subheading Stems
+As described above, Stems need pure height approximations when they are
+beamed, as we do not know the beam positions before line breaking.  To
+estimate this pure height, we take all the stems in a beam and find
+their pure heights as if they were not beamed.  Then, we find the union
+of all these pure heights and take the intersection between this
+interval (which is large) and an interval going from the note-head of a
+stem to infinity in the direction of the stem so that the interval stops
+at the note head.
+
+@itemize
+@item pros: This is guaranteed to be at least as long as the beamed
+stem, as a beamed stem will never go over the ideal length of the
+extremal beam of a stem.
+
+@item cons: Certain stems will be estimated as being too long, which
+leads to the same problem of too-much-vertical-height as described
+above.
+
+@end itemize
+
+
+@node Debugging tips
+@subsection Debugging tips
+A few questions to ask yourself when working with pure properties:
+
+@itemize
+@item Is the property really pure?  Are you sure that its value could
+not be changed later in the compiling process due to other changes?
+
+@item Can the property be made to correspond even more exactly with the
+eventual impure property?
+
+@item For a spanner, is the pure property changing correctly depending
+on the starting and ending points of the spanner?
+
+@item For an Item, will the item's pure height need to act in horizontal
+spacing but not in vertical spacing?  If so, use extra-spacing-height
+instead of pure height.
+
+@end itemize
+
+
+@node LilyPond scoping
+@section LilyPond scoping
+
+The LilyPond language has a concept of scoping, i.e. you can do:
+
+@example
+foo = 1
+
+#(begin
+   (display (+ foo 2)))
+@end example
+
+@noindent with @code{\paper}, @code{\midi} and @code{\header} being
+nested scope inside the @file{.ly} file-level scope.  @w{@code{foo = 1}}
+is translated in to a scheme variable definition.
+
+This implemented using modules, with each scope being an anonymous
+module that imports its enclosing scope's module.
+
+LilyPond's core, loaded from @file{.scm} files, is usually placed in the
+@code{lily} module, outside the @file{.ly} level.  In the case of
+
+@example
+lilypond a.ly b.ly
+@end example
+
+@noindent
+we want to reuse the built-in definitions, without changes effected in
+user-level @file{a.ly} leaking into the processing of @file{b.ly}.
+
+The user-accessible definition commands have to take care to avoid
+memory leaks that could occur when running multiple files.  All
+information belonging to user-defined commands and markups is stored in
+a manner that allows it to be garbage-collected when the module is
+dispersed, either by being stored module-locally, or in weak hash
+tables.
+
+
+@node Scheme->C interface
+@section Scheme->C interface
+
+Most of the C functions interfacing with Guile/Scheme used in LilyPond
+are described in the API Reference of the
+@uref{http://www.gnu.org/software/guile/manual/html_node/index.html,
+GUILE Reference Manual}.
+
+The remaining functions are defined in @file{lily/lily-guile.cc},
+@file{lily/include/lily-guile.hh} and
+@file{lily/include/lily-guile-macros.hh}.
+Although their names are meaningful there's a few things you should know
+about them.
+
+@menu
+* Comparison::
+* Conversion::
+@end menu
+
+@node Comparison
+@subsection Comparison
+
+This is the trickiest part of the interface.
+
+Mixing Scheme values with C comparison operators won't produce any crash
+or warning when compiling but must be avoided:
+
+@example
+scm_string_p (scm_value) == SCM_BOOL_T
+@end example
+
+As we can read in the reference, @code{scm_string_p} returns a Scheme
+value: either @code{#t} or @code{#f} which are written @code{SCM_BOOL_T}
+and @code{SCM_BOOL_F} in C.  This will work, but it is not following
+to the API guidelines.  For further information, read this discussion:
+
+@smallexample
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2011-08/msg00646.html}
+@end smallexample
+
+There are functions in the Guile reference that returns C values
+instead of Scheme values.  In our example, a function called
+@code{scm_is_string} (described after @code{string?} and @code{scm_string_p})
+returns the C value 0 or 1.
+
+So the best solution was simply:
+
+@example
+scm_is_string (scm_value)
+@end example
+
+There a simple solution for almost every common comparison.  Another example:
+we want to know if a Scheme value is a non-empty list.  Instead of:
+
+@example
+(scm_is_true (scm_list_p (scm_value)) && scm_value != SCM_EOL)
+@end example
+
+one can usually use:
+
+@example
+scm_is_pair (scm_value)
+@end example
+
+since a list of at least one member is a pair.  This test is
+cheap; @code{scm_list_p} is actually quite more complex since it makes
+sure that its argument is neither a `dotted list' where the last pair
+has a non-null @code{cdr}, nor a circular list.  There are few
+situations where the complexity of those tests make sense.
+
+Unfortunately, there is not a @code{scm_is_[something]} function for
+everything.  That's one of the reasons why LilyPond has its own Scheme
+interface.  As a rule of thumb, tests that are cheap enough to be
+worth inlining tend to have such a C interface.  So there is
+@code{scm_is_pair} but not @code{scm_is_list}, and @code{scm_is_eq}
+but not @code{scm_is_equal}.
+
+@subheading General definitions
+
+@subsubheading bool to_boolean (SCM b)
+
+Return @code{true} if @var{b} is @code{SCM_BOOL_T}, else return @code{false}.
+
+This should be used instead of @code{scm_is_true} and
+@code{scm_is_false} for properties since in LilyPond, unset properties
+are read as an empty list, and by convention unset Boolean properties
+default to false.  Since both @code{scm_is_true} and
+@code{scm_is_false} only compare with @code{##f} in line with what
+Scheme's conditionals do, they are not really useful for checking the
+state of a Boolean property.
+
+@subsubheading bool ly_is_[something] (args)
+
+Behave the same as scm_is_[something] would do if it existed.
+
+@subsubheading bool is_[type] (SCM s)
+
+Test whether the type of @var{s} is [type].
+[type] is a LilyPond-only set of values (direction, axis...).  More
+often than not, the code checks LilyPond specific C++-implemented
+types using
+
+@subsubheading [Type *] unsmob<Type> (SCM s)
+
+This tries converting a Scheme object to a pointer of the desired
+kind.  If the Scheme object is of the wrong type, a pointer value
+of@w{ }@code{0} is returned, making this suitable for a Boolean test.
+
+@node Conversion
+@subsection Conversion
+
+@subheading General definitions
+
+@subsubheading bool to_boolean (SCM b)
+
+Return @code{true} if @var{b} is @code{SCM_BOOL_T}, else return @code{false}.
+
+This should be used instead of @code{scm_is_true} and @code{scm_is_false}
+for properties since empty lists are sometimes used to unset them.
+
+@subsubheading [C type] ly_scm2[C type] (SCM s)
+
+Behave the same as scm_to_[C type] would do if it existed.
+
+@subsubheading [C type] robust_scm2[C type] (SCM s, [C type] d)
+
+Behave the same as scm_to_[C type] would do if it existed.
+Return @var{d} if type verification fails.
+
+
+@node LilyPond miscellany
+@section LilyPond miscellany
+
+This is a place to dump information that may be of use to developers
+but doesn't yet have a proper home.  Ideally, the length of this section
+would become zero as items are moved to other homes.
+
+
+@menu
+* Spacing algorithms::
+* Info from Han-Wen email::
+* Music functions and GUILE debugging::
+* Articulations on EventChord::
+@end menu
+
+@node Spacing algorithms
+@subsection Spacing algorithms
+
+Here is information from an email exchange about spacing algorithms.
+
+On Thu, 2010-02-04 at 15:33 -0500, Boris Shingarov wrote:
+I am experimenting with some modifications to the line breaking code,
+and I am stuck trying to understand how some of it works.  So far my
+understanding is that Simple_spacer operates on a vector of Grobs, and
+it is a well-known Constrained-QP problem (rods = constraints, springs
+= quadratic function to minimize).  What I don't understand is, if the
+spacer operates at the level of Grobs, which are built at an earlier
+stage in the pipeline, how are the changes necessitated by differences
+in line breaking, taken into account?  in other words, if I take the
+last measure of a line and place it on the next line, it is not just a
+matter of literally moving that graphic to where the start of the next
+line is, but I also need to draw a clef, key signature, and possibly
+other fundamental things -- but at that stage in the rendering
+pipeline, is it not too late??
+
+Joe Neeman answered:
+
+We create lots of extra grobs (eg. a BarNumber at every bar line) but
+most of them are not drawn.  See the break-visibility property in
+item-interface.
+
+Here is another e-mail exchange.  Janek Warchoł asked for a starting point
+to fixing 1301 (change clef colliding with notes).  Neil Puttock replied:
+
+The clef is on a loose column (it floats before the head), so the
+first place I'd look would be lily/spacing-loose-columns.cc (and
+possibly lily/spacing-determine-loose-columns.cc).
+I'd guess the problem is the way loose columns are spaced between
+other columns: in this snippet, the columns for the quaver and tuplet
+minim are so close together that the clef's column gets dumped on top
+of the quaver (since it's loose, it doesn't influence the spacing).
+
+@node Info from Han-Wen email
+@subsection Info from Han-Wen email
+
+In 2004, Douglas Linhardt decided to try starting a document that would
+explain LilyPond architecture and design principles.  The material below
+is extracted from that email, which can be found at
+@uref{http://thread.gmane.org/gmane.comp.gnu.lilypond.devel/2992}.
+The headings reflect questions from Doug or comments from Han-Wen;
+the body text are Han-Wen's answers.
+
+@subheading Figuring out how things work.
+
+I must admit that when I want to know how a program works, I use grep
+and emacs and dive into the source code.  The comments and the code
+itself are usually more revealing than technical documents.
+
+@subheading What's a grob, and how is one used?
+
+Graphical object - they are created from within engravers, either as
+Spanners (derived class) -slurs, beams- or Items (also a derived
+class) -notes, clefs, etc.
+
+There are two other derived classes System (derived from Spanner,
+containing a "line of music") and Paper_column (derived from Item, it
+contains all items that happen at the same moment).  They are separate
+classes because they play a special role in the linebreaking process.
+
+@subheading What's a smob, and how is one used?
+
+A C(++) object that is encapsulated so it can be used as a Scheme
+object.  See GUILE info, "19.3 Defining New Types (Smobs)"
+
+@subheading When is each C++ class constructed and used?
+
+@itemize
+
+@item
+Music classes
+
+In the parser.yy see the macro calls MAKE_MUSIC_BY_NAME().
+
+@item
+Contexts
+
+Constructed during "interpreting" phase.
+
+@item
+Engravers
+
+Executive branch of Contexts, plugins that create grobs, usually one
+engraver per grob type.  Created  together with context.
+
+@item
+Layout Objects
+
+= grobs
+
+@item
+Grob Interfaces
+
+These are not C++ classes per se.  The idea of a Grob interface hasn't
+crystallized well.  ATM, an interface is a symbol, with a bunch of grob
+properties.  They are not objects that are created or destroyed.
+
+@item
+Iterators
+
+Objects that walk through different music classes, and deliver events
+in a synchronized way, so that notes that play together are processed
+at the same moment and (as a result) end up on the same horizontal position.
+
+Created during interpreting phase.
+
+BTW, the entry point for interpreting is ly:run-translator
+(ly_run_translator on the C++ side)
+
+@end itemize
+
+@subheading Can you get to Context properties from a Music object?
+
+You can create music object with a Scheme function that reads context
+properties (the \applycontext syntax).  However, that function is
+executed during Interpreting, so you can not really get Context
+properties from Music objects, since music objects are not directly
+connected to Contexts.  That connection is made by the  Music_iterators
+
+@subheading Can you get to Music properties from a Context object?
+
+Yes, if you are given the music object within a Context
+object.  Normally, the music objects enter Contexts in synchronized
+fashion, and the synchronization is done by Music_iterators.
+
+@subheading What is the relationship between C++ classes and Scheme objects?
+
+Smobs are C++ objects in Scheme.  Scheme objects (lists, functions) are
+manipulated from C++ as well using the GUILE C function interface
+(prefix: scm_)
+
+@subheading How do Scheme procedures get called from C++ functions?
+
+scm_call_*, where * is an integer from 0 to 4.
+Also scm_c_eval_string (), scm_eval ()
+
+@subheading How do C++ functions get called from Scheme procedures?
+
+Export a C++ function to Scheme with LY_DEFINE.
+
+@subheading What is the flow of control in the program?
+
+Good question.  Things used to be clear-cut, but we have Scheme
+and SMOBs now, which means that interactions do not follow a very
+rigid format anymore.  See below for an overview, though.
+
+@subheading Does the parser make Scheme procedure calls or C++ function calls?
+
+Both.  And the Scheme calls can call C++ and vice versa.  It's nested,
+with the SCM datatype as lubrication between the interactions
+
+(I think the word "lubrication" describes the process better than the
+traditional word "glue")
+
+@subheading How do the front-end and back-end get started?
+
+Front-end: a file is parsed, the rest follows from that.  Specifically,
+
+Parsing leads to a Music + Music_output_def object (see parser.yy,
+definition of toplevel_expression )
+
+A Music + Music_output_def object leads to a Global_context object (see
+ly_run_translator ())
+
+During interpreting, Global_context + Music leads to a bunch of
+Contexts (see Global_translator::run_iterator_on_me ()).
+
+After interpreting, Global_context contains a Score_context (which
+contains staves, lyrics etc.) as a child.  Score_context::get_output ()
+spews a Music_output object (either a Paper_score object for notation
+or Performance object for MIDI).
+
+The Music_output object is the entry point for the backend (see
+ly_render_output ()).
+
+The main steps of the backend itself are in
+
+@itemize
+
+@item
+@file{paper-score.cc} , Paper_score::process_
+
+@item
+@file{system.cc} , System::get_lines()
+
+@item
+The step, where things go from grobs to output, is in
+System::get_line(): each grob delivers a Stencil (a Device
+independent output description), which is interpreted by our
+outputting backends (@file{scm/output-tex.scm} and
+@file{scm/output-ps.scm}) to produce TeX and PS.
+
+@end itemize
+
+Interactions between grobs and putting things into .tex and .ps files
+have gotten a little more complex lately.  Jan has implemented
+page-breaking, so now the backend also involves Paper_book,
+Paper_lines and other things.  This area is still heavily in flux, and
+perhaps not something you should want to look at.
+
+@subheading How do the front-end and back-end communicate?
+
+There is no communication from backend to front-end.  From front-end to
+backend is simply the program flow: music + definitions gives
+contexts, contexts yield output, after processing, output is written
+to disk.
+
+@subheading Where is the functionality associated with KEYWORDs?
+
+See @file{my-lily-lexer.cc} (keywords, there aren't that many)
+and @file{ly/*.ly} (most of the other backslashed @code{/\words} are identifiers)
+
+@subheading What Contexts/Properties/Music/etc. are available when they are processed?
+
+What do you mean exactly with this question?
+
+See @file{ly/engraver-init.ly} for contexts,
+see @file{scm/define-*.scm} for other objects.
+
+@subheading How do you decide if something is a Music, Context, or Grob property?
+Why is part-combine-status a Music property when it seems (IMO)
+to be related to the Staff context?
+
+The Music_iterators and Context communicate through two channels
+
+Music_iterators can set and read context properties, idem for
+Engravers and Contexts
+
+Music_iterators can send "synthetic" music events (which aren't in
+the input) to a context.  These are caught by Engravers.  This is
+mostly a one way communication channel.
+
+part-combine-status is part of such a synthetic event, used by
+Part_combine_iterator to communicate with Part_combine_engraver.
+
+
+@subheading Deciding between context and music properties
+
+I'm adding a property to affect how \autochange works.  It seems to
+me that it should be a context property, but the Scheme autochange
+procedure has a Music argument.  Does this mean I should use
+a Music property?
+
+\autochange is one of these extra strange beasts: it requires
+look-ahead to decide when to change staves.  This is achieved by
+running the interpreting step twice (see
+@file{scm/part-combiner.scm} , at the bottom), and
+storing the result of the first step (where to switch
+staves) in a Music property.  Since you want to influence that
+where-to-switch list, your must affect the code in
+make-autochange-music (@file{scm/part-combiner.scm}).
+That code is called directly from the parser and there are no
+official "parsing properties" yet, so there is no generic way
+to tune \autochange.  We would have to invent something new
+for this, or add a separate argument,
+
+@example
+    \autochange #around-central-C ..music..
+@end example
+
+@noindent
+where around-central-C is some function that is called from
+make-autochange-music.
+
+@subheading More on context and music properties
+
+From Neil Puttock, in response to a question about transposition:
+
+Context properties (using \set & \unset) are tied to engravers: they
+provide information relevant to the generation of graphical objects.
+
+Since transposition occurs at the music interpretation stage, it has
+no direct connection with engravers: the pitch of a note is fixed
+before a notehead is created.  Consider the following minimal snippet:
+
+@example
+@{ c' @}
+@end example
+
+This generates (simplified) a NoteEvent, with its pitch and duration
+as event properties,
+
+@example
+(make-music
+  'NoteEvent
+  'duration
+  (ly:make-duration 2 0 1 1)
+  'pitch
+  (ly:make-pitch 0 0 0)
+@end example
+
+which the Note_heads_engraver hears.  It passes this information on to
+the NoteHead grob it creates from the event, so the head's correct
+position and duration-log can be determined once it's ready for
+printing.
+
+If we transpose the snippet,
+
+@example
+\transpose c d @{ c' @}
+@end example
+
+the pitch is changed before it reaches the engraver (in fact, it
+happens just after the parsing stage with the creation of a
+TransposedMusic music object):
+
+@example
+(make-music
+ 'NoteEvent
+ 'duration
+ (ly:make-duration 2 0 1 1)
+ 'pitch
+ (ly:make-pitch 0 1 0)
+@end example
+
+You can see an example of a music property relevant to transposition:
+untransposable.
+
+@example
+\transpose c d @{ c'2 \withMusicProperty #'untransposable ##t c' @}
+@end example
+
+-> the second c' remains untransposed.
+
+Take a look at @file{lily/music.cc} to see where the transposition takes place.
+
+
+@subheading How do I tell about the execution environment?
+
+I get lost figuring out what environment the code I'm looking at is in when it
+executes.  I found both the C++ and Scheme autochange code.  Then I was trying
+to figure out where the code got called from.  I finally figured out that the
+Scheme procedure was called before the C++ iterator code, but it took me a
+while to figure that out, and I still didn't know who did the calling in the
+first place.  I only know a little bit about Flex and Bison, so reading those
+files helped only a little bit.
+
+@emph{Han-Wen:} GDB can be of help here.  Set a breakpoint in C++, and run.  When you
+hit the breakpoint, do a backtrace.  You can inspect Scheme objects
+along the way by doing
+
+@example
+p ly_display_scm(obj)
+@end example
+
+this will display OBJ through GUILE.
+
+@node Music functions and GUILE debugging
+@subsection Music functions and GUILE debugging
+
+Ian Hulin was trying to do some debugging in music functions, and
+came up with the following question (edited and adapted to current
+versions):
+
+HI all,
+I'm working on the Guile Debugger Stuff, and would like to try
+debugging a music function definition such as:
+
+@example
+conditionalMark =
+#(define-music-function () ()
+  #@{ \tag instrumental-part @{\mark \default@} #@} )
+@end example
+
+It appears @code{conditionalMark} does not get set up as an
+equivalent of a Scheme
+
+@example
+(define conditionalMark = define-music-function () () ...
+@end example
+
+@noindent
+although something gets defined because Scheme apparently recognizes
+
+@example
+#(set-break! conditionalMark)
+@end example
+
+@noindent
+later on in the file without signalling any Guile errors.
+
+However the breakpoint trap is never encountered as
+@code{define-music-function} passed things on to
+@code{ly:make-music-function}, which is really C++ code
+@code{ly_make_music_function}, so Guile never finds out about the
+breakpoint.
+
+
+The answer in the mailing list archive at that time was less than
+helpful.  The question already misidentifies the purpose of
+@code{ly:make-music-function} which is only called once at the
+time of @emph{defining} @code{conditionalMark} but is not involved
+in its later @emph{execution}.
+
+Here is the real deal:
+
+A music function is not the same as a GUILE function.  It boxes
+both a proper Scheme function (with argument list and body from
+the @code{define-music-function} definition) along with a call
+signature representing the @emph{types} of both function and
+arguments.
+
+Those components can be reextracted using
+@code{ly:music-function-extract} and
+@code{ly:music-function-signature}, respectively.
+
+When LilyPond's parser encounters a music function call in its
+input, it reads, interprets, and verifies the arguments
+individually according to the call signature and @emph{then} calls
+the proper Scheme function.
+
+While it is actually possible these days to call a music function
+@emph{as if} it were a Scheme function itself, this pseudo-call
+uses its own wrapping code matching the argument list @emph{as a
+whole} to the call signature, substituting omitted optional
+arguments with defaults and verifying the result type.
+
+So putting a breakpoint on the music function itself will still
+not help with debugging uses of the function using LilyPond
+syntax.
+
+However, either calling mechanism ultimately calls the proper
+Scheme function stored as part of the music function, and that is
+where the breakpoint belongs:
+
+@example
+#(set-break! (ly:music-function-extract conditionalMark))
+@end example
+
+will work for either calling mechanism.
+
+@node Articulations on EventChord
+@subsection Articulations on EventChord
+
+From David Kastrup's email
+@uref{http://lists.gnu.org/archive/html/lilypond-devel/2012-02/msg00189.html}:
+
+LilyPond's typesetting does not act on music expressions and music
+events.  It acts exclusively on stream events.  It is the act of
+iterators to convert a music expression into a sequence of stream events
+played in time order.
+
+The EventChord iterator is pretty simple: it just takes its "elements"
+field when its time comes up, turns every member into a StreamEvent and
+plays that through the typesetting process.  The parser currently
+appends all postevents belonging to a chord at the end of "elements",
+and thus they get played at the same point of time as the elements of
+the chord.  Due to this design, you can add per-chord articulations or
+postevents or even assemble chords with a common stem by using parallel
+music providing additional notes/events: the typesetter does not see a
+chord structure or postevents belonging to a chord, it just sees a
+number of events occuring at the same point of time in a Voice context.
+
+So all one needs to do is let the EventChord iterator play articulations
+after elements, and then adding to articulations in EventChord is
+equivalent to adding them to elements (except in cases where the order
+of events matters).

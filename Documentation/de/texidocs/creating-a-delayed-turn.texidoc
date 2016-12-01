@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Einen Doppelschlag mit Vorhalt zu erstellen, wobei die untere Note das
+Vorzeichen benutzt, erfordert einige Einstellungsänderungen.  Die
+@code{outside-staff-priority}-Eigenschaft muss auf falsch (@code{#f})
+gesetzt werden, weil sie sonst über die Eigenschaft
+@code{avoid-slur property} dominieren würde.  Der Wert von @code{halign}
+wird benutzt, um den Doppelschlag horizontal zu positionieren.
+"
+
+  doctitlede = "Einen  Doppelschlag mit Vorhalt erstellen"

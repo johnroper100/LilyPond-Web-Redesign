@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 by the authors.
+
+LilyPond 网站由本文件归档。
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on 11 月 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; 人人的乐谱软件: 开发</title>
+
+<meta name="description" content="LilyPond &ndash; 人人的乐谱软件: 开发">
+<meta name="keywords" content="LilyPond &ndash; 人人的乐谱软件: 开发">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.zh.html#top" rel="start" title="LilyPond... 人人的乐谱软件">
+<link href="index_toc.zh.html#SEC_Contents" rel="contents" title="目录">
+<link href="index_abt.zh.html#SEC_About" rel="help" title="关于本文档">
+<link href="community.zh.html#community" rel="up" title="社区">
+<link href="attic.zh.html#attic" rel="next" title="Attic">
+<link href="sponsoring.zh.html#sponsoring" rel="previous" title="赞助">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+<!-- Google tracking !-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68969-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body lang="zh" class="web devStatus">
+
+<div id="main">
+<a name="g_t_5f00_53d1"></a>
+
+<a name="development"></a>
+<h2 class="unnumberedsec">开发</h2>
+
+<div class="heading-center">  <a name="Development-for-LilyPond-2_002e19_002e51"></a>
+<h2 class="heading">Development for LilyPond 2.19.51</h2>
+
+
+<div class="warning"><p><strong>注意：</strong>These are <em>unstable development</em> versions.  If you
+have the slightest doubt about how to use or install LilyPond, we
+urge you to use the <a href="download.zh.html">stable Download</a>, and read the
+<a href="manuals.zh.html">stable Manuals</a>.
+</p>
+</div>
+
+</div>
+<div class="column-center-top"><a name="Release-numbers-Fa-Xing-Hao-"></a>
+<h3 class="subheading">Release numbers 发行号</h3>
+
+<p>There are two sets of releases for LilyPond: stable releases, and
+unstable development releases.  Stable versions have an
+even-numbered &lsquo;minor&rsquo; version number (e.g., 2.8, 2.10, 2.12).
+Development versions have an odd-numbered &lsquo;minor&rsquo; version number
+(e.g., 2.7, 2.9, 2.11).
+</p>
+
+</div>
+
+<div class="column-left-top"><a name="Xia-Zai--4"></a>
+<h3 class="subheading">下载</h3>
+
+<p>Instructions for git and compiling are in the Contributor&rsquo;s Guide.
+</p>
+<blockquote><p><a href="http://git.sv.gnu.org/gitweb/?p=lilypond.git">lilypond git repository</a>
+</p></blockquote>
+
+<p>Documentation writers and testers will generally want to download
+the latest binary:
+</p>
+<blockquote>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/linux-x86/lilypond-2.19.51-1.linux-x86.sh">GNU/Linux x86: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/linux-64/lilypond-2.19.51-1.linux-64.sh">GNU/Linux 64: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/linux-ppc/lilypond-2.19.51-1.linux-ppc.sh">GNU/Linux PPC: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/freebsd-x86/lilypond-2.19.51-1.freebsd-x86.sh">FreeBSD i386: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/freebsd-64/lilypond-2.19.51-1.freebsd-64.sh">FreeBSD amd64: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/darwin-x86/lilypond-2.19.51-1.darwin-x86.tar.bz2">MacOS X x86: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/darwin-ppc/lilypond-2.19.51-1.darwin-ppc.tar.bz2">MacOS X PPC: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-2.19.51-1.mingw.exe">Windows: LilyPond 2.19.51-1</a>
+</p>
+<p><a href="http://download.linuxaudio.org/lilypond/sources/v2.19/lilypond-2.19.51.tar.gz">Source: lilypond-2.19.51.tar.gz</a>
+</p>
+</blockquote>
+
+
+</div>
+
+<div class="column-right-top"><a name="Gong-Xian-Zhe-Zhi-Nan-"></a>
+<h3 class="subheading">贡献者指南</h3>
+
+<p>LilyPond development is a fairly complicated matter.  In order to
+help new contributors, and to keep the whole system (mostly)
+stable, we have written a manual for development tasks.
+</p>
+
+<div class="keep-bullets"><ul>
+<li>       <a href="../doc/v2.19/Documentation/contributor/index.html">Contributor (split HTML)</a>
+   -
+  本手册分解了许多 HTML 页面。
+  <br>&nbsp;&nbsp;<em>(每个页面有一小的下载)</em>
+
+</li><li>       <a href="../doc/v2.19/Documentation/contributor-big-page.html">Contributor (big HTML)</a>
+   -
+  以单一大 HTML 页面的方式阅读本手册。
+  <br>&nbsp;&nbsp;<em>(大的单一下载, 500 kB)</em>
+
+</li><li>       <a href="../doc/v2.19/Documentation/contributor.pdf">Contributor.pdf</a>
+   -
+  以 PDF 文件的方式下载。
+  <br>&nbsp;&nbsp;<em>(大的单一下载, 2.8 MB)</em>
+
+</li></ul>
+
+
+</div>
+
+
+</div>
+
+<div class="column-center-top"><a name="Hui-Gui-Ce-Shi-"></a>
+<h3 class="subheading">回归测试</h3>
+
+<div class="keep-bullets">
+
+<a name="Kai-Fa-Zhong-Ban-Ben-"></a>
+<h4 class="subsubheading">开发中版本</h4>
+
+<ul>
+<li> <a href="../doc/v2.19/input/regression/collated-files.html">Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/collated-files.pdf">PDF of regtests for 2.19.51</a>)
+
+</li><li> <a href="../doc/v2.19/input/regression/musicxml/collated-files.html">MusicXML Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/musicxml/collated-files.pdf">PDF of MusicXML regtests for 2.19.51</a>)
+
+</li><li> <a href="../doc/v2.19/input/regression/abc2ly/collated-files.html">abc2ly Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/abc2ly/collated-files.pdf">PDF of abc2ly regtests for 2.19.51</a>)
+
+</li><li> <a href="../doc/v2.19/input/regression/lilypond-book/collated-files.html">lilypond-book Regression tests for 2.19.51</a> (<a href="../doc/v2.19/input/regression/lilypond-book/collated-files.pdf">PDF of lilypond-book regtests for 2.19.51</a>)
+</li></ul>
+
+<a name="Wen-Ding-Ban-"></a>
+<h4 class="subsubheading">稳定版</h4>
+
+<ul>
+<li> <a href="../doc/v2.18/input/regression/collated-files.html">Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/collated-files.pdf">PDF of regtests for 2.18.2</a>)
+
+</li><li> <a href="../doc/v2.18/input/regression/musicxml/collated-files.html">MusicXML Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/musicxml/collated-files.pdf">PDF of MusicXML regtests for 2.18.2</a>)
+
+</li><li> <a href="../doc/v2.18/input/regression/abc2ly/collated-files.html">abc2ly Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/abc2ly/collated-files.pdf">PDF of abc2ly regtests for 2.18.2</a>)
+
+</li><li> <a href="../doc/v2.18/input/regression/lilypond-book/collated-files.html">lilypond-book Regression tests for 2.18.2</a> (<a href="../doc/v2.18/input/regression/lilypond-book/collated-files.pdf">PDF of lilypond-book regtests for 2.18.2</a>)
+</li></ul>
+
+
+<a name="Suo-You-Ban-Ben--1"></a>
+<h4 class="subsubheading">所有版本</h4>
+
+<ul>
+<li> <a href="http://lilypond.org/test">Comparisons between regression tests</a>
+
+</li><li> <a href="http://lilypond.org/downloads/binaries/test-output">Archive of all regression tests</a>
+
+</li></ul>
+
+
+</div>
+</div>
+
+
+<div class="column-center-bottom"><a name="Shou-Ce--1"></a>
+<h3 class="subheading">手册</h3>
+
+
+<div class="normal-table"><table>
+<thead><tr><th width="30%">Introduction</th></tr></thead>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/learning/index.html">Learning (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/learning-big-page.html">Learning (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/learning.pdf">Learning.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/music-glossary/index.html">Music glossary (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/music-glossary-big-page.html">Music glossary (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/music-glossary.pdf">Music glossary.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/essay/index.html">Essay (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/essay-big-page.html">Essay (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/essay.pdf">Essay.pdf</a></td></tr>
+<thead><tr><th width="30%">Regular</th></tr></thead>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/notation/index.html">Notation (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/notation-big-page.html">Notation (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/notation.pdf">Notation.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/usage/index.html">Usage (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/usage-big-page.html">Usage (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/usage.pdf">Usage.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/snippets/index.html">Snippets (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/snippets-big-page.html">Snippets (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/snippets.pdf">Snippets.pdf</a></td></tr>
+<thead><tr><th width="30%">Infrequent</th></tr></thead>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/web/index.zh.html">Web (分开的 HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/web-big-page.zh.html">Web (大的 HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/web.zh.pdf">Web.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/changes/index.html">Changes (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/changes-big-page.html">Changes (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/changes.pdf">Changes.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/extending/index.html">Extending (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/extending-big-page.html">Extending (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/extending.pdf">Extending.pdf</a></td></tr>
+<tr><td width="30%"><a href="../doc/v2.19/Documentation/internals/index.html">Internals (split HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/internals-big-page.html">Internals (big HTML)</a></td><td width="30%"><a href="../doc/v2.19/Documentation/internals.pdf">Internals.pdf</a></td></tr>
+<thead><tr><th width="30%">Downloadable</th></tr></thead>
+<tr><td width="30%"><a href="../downloads/binaries/documentation/lilypond-2.19.51-1.documentation.tar.bz2">Doc tarball for 2.19.51</a></td></tr>
+</table>
+
+
+</div>
+</div>
+
+
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="footer">
+<p id="languages">
+<!-- These links were autogenerated by /home/johnroper100/lilypond-git/scripts/build/website_post.py -->
+其他语言: <a href="development.html">English</a>, <a href="development.ca.html">Català</a>, <a href="development.cs.html">Česky</a>, <a href="development.de.html">Deutsch</a>, <a href="development.es.html">Español</a>, <a href="development.fr.html">Français</a>, <a href="development.hu.html">Magyar</a>, <a href="development.it.html">Italiano</a>, <a href="development.ja.html">日本語</a>, <a href="development.nl.html">Nederlands</a>.
+<br>
+About <a href="http://www.lilypond.org/website/misc/browser-language">automatic language selection</a>.
+</p>
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>非常感谢 <a href="http://www.webdev.nl/">webdev.nl</a> 提供 <code>lilypond.org</code> 的主机空间。
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.zh.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Jian-Jie-" href="introduction.zh.html">简介</a>  </li>
+  <li class=""><a name="toc-Xia-Zai-" href="download.zh.html">下载</a>  </li>
+  <li class=""><a name="toc-Shou-Ce-" href="manuals.zh.html">手册</a>  </li>
+  <li class=" toc_current"><a name="toc-She-Qu-" href="community.zh.html">社区</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-She-Qu-" href="community.zh.html">社区</a></li>
+    <li class=""><a name="toc-Lian-Xi-" href="contact.zh.html">联系</a>    </li>
+    <li class=""><a name="toc-Xiao-Li-Zi-" href="tiny-examples.zh.html">小例子</a>    </li>
+    <li class=""><a name="toc-Cuo-Wu-Bao-Gao-" href="bug-reports.zh.html">错误报告</a>    </li>
+    <li class=""><a name="toc-Bang-Zhu-Wo-Men-" href="help-us.zh.html">帮助我们</a>    </li>
+    <li class=""><a name="toc-Zan-Zhu-" href="sponsoring.zh.html">赞助</a>    </li>
+    <li class=" toc_current"><a name="toc-Kai-Fa-" href="development.zh.html">开发</a>    </li>
+    <li class=""><a name="toc-GSoC-2012-1" href="gsoc-2012.zh.html">GSoC 2012</a>    </li>
+    <li class=""><a name="toc-Zuo-Zhe-" href="authors.zh.html">作者</a>    </li>
+    <li class=""><a name="toc-Chu-Ban-Wu-" href="publications.zh.html">出版物</a>    </li>
+    <li class=""><a name="toc-Jiu-Wen-" href="news.zh.html">旧闻</a>    </li>
+    <li class=""><a name="toc-Attic-1" href="attic.zh.html">Attic</a>    </li>
+  </ul>
+  </li>
+<li>
+<!--
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Google 搜索">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="搜索">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</div>
+</body>
+</html>

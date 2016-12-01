@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+doctitlede = "Auflösungzeichen nicht setzen, wenn die Tonart wechselt"
+
+texidocde = "
+Wenn die Tonart wechselt, werden automatisch Auflösungszeichen ausgegeben,
+um Versetzungszeichen der vorherigen Tonart aufzulösen.  Das kann
+verhindert werden, indem die @code{printKeyCancellation}-Eigenschaft
+im @code{Staff}-Kontext auf \"false\" gesetzt wird.
+"

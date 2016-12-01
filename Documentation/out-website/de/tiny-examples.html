@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 by the authors.
+
+Diese Datei dokumentiert den Internetauftritt von LilyPond.
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on 30. November 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; Notation für Jedermann: Minimalbeispiele</title>
+
+<meta name="description" content="LilyPond &ndash; Notation für Jedermann: Minimalbeispiele">
+<meta name="keywords" content="LilyPond &ndash; Notation für Jedermann: Minimalbeispiele">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... Notensatz für Jedermann">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="Inhaltsverzeichnis">
+<link href="index_abt.html#SEC_About" rel="help" title="&Uuml;ber dieses Dokument">
+<link href="community.html#community" rel="up" title="Gemeinschaft">
+<link href="attic.html#attic" rel="next" title="Abstellkammer">
+<link href="contact.html#contact" rel="previous" title="Kontakt">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="de" class="web devStatus">
+
+<div id="main">
+<a name="Minimalbeispiele"></a>
+
+<a name="tiny-examples"></a>
+<h2 class="unnumberedsec">Minimalbeispiele</h2>
+
+<div class="column-center-top"><a name="Was-sind-_201eMinimalbeispiele_201c_003f"></a>
+<h3 class="subheading">Was sind &bdquo;Minimalbeispiele&ldquo;?</h3>
+
+<p>Ein Minimalbeispiel ist eine vollständige Quelldatei, die
+<strong>nicht</strong> mehr weiter reduziert werden kann, ohne dass das
+illustrierte Problem verschwindet.  Es sollten keine Warnungen und
+Fehlermeldungen produziert werden, die nicht mit dem Problem im
+Zusammenhang stehen.
+</p>
+
+</div>
+<div class="column-left-bottom"><a name="Warum-sollte-ich-Minimalbeispiele-erstellen_003f"></a>
+<h3 class="subheading">Warum sollte ich Minimalbeispiele erstellen?</h3>
+
+<div class="keep-bullets"><ul>
+<li>
+Je einfacher ein Beispiel ist, um so schneller können mögliche
+Hilfeleistende das Beispiel untersuchen, das auftretende Problem
+einkreisen und Ihnen helfen.
+
+</li><li>
+Die effiziente Analyse eines Problems erfordert ohnehin eine
+Reduktion auf das Wesentliche.  Wenn Sie umfangreiches Material an die
+Liste schicken, dann erwecken Sie den Eindruck, dass Ihnen die Lösung
+Ihres Problems keine eigene Mühe wert ist.
+
+</li><li>
+Ein Minimalbeispiel zu erstellen hilft Ihnen zu verstehen, was
+vorgeht.  Viele Problemberichte erübrigen sich schon während der
+Erstellung eines Minimalbeispiels.  Ist ein &bdquo;Bug&ldquo; mit einem
+bestimmten Minimalbeispiel nicht reproduzierbar, ist es
+wahrscheinlich, daß er andere Ursachen als vermutet hat.
+
+</li></ul>
+
+</div>
+
+</div>
+
+<div class="column-right-bottom"><a name="Wie-werden-sie-erstellt_003f"></a>
+<h3 class="subheading">Wie werden sie erstellt?</h3>
+
+<div class="keep-bullets"><ul>
+<li>
+Immer die <code>\version</code>-Nummer einfügen.
+
+</li><li>
+Machen Sie es klein!  Beispiele zur Platzverteilung oder dem
+Seitenlayout können viele Notentakte erfordern, aber die meisten
+Probleme können in weniger als einem einzigen Takt gezeigt werden.
+
+</li><li>
+Wenn Sie versuchen, ein Beispiel zu erstellen, versuchen Sie
+zuerst, Abschnitte Ihrer Datei auszukommentieren (<code>%</code>
+oder <code>%{ &hellip; %}</code>).  Wenn Sie etwas auskommentieren
+können, und das Problem immer noch vorhanden ist, entfernen Sie die
+auskommentierten Abschnitte.
+
+</li><li>
+Vermeiden Sie komplizierte Noten, Tonarten, Schlüssel oder Taktarten,
+es sei denn Ihr Problem hat mit ihnen etwas zu tun.
+
+</li><li>
+Benutzen Sie nicht <code>\override</code> oder <code>\set</code>, es sei denn,
+der Fehler zeigt sich im Zusammenhang mit diesen Befehlen.
+
+</li><li>
+Sie können auch zusätzlich ein Bild anhängen, welches die gewünschte graphische
+Darstellung zeigt.
+
+</li></ul>
+
+</div>
+
+</div>
+<div class="column-center-bottom"><a name="Wie-klein-sollten-sie-sein_003f"></a>
+<h3 class="subheading">Wie klein sollten sie sein?</h3>
+
+<p>Ist der Code unten ein Minimalbeispiel?
+</p>
+<blockquote><pre class="example">\version &quot;2.14.1&quot;
+\include &quot;english.ly&quot;
+
+\score {
+  \new Staff {
+    \key d \major
+    \numericTimeSignature
+    \time 2/4
+    &lt;cs' d'' b''&gt;16 &lt;cs' d'' b''&gt;8.
+    %% Here: the tie on the D's looks funny
+    %% Too tall? Left-hand endpoint is not aligned with the B tie?
+    ~
+    &lt;cs' d'' b''&gt;8 [ &lt;b d'' a''&gt; ]
+  }
+}
+</pre></blockquote>
+
+<p>Das ist zwar kein langer Code, aber ein wirkliches Minimalbeispiel ist
+folgendes:
+</p>
+<blockquote><pre class="example">\version &quot;2.14.1&quot;
+{
+  % middle tie looks funny here:
+  &lt;c' d'' b''&gt;8. ~ &lt;c' d'' b''&gt;8
+}
+</pre></blockquote>
+
+<p>Wenige Minimalbeispiele brauchen mehr als 10 Zeilen,
+meistens kann das Problem mit vier Zeilen gezeigt werden!
+</p>
+
+</div>
+
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>Thanks to <a href="http://www.webdev.nl/">webdev.nl</a> for hosting <code>lilypond.org</code>.
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Einleitung-1" href="introduction.html">Einleitung</a>  </li>
+  <li class=""><a name="toc-Download-1" href="download.html">Download</a>  </li>
+  <li class=""><a name="toc-Handbucher" href="manuals.html">Handbücher</a>  </li>
+  <li class=" toc_current"><a name="toc-Gemeinschaft-1" href="community.html">Gemeinschaft</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Gemeinschaft-1" href="community.html">Gemeinschaft</a></li>
+    <li class=""><a name="toc-Kontakt-1" href="contact.html">Kontakt</a>    </li>
+    <li class=" toc_current"><a name="toc-Minimalbeispiele-1" href="tiny-examples.html">Minimalbeispiele</a>    </li>
+    <li class=""><a name="toc-Fehlerberichte-1" href="bug-reports.html">Fehlerberichte</a>    </li>
+    <li class=""><a name="toc-Helfen-Sie-uns-1" href="help-us.html">Helfen Sie uns</a>    </li>
+    <li class=""><a name="toc-Sponsoren-1" href="sponsoring.html">Sponsoren</a>    </li>
+    <li class=""><a name="toc-Entwicklung-1" href="development.html">Entwicklung</a>    </li>
+    <li class=""><a name="toc-Google-Summer-of-Code-1" href="google-summer-of-code.html">Google Summer of Code</a>    </li>
+    <li class=""><a name="toc-Autoren-1" href="authors.html">Autoren</a>    </li>
+    <li class=""><a name="toc-Danksagungen-1" href="acknowledgements.html">Danksagungen</a>    </li>
+    <li class=""><a name="toc-Veroffentlichungen" href="publications.html">Veröffentlichungen</a>    </li>
+    <li class=""><a name="toc-Altere-Neuigkeiten" href="news.html">Ältere Neuigkeiten</a>    </li>
+    <li class=""><a name="toc-Abstellkammer-1" href="attic.html">Abstellkammer</a>    </li>
+  </ul>
+  </li>
+<li>
+<!--
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+-->
+
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Mit Google suchen">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="Suche">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

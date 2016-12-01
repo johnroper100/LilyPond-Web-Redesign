@@ -1,0 +1,183 @@
+\documentclass[a4paper, 12pt]{article}
+% keep \documentclass on 1st line for lilypond-book auto-detection
+
+%
+% This is way too long and hairy --
+%
+%
+
+
+
+
+%\def\preLilyPondExample{}
+%\def\postLilyPondExample{}
+%\usepackage{graphics}
+%\usepackage{landscape}
+
+\begin{document}
+%uncomment this to try twocolumn mode
+%\twocolumn
+
+
+\section{LilyPond-book + LaTeX}
+
+This is an examplefile for mixing LilyPond and Latex.  It is also
+used to test lilypond-book.  View the source to see how it is done.
+
+A simple scale:
+
+\begin{lilypond}
+\score{
+  \relative c'{c d e f g a b c}
+}
+\end{lilypond}
+
+LilyPond-book search for the \verb|\score| command when it decides
+if the code is only a fragment.  Thus, in the following code, you have
+to use \verb|fragment| option, because the comment confuses lilypond-book.
+
+\begin{lilypond}[fragment]
+c d e % \score
+\end{lilypond}
+
+There is also a shorthand version \verb|\lilypond[fragment]{c' e' g'}|:
+
+\lilypond[fragment]{c' e' g'}
+
+that is the same as writing
+\begin{verbatim}
+\begin{lilypond}[fragment]
+c' e' g'
+\end{lilypond}
+\end{verbatim}
+
+This C major
+%%\begin{lilypond}[staffsize=11,fragment]
+\begin{lilypond}[staffsize=11,fragment]
+\context Voice <<c' e' g'>>
+\end{lilypond}
+and C minor
+\lilypond[fragment,staffsize=11]{\context Voice <<c' es' g'>>}  chords are floating inside the text.
+
+\subsection{verb and verbatim}
+
+As you see, the begin/end verbatim command inside
+does not confuse lilypond-book:
+
+\verb|\begin{lilypond}[fragment]c d e\end{lilypond}|
+
+Neither does a verbatim inside verb:
+
+\verb|\begin{verbatim}\begin{lilypond}[fragment]c d e\end{lilypond}\end{verbatim}|
+
+or verb inside verbatim:
+
+\begin{verbatim}
+\verb|\begin{lilypond}[fragment]c d e\end{lilypond}|
+\end{verbatim}
+
+But this is just to stress \verb|lilypond-book|. What you need is:
+
+\verb|\lilypond[fragment]{c' d' e'}|
+
+and
+
+\begin{verbatim}
+\begin{lilypond}
+c d e
+\end{lilypond}
+\end{verbatim}
+
+\subsection{The 'verbatim' and 'intertext' option}
+This shows the verbatim option:
+\begin{lilypond}[fragment,verbatim, intertext="gives this music:"]
+c' d' e'
+\end{lilypond}
+
+\subsection{LaTeX comments}
+This is a line with lilypond code
+after the comment char % \lilypond{\context Voice <<c' e' g'>>}
+% \lilypond{\context Voice <<c' e' g'>>}
+
+If you do not see any music from the heading 'LaTeX comments' and until
+this line, then lilypond-book is handling latex comments pretty well :-)
+
+\subsection{To float or not to float}
+This music
+\begin{lilypond}[fragment]
+c' e'
+\end{lilypond}
+should be floating inside the text by using the \verb|eps| options.
+
+This music
+
+\begin{lilypond}[fragment]
+c' e'
+\end{lilypond}
+
+has also the \verb|eps| options, but is not floating because there
+are an empty line before and after the lilypond block.  That is
+correct behaviour because it follows La\TeX{} convention that an
+empty line signals a new paragraph.  The \verb|eps| option
+is not necessary when you want the music in a paragraph on its own.
+
+\subsection{More examples}
+
+Itemize environment:
+\begin{itemize}
+\item
+\lilypond[staffsize=11,fragment]{ c'} do
+\item
+\lilypond[staffsize=11,fragment]{d'} re
+\item
+\lilypond[staffsize=11,fragment]{e'} mi
+\item
+\lilypond[staffsize=11,fragment]{f'} fa
+\item
+\lilypond[staffsize=11,fragment]{g'} sol
+\end{itemize}
+
+Tables\footnote{ and footnote:
+\lilypond[staffsize=11,fragment]{c' e' g'} }:
+\marginpar{ Yes, even as marginpar
+\lilypond[staffsize=11,fragment]{c' d' e'} }
+
+\begin{tabular}{|l|l|r|}
+\hline
+\em Notes & \em Name \\
+\hline
+\lilypond[staffsize=11,fragment,filename="cdur"]{\context Voice <<c' e' g'>>} & major \\
+\lilypond[staffsize=11,fragment]{\context Voice <<c' es' g'>>} & minor \\
+\lilypond[staffsize=11,fragment]{\context Voice <<c' es' ges'>>} & diminished \\
+\lilypond[staffsize=11,fragment]{\context Voice <<c' e' gis'>>} & augmented \\
+\hline
+\end{tabular}
+
+\pagebreak
+
+Testing of spacing.  The next music is surrounded by an empty line.
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+
+\begin{lilypond}
+\score{ \relative c'{ c d e f g a b c} }
+\end{lilypond}
+
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+
+Next has no empty lines.
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+\begin{lilypond}
+\score{ \relative c'{ c d e f g a b c} }
+\end{lilypond}
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+
+%% need to use an -I ../../../input/test to find the file
+%% \lilypondfile{tie.ly}
+
+\end{document}

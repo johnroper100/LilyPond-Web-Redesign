@@ -1,0 +1,186 @@
+Top	index	index
+Předem stanovené příkazy	P_00c5_0099edem-stanoven_00c3_00a9-p_00c5_0099_00c3_00adkazy	P_00c5_0099edem-stanoven_00c3_00a9-p_00c5_0099_00c3_00adkazy
+Vybrané úryvky	Vybran_00c3_00a9-_00c3_00baryvky	Vybran_00c3_00a9-_00c3_00baryvky
+Podívejte se také na	Pod_00c3_00advejte-se-tak_00c3_00a9-na	Pod_00c3_00advejte-se-tak_00c3_00a9-na
+Známé potíže a upozornění	Zn_00c3_00a1m_00c3_00a9-pot_00c3_00ad_00c5_00bee-a-upozorn_00c4_009bn_00c3_00ad	Zn_00c3_00a1m_00c3_00a9-pot_00c3_00ad_00c5_00bee-a-upozorn_00c4_009bn_00c3_00ad
+Step 1. Create your .ly file	Step-1_002e-Create-your-_002ely-file	Step-1_002e-Create-your-_002ely-file
+Step 2. Compile (with LilyPad)	Step-2_002e-Compile-_0028with-LilyPad_0029	Step-2_002e-Compile-_0028with-LilyPad_0029
+Step 3. View output	Step-3_002e-View-output	Step-3_002e-View-output
+Other commands	Other-commands	Other-commands
+Step 1. Create your .ly file	Step-1_002e-Create-your-_002ely-file	Step-1_002e-Create-your-_002ely-file
+Step 2. Compile	Step-2_002e-Compile	Step-2_002e-Compile
+Step 3. View output	Step-3_002e-View-output	Step-3_002e-View-output
+Other commands	Other-commands	Other-commands
+Step 1. Create your .ly file	Step-1_002e-Create-your-_002ely-file	Step-1_002e-Create-your-_002ely-file
+Step 2. Compile (with command-line)	Step-2_002e-Compile-_0028with-command_002dline_0029	Step-2_002e-Compile-_0028with-command_002dline_0029
+Step 3. View output	Step-3_002e-View-output	Step-3_002e-View-output
+Cvičení	Tutorial	Tutorial
+Přeložení zdrojového souboru	Compiling-a-file	Compiling-a-file
+Zadání not	Entering-input	Entering-input
+Pohled na výsledky	Pohled-na-v_00c3_00bdsledky	Pohled-na-v_00c3_00bdsledky
+MacOS X	MacOS-X	MacOS-X
+Windows	Windows	Windows
+Příkazový řádek	Command_002dline	Command_002dline
+Jak se píší vstupní soubory	How-to-write-input-files	How-to-write-input-files
+Jednoduchý notový zápis	Simple-notation	Simple-notation
+Výšky tónů	V_00c3_00bd_00c5_00a1ky-t_00c3_00b3n_00c5_00af	V_00c3_00bd_00c5_00a1ky-t_00c3_00b3n_00c5_00af
+Délky tónů (rytmy)	D_00c3_00a9lky-t_00c3_00b3n_00c5_00af-_0028rytmy_0029	D_00c3_00a9lky-t_00c3_00b3n_00c5_00af-_0028rytmy_0029
+Pomlky	Pomlky	Pomlky
+Taktové označení	Taktov_00c3_00a9-ozna_00c4_008den_00c3_00ad	Taktov_00c3_00a9-ozna_00c4_008den_00c3_00ad
+Vyznačení tempa	Vyzna_00c4_008den_00c3_00ad-tempa	Vyzna_00c4_008den_00c3_00ad-tempa
+Notový klíč	Notov_00c3_00bd-kl_00c3_00ad_00c4_008d	Notov_00c3_00bd-kl_00c3_00ad_00c4_008d
+Vše dohromady	V_00c5_00a1e-dohromady	V_00c5_00a1e-dohromady
+Práce na vstupních souborech	Working-on-input-files	Working-on-input-files
+Vypořádání se s chybami	Dealing-with-errors	Dealing-with-errors
+Obecné rady k řešení chyb	General-troubleshooting-tips	General-troubleshooting-tips
+Některé časté chyby	Some-common-errors	Some-common-errors
+Jak číst příručky	How-to-read-the-manuals	How-to-read-the-manuals
+Vypuštěný materiál	Omitted-material	Omitted-material
+Klepnutelné příklady	Clickable-examples	Clickable-examples
+Přehled o příručkách	Overview-of-manuals	Overview-of-manuals
+Běžný notový zápis	Common-notation	Common-notation
+Notový zápis v jedné notové osnově	Single-staff-notation	Single-staff-notation
+Přezkoušení taktů	Bar-checks	Bar-checks
+Předznamenání a označení tóniny (předznamenání)	Accidentals-and-key-signatures	Accidentals-and-key-signatures
+Předznamenání	P_00c5_0099edznamen_00c3_00a1n_00c3_00ad	P_00c5_0099edznamen_00c3_00a1n_00c3_00ad
+Označení tóniny (předznamenání)	Ozna_00c4_008den_00c3_00ad-t_00c3_00b3niny-_0028p_00c5_0099edznamen_00c3_00a1n_00c3_00ad_0029	Ozna_00c4_008den_00c3_00ad-t_00c3_00b3niny-_0028p_00c5_0099edznamen_00c3_00a1n_00c3_00ad_0029
+Varování: označení tóniny a výšky tónů	Varov_00c3_00a1n_00c3_00ad_003a-ozna_00c4_008den_00c3_00ad-t_00c3_00b3niny-a-v_00c3_00bd_00c5_00a1ky-t_00c3_00b3n_00c5_00af	Varov_00c3_00a1n_00c3_00ad_003a-ozna_00c4_008den_00c3_00ad-t_00c3_00b3niny-a-v_00c3_00bd_00c5_00a1ky-t_00c3_00b3n_00c5_00af
+Ligatury a legatové obloučky	Ties-and-slurs	Ties-and-slurs
+Ligatury	Ligatury	Ligatury
+Legatové obloučky	Legatov_00c3_00a9-oblou_00c4_008dky	Legatov_00c3_00a9-oblou_00c4_008dky
+Frázovací obloučky	Fr_00c3_00a1zovac_00c3_00ad-oblou_00c4_008dky	Fr_00c3_00a1zovac_00c3_00ad-oblou_00c4_008dky
+Varování: ligatury nejsou legatovými obloučky	Varov_00c3_00a1n_00c3_00ad_003a-ligatury-nejsou-legatov_00c3_00bdmi-oblou_00c4_008dky	Varov_00c3_00a1n_00c3_00ad_003a-ligatury-nejsou-legatov_00c3_00bdmi-oblou_00c4_008dky
+Artikulační znaménka a hlasitost	Articulation-and-dynamics	Articulation-and-dynamics
+Artikulační znaménka	Artikula_00c4_008dn_00c3_00ad-znam_00c3_00a9nka	Artikula_00c4_008dn_00c3_00ad-znam_00c3_00a9nka
+Prstoklad	Prstoklad	Prstoklad
+Dynamika	Dynamika	Dynamika
+Přidání textu	Adding-text	Adding-text
+Automatické a ruční trámce	Automatic-and-manual-beams	Automatic-and-manual-beams
+Dodatečné rytmické příkazy	Advanced-rhythmic-commands	Advanced-rhythmic-commands
+Předtaktí	P_00c5_0099edtakt_00c3_00ad	P_00c5_0099edtakt_00c3_00ad
+Jiná rytmická rozdělení	Jin_00c3_00a1-rytmick_00c3_00a1-rozd_00c4_009blen_00c3_00ad	Jin_00c3_00a1-rytmick_00c3_00a1-rozd_00c4_009blen_00c3_00ad
+Ozdoby	Ozdoby	Ozdoby
+Více not najednou	Multiple-notes-at-once	Multiple-notes-at-once
+Vysvětlení hudebních výrazů	Music-expressions-explained	Music-expressions-explained
+Obdoba: matematické výrazy	Obdoba_003a-matematick_00c3_00a9-v_00c3_00bdrazy	Obdoba_003a-matematick_00c3_00a9-v_00c3_00bdrazy
+Souběžné hudební výrazy: více notových osnov	Soub_00c4_009b_00c5_00ben_00c3_00a9-hudebn_00c3_00ad-v_00c3_00bdrazy_003a-v_00c3_00adce-notov_00c3_00bdch-osnov	Soub_00c4_009b_00c5_00ben_00c3_00a9-hudebn_00c3_00ad-v_00c3_00bdrazy_003a-v_00c3_00adce-notov_00c3_00bdch-osnov
+Souběžné hudební výrazy: jedna notová osnova	Soub_00c4_009b_00c5_00ben_00c3_00a9-hudebn_00c3_00ad-v_00c3_00bdrazy_003a-jedna-notov_00c3_00a1-osnova	Soub_00c4_009b_00c5_00ben_00c3_00a9-hudebn_00c3_00ad-v_00c3_00bdrazy_003a-jedna-notov_00c3_00a1-osnova
+Více notových osnov	Multiple-staves	Multiple-staves
+Seskupení notových osnov	Staff-groups	Staff-groups
+Spojení not do akordů	Combining-notes-into-chords	Combining-notes-into-chords
+Vícehlasost v jedné notové osnově	Single-staff-polyphony	Single-staff-polyphony
+Písničky	Songs	Songs
+Zápis jednoduchých písní	Setting-simple-songs	Setting-simple-songs
+Vyrovnání textu s melodií	Aligning-lyrics-to-a-melody	Aligning-lyrics-to-a-melody
+Text pro více osnov	Lyrics-to-multiple-staves	Lyrics-to-multiple-staves
+Poslední úpravy	Final-touches	Final-touches
+Pořádání děl pomocí proměnných	Organizing-pieces-with-variables	Organizing-pieces-with-variables
+Přidání názvu	Adding-titles	Adding-titles
+Absolutní označení not	Absolute-note-names	Absolute-note-names
+Po cvičení	After-the-tutorial	After-the-tutorial
+Základní pojmy	Fundamental-concepts	Fundamental-concepts
+Jak pracují vstupní soubory LilyPondu	How-LilyPond-input-files-work	How-LilyPond-input-files-work
+Uvedení do stavby souboru v LilyPondu	Introduction-to-the-LilyPond-file-structure	Introduction-to-the-LilyPond-file-structure
+Notový zápis je jedním (jediným) složeným hudebním výrazem	Score-is-a-_0028single_0029-compound-musical-expression	Score-is-a-_0028single_0029-compound-musical-expression
+Naskládání hudebních výrazů do sebe	Nesting-music-expressions	Nesting-music-expressions
+O ne-naskládatelnosti závorek a ligatur	On-the-un_002dnestedness-of-brackets-and-ties	On-the-un_002dnestedness-of-brackets-and-ties
+Hlasy obsahují noty	Voices-contain-music	Voices-contain-music
+Slyším hlasy	I_0027m-hearing-Voices	I_0027m-hearing-Voices
+Přesně vyjádřené začátky hlasů	Explicitly-instantiating-voices	Explicitly-instantiating-voices
+Notové sloupce	Notov_00c3_00a9-sloupce	Notov_00c3_00a9-sloupce
+Hlasy a zpěvy	Voices-and-vocals	Voices-and-vocals
+Prostředí a rytci	Contexts-and-engravers	Contexts-and-engravers
+Vysvětlení prostředí	Contexts-explained	Contexts-explained
+Vytvoření prostředí	Creating-contexts	Creating-contexts
+Vysvětlení rytců	Engravers-explained	Engravers-explained
+Změna vlastností prostředí	Modifying-context-properties	Modifying-context-properties
+Kontexteigenschaften mit \with setzen	Kontexteigenschaften-mit-_005cwith-setzen	Kontexteigenschaften-mit-_005cwith-setzen
+Kontexteigenschaften mit \context setzen	Kontexteigenschaften-mit-_005ccontext-setzen	Kontexteigenschaften-mit-_005ccontext-setzen
+Přidání a odstranění rytců	Adding-and-removing-engravers	Adding-and-removing-engravers
+Einen einzelnen Kontext verändern	Einen-einzelnen-Kontext-ver_00c3_00a4ndern	Einen-einzelnen-Kontext-ver_00c3_00a4ndern
+Alle Kontexte des gleichen Typs verändern	Alle-Kontexte-des-gleichen-Typs-ver_00c3_00a4ndern	Alle-Kontexte-des-gleichen-Typs-ver_00c3_00a4ndern
+Rozšíření příkladů	Extending-the-templates	Extending-the-templates
+Soprán a violoncello	Soprano-and-cello	Soprano-and-cello
+Čtyřhlasý notový zápis SATB	Four_002dpart-SATB-vocal-score	Four_002dpart-SATB-vocal-score
+Vytvoření notového zápisu od základu	Building-a-score-from-scratch	Building-a-score-from-scratch
+Úspora psaní na stroji pomocí proměnných a funkcí	Saving-typing-with-variables-and-functions	Saving-typing-with-variables-and-functions
+Notové zápisy a hlasy	Scores-and-parts	Scores-and-parts
+Ladění výstupu	Tweaking-output	Tweaking-output
+Základy pro ladění	Tweaking-basics	Tweaking-basics
+Úvod do ladění	Introduction-to-tweaks	Introduction-to-tweaks
+Předměty a rozhraní	Objects-and-interfaces	Objects-and-interfaces
+Pravidla pro pojmenovávání předmětů a vlastností	Naming-conventions-of-objects-and-properties	Naming-conventions-of-objects-and-properties
+Postupy při ladění	Tweaking-methods	Tweaking-methods
+Vnitřní referenční příručka	The-Internals-Reference-manual	The-Internals-Reference-manual
+Vlastnosti předmětů v rozvržení	Properties-of-layout-objects	Properties-of-layout-objects
+Den Kontext finden	Den-Kontext-finden	Den-Kontext-finden
+Nur einmal mit \override verändern	Nur-einmal-mit-_005coverride-ver_00c3_00a4ndern	Nur-einmal-mit-_005coverride-ver_00c3_00a4ndern
+Rückgängig machen	R_00c3_00bcckg_00c3_00a4ngig-machen	R_00c3_00bcckg_00c3_00a4ngig-machen
+Vlastnosti nacházející se v rozhraních	Properties-found-in-interfaces	Properties-found-in-interfaces
+Den Kontext im Liedtextmodus bestimmen	Den-Kontext-im-Liedtextmodus-bestimmen	Den-Kontext-im-Liedtextmodus-bestimmen
+Typy vlastností	Types-of-properties	Types-of-properties
+Vzhled předmětů	Appearance-of-objects	Appearance-of-objects
+Viditelnost a barva předmětů	Visibility-and-color-of-objects	Visibility-and-color-of-objects
+stencil (Matrize)	stencil-_0028Matrize_0029	stencil-_0028Matrize_0029
+break-visibility (unsichtbar machen)	break_002dvisibility-_0028unsichtbar-machen_0029	break_002dvisibility-_0028unsichtbar-machen_0029
+transparent (durchsichtig)	transparent-_0028durchsichtig_0029	transparent-_0028durchsichtig_0029
+color (Farbe)	color-_0028Farbe_0029	color-_0028Farbe_0029
+Velikost předmětů	Size-of-objects	Size-of-objects
+Délka a tloušťka předmětů	Length-and-thickness-of-objects	Length-and-thickness-of-objects
+Umístění předmětů	Placement-of-objects	Placement-of-objects
+Automatické chování	Automatic-behavior	Automatic-behavior
+Předměty uvnitř notové osnovy	Within_002dstaff-objects	Within_002dstaff-objects
+Fingersatz	Fingersatz	Fingersatz
+Předměty vně notové osnovy	Outside_002dstaff-objects	Outside_002dstaff-objects
+\textLengthOn (Textlänge berücksichtigen)	_005ctextLengthOn-_0028Textl_00c3_00a4nge-ber_00c3_00bccksichtigen_0029	_005ctextLengthOn-_0028Textl_00c3_00a4nge-ber_00c3_00bccksichtigen_0029
+Dynamik	Dynamik	Dynamik
+Verändern der Größe von grobs	Ver_00c3_00a4ndern-der-Gr_00c3_00b6_00c3_009fe-von-grobs	Ver_00c3_00a4ndern-der-Gr_00c3_00b6_00c3_009fe-von-grobs
+Střety předmětů	Collisions-of-objects	Collisions-of-objects
+Přesouvání předmětů	Moving-objects	Moving-objects
+Oprava překrývajících se not	Fixing-overlapping-notation	Fixing-overlapping-notation
+padding (Fülleigenschafte)	padding-_0028F_00c3_00bclleigenschafte_0029	padding-_0028F_00c3_00bclleigenschafte_0029
+right-padding (Verschieben nach links)	right_002dpadding-_0028Verschieben-nach-links_0029	right_002dpadding-_0028Verschieben-nach-links_0029
+staff-padding (Systemfüllungseigenschaft)	staff_002dpadding-_0028Systemf_00c3_00bcllungseigenschaft_0029	staff_002dpadding-_0028Systemf_00c3_00bcllungseigenschaft_0029
+self-alignment-X (Selbstausrichtung-X-Eigenschaft)	self_002dalignment_002dX-_0028Selbstausrichtung_002dX_002dEigenschaft_0029	self_002dalignment_002dX-_0028Selbstausrichtung_002dX_002dEigenschaft_0029
+staff-position (Position innerhalb des Systems)	staff_002dposition-_0028Position-innerhalb-des-Systems_0029	staff_002dposition-_0028Position-innerhalb-des-Systems_0029
+extra-offset (Genaues Positionieren)	extra_002doffset-_0028Genaues-Positionieren_0029	extra_002doffset-_0028Genaues-Positionieren_0029
+Ausrichtungseigenschaft	Ausrichtungseigenschaft	Ausrichtungseigenschaft
+force-hshift (vertikale Verschiebunseigenschaft)	force_002dhshift-_0028vertikale-Verschiebunseigenschaft_0029	force_002dhshift-_0028vertikale-Verschiebunseigenschaft_0029
+Příklady ze života	Real-music-example	Real-music-example
+Další ladění	Further-tweaking	Further-tweaking
+Jiné využití ladění	Other-uses-for-tweaks	Other-uses-for-tweaks
+Noten zwischen unterschiedlichen Stimmen überbinden	Noten-zwischen-unterschiedlichen-Stimmen-_00c3_00bcberbinden	Noten-zwischen-unterschiedlichen-Stimmen-_00c3_00bcberbinden
+Eine Fermate in MIDI simulieren	Eine-Fermate-in-MIDI-simulieren	Eine-Fermate-in-MIDI-simulieren
+Použití proměnných pro ladění	Using-variables-for-tweaks	Using-variables-for-tweaks
+Celkové formátování	Style-sheets	Style-sheets
+Více informací	Other-sources-of-information	Other-sources-of-information
+Vyhnutí se ladění s pomalejším překladem	Avoiding-tweaks-with-slower-processing	Avoiding-tweaks-with-slower-processing
+Pokročilá ladění se Scheme	Advanced-tweaks-with-Scheme	Advanced-tweaks-with-Scheme
+Předlohy	Templates	Templates
+Jednotlivá notová osnova	Single-staff	Single-staff
+Pouze noty	Pouze-noty	Pouze-noty
+Noty a text	Noty-a-text	Noty-a-text
+Noty a názvy akordů	Noty-a-n_00c3_00a1zvy-akord_00c5_00af	Noty-a-n_00c3_00a1zvy-akord_00c5_00af
+Noty, text a názvy akordů	Noty_002c-text-a-n_00c3_00a1zvy-akord_00c5_00af	Noty_002c-text-a-n_00c3_00a1zvy-akord_00c5_00af
+Klavírní předlohy	Piano-templates	Piano-templates
+Klavírní sólo	Klav_00c3_00adrn_00c3_00ad-s_00c3_00b3lo	Klav_00c3_00adrn_00c3_00ad-s_00c3_00b3lo
+Klavír a hlas zpěvu	Klav_00c3_00adr-a-hlas-zp_00c4_009bvu	Klav_00c3_00adr-a-hlas-zp_00c4_009bvu
+Klavír s vystředěným textem	Klav_00c3_00adr-s-vyst_00c5_0099ed_00c4_009bn_00c3_00bdm-textem	Klav_00c3_00adr-s-vyst_00c5_0099ed_00c4_009bn_00c3_00bdm-textem
+Smyčcový kvartet	String-quartet	String-quartet
+Jednoduchá smyčcový kvartet	Jednoduch_00c3_00a1-smy_00c4_008dcov_00c3_00bd-kvartet	Jednoduch_00c3_00a1-smy_00c4_008dcov_00c3_00bd-kvartet
+Hlasy smyčcového kvartetu	Hlasy-smy_00c4_008dcov_00c3_00a9ho-kvartetu	Hlasy-smy_00c4_008dcov_00c3_00a9ho-kvartetu
+Vokální soubor	Vocal-ensembles	Vocal-ensembles
+Notový zápis SATB	Notov_00c3_00bd-z_00c3_00a1pis-SATB	Notov_00c3_00bd-z_00c3_00a1pis-SATB
+Notový zápis SATB a automatický klavírní výtah	Notov_00c3_00bd-z_00c3_00a1pis-SATB-a-automatick_00c3_00bd-klav_00c3_00adrn_00c3_00ad-v_00c3_00bdtah	Notov_00c3_00bd-z_00c3_00a1pis-SATB-a-automatick_00c3_00bd-klav_00c3_00adrn_00c3_00ad-v_00c3_00bdtah
+SATB s příslušnými prostředími	SATB-s-p_00c5_0099_00c3_00adslu_00c5_00a1n_00c3_00bdmi-prost_00c5_0099ed_00c3_00admi	SATB-s-p_00c5_0099_00c3_00adslu_00c5_00a1n_00c3_00bdmi-prost_00c5_0099ed_00c3_00admi
+Sólový zpěv a dvojhlasný refrén	S_00c3_00b3lov_00c3_00bd-zp_00c4_009bv-a-dvojhlasn_00c3_00bd-refr_00c3_00a9n	S_00c3_00b3lov_00c3_00bd-zp_00c4_009bv-a-dvojhlasn_00c3_00bd-refr_00c3_00a9n
+Orchestrální předloha	Orchestral-templates	Orchestral-templates
+Orchestr, sbor a klavír	Orchestr_002c-sbor-a-klav_00c3_00adr	Orchestr_002c-sbor-a-klav_00c3_00adr
+Předlohy pro starý notový zápis	Ancient-notation-templates	Ancient-notation-templates
+Přepis menzurální hudby	P_00c5_0099epis-menzur_00c3_00a1ln_00c3_00ad-hudby	P_00c5_0099epis-menzur_00c3_00a1ln_00c3_00ad-hudby
+Předlohy pro přepis gregorianik	P_00c5_0099edlohy-pro-p_00c5_0099epis-gregorianik	P_00c5_0099edlohy-pro-p_00c5_0099epis-gregorianik
+Jiné předlohy	Other-templates	Other-templates
+Džezová skupina	Jazz-combo	Jazz-combo
+GNU Free Documentation License	GNU-Free-Documentation-License	GNU-Free-Documentation-License
+ADDENDUM: How to use this License for your documents	ADDENDUM_003a-How-to-use-this-License-for-your-documents	ADDENDUM_003a-How-to-use-this-License-for-your-documents
+Rejstřík k LilyPondu	LilyPond-index	LilyPond-index

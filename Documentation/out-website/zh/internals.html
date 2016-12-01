@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright C 2009-2015 by the authors.
+
+LilyPond 网站由本文件归档。
+
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled "GNU Free Documentation
+License".
+
+ -->
+<!-- Created on 11 月 30, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>LilyPond &ndash; 人人的乐谱软件: 内部机制</title>
+
+<meta name="description" content="LilyPond &ndash; 人人的乐谱软件: 内部机制">
+<meta name="keywords" content="LilyPond &ndash; 人人的乐谱软件: 内部机制">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#top" rel="start" title="LilyPond... 人人的乐谱软件">
+<link href="index_toc.html#SEC_Contents" rel="contents" title="目录">
+<link href="index_abt.html#SEC_About" rel="help" title="关于本文档">
+<link href="manuals.html#manuals" rel="up" title="手册">
+<link href="attic.html#attic" rel="next" title="Attic">
+<link href="extending.html#extending" rel="previous" title="扩展">
+<link rel="stylesheet" type="text/css" title="Default style" href="css/lilypond-website.css">
+<!--[if lte IE 9]>
+<link href="css/lilypond-website-ie-fixes.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+
+</head>
+
+<body lang="zh" class="web devStatus">
+
+<div id="main">
+<a name="g_t_5185_90e8_673a_5236"></a>
+
+<a name="internals"></a>
+<h2 class="unnumberedsec">内部机制</h2>
+
+<div class="column-left-top"><a name="Nei-Bu-Ji-Zhi-Can-Kao-Shou-Ce--Internals-reference"></a>
+<h3 class="subheading">内部机制参考手册 Internals reference</h3>
+
+<p>这是一个交叉链接页面的集合，这些页面把每一个 LilyPond
+的类，对象和函数的本质细节进行了归档。它是从源码中的格式化定义直接生成的。
+</p>
+<p>几乎所有调整格式的内部函数，用户可以直接使用。例如，绝大部分控制粗细值，距离等的变量，可以在乐谱输入文件中进行更改。LilyPond
+有大量格式化选项，所有这些选项都在这份文档中进行了描述。Notation reference (记谱法参考手册) 的各个章节都有一个 <b>See also (参见)</b> 小节 ，指向着一份自动生成的文档。
+</p>
+
+</div>
+<div class="column-right-bottom">
+<a name="Kai-Shi-Yue-Du--5"></a>
+<h3 class="subheading">开始阅读</h3>
+
+
+<div class="keep-bullets"><ul>
+<li>       <a href="../doc/v2.18/Documentation/internals/index.html">Internals (split HTML)</a>
+   -
+  本手册分解了许多 HTML 页面。
+  <br>&nbsp;&nbsp;<em>(每个页面有一小的下载)</em>
+
+</li><li>       <a href="../doc/v2.18/Documentation/internals-big-page.html">Internals (big HTML)</a>
+   -
+  以单一大 HTML 页面的方式阅读本手册。
+  <br>&nbsp;&nbsp;<em>(大的单一下载, 2.5 MB)</em>
+
+</li><li>       <a href="../doc/v2.18/Documentation/internals.pdf">Internals.pdf</a>
+   -
+  以 PDF 文件的方式下载。
+  <br>&nbsp;&nbsp;<em>(大的单一下载, 2.8 MB)</em>
+
+</li></ul>
+
+
+</div>
+
+
+
+</div>
+
+<hr size="6">
+
+<!-- FOOTER -->
+
+<!-- end div#main here -->
+</div>
+
+<div id="verifier_texinfo">
+<h3>Validation</h3>
+<p>非常感谢 <a href="http://www.webdev.nl/">webdev.nl</a> 提供 <code>lilypond.org</code> 的主机空间。
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-html401"
+     alt="Valid HTML 4.01 Transitional"
+     height="31" width="88"></a></p>
+</div>
+
+<div id="tocframe">
+<ul class="toc">
+<li><a href="index.html"><span>LilyPond</span></a></li>
+  <li class=""><a name="toc-Jian-Jie-" href="introduction.html">简介</a>  </li>
+  <li class=""><a name="toc-Xia-Zai-" href="download.html">下载</a>  </li>
+  <li class=" toc_current"><a name="toc-Shou-Ce-" href="manuals.html">手册</a>
+  <ul class="toc">
+  <li class="colorDefault"><a name="toc-Shou-Ce-" href="manuals.html">手册</a></li>
+    <li class=""><a name="toc-Xue-Xi-" href="learning.html">学习</a>    </li>
+    <li class=""><a name="toc-Zhu-Yu-Biao-" href="glossary.html">术语表</a>    </li>
+    <li class=""><a name="toc-Wen-Zhang-" href="essay.html">文章</a>    </li>
+    <li class=""><a name="toc-Ji-Pu-Fa-" href="notation.html">记谱法</a>    </li>
+    <li class=""><a name="toc-Shi-Yong-" href="usage.html">使用</a>    </li>
+    <li class=""><a name="toc-Pian-Duan-" href="snippets.html">片断</a>    </li>
+    <li class=""><a name="toc-Chang-Jian-Wen-Ti-" href="faq.html">常见问题</a>    </li>
+    <li class=""><a name="toc-Web-1" href="web.html">Web</a>    </li>
+    <li class=""><a name="toc-Bian-Hua-" href="changes.html">变化</a>    </li>
+    <li class=""><a name="toc-Kuo-Zhan-" href="extending.html">扩展</a>    </li>
+    <li class=" toc_current"><a name="toc-Nei-Bu-Ji-Zhi-" href="internals.html">内部机制</a>    </li>
+    <li class=""><a name="toc-Fan-Yi-" href="translated.html">翻译</a>    </li>
+    <li class=""><a name="toc-Suo-You-" href="all.html">所有</a>    </li>
+    <li class=""><a name="toc-FDL-1" href="fdl.html">FDL</a>    </li>
+  </ul>
+  </li>
+  <li class=""><a name="toc-She-Qu-" href="community.html">社区</a>  </li>
+<li>
+<!--
+    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
+-->
+
+<form action="http://google.com/search"
+      method="get"
+      name="search"
+      onSubmit="search.q.value='site:lilypond.org/doc/v2.19 '
+		+ search.brute_query.value"
+      onMouseMove="search.q.value='site:lilypond.org/doc/v2.19 '
+		   + search.brute_query.value"
+      onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
+	       + search.brute_query.value">
+  <input type="hidden" name="btnG" value="Google 搜索">
+  <input type="text" name="brute_query" onfocus="this.value=''" value="搜索">
+  <input type="hidden" name="q" value="">
+</form>
+</li>
+</ul>
+
+</div>
+
+</body>
+</html>

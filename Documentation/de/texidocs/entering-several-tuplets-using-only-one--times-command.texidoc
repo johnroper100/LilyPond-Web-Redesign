@@ -1,0 +1,16 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Die Eigenschaft @code{tupletSpannerDuration} bestimmt, wie lange jede
+der N-tolen innerhalb der Klammern nach dem @code{\\times}-Befehl
+dauert.  Auf diese Art können etwa viele Triolen nacheinander mit nur
+einem @code{\\times}-Befehl geschrieben werden.
+
+Im Beispiel sind zwei Triolen zu sehen, obwohl @code{\\times} nur
+einmal geschrieben wurde.
+
+Mehr Information über @code{make-moment} gibt es in \"Verwaltung der Zeiteinheiten\".
+
+"
+  doctitlede = "Mehrere Triolen notieren, aber nur einmal \\times benutzen"
+
+

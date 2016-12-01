@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Eigenschaften von Bunddiagrammen können in
+@code{'fret-diagram-details} verändert werden.  Einstellungen mit
+dem @code{\override}-Befehl werden dem @code{FretBoards.FretBoard}-Objekt
+zugewiesen.  Genauso wie @code{Voice} ist auch @code{FretBoards} ein
+Kontext der niedrigsten Ebene, weshalb der Kontext auch in dem Befehl
+weggelassen werden kann.
+
+"
+  doctitlede = "Bunddiagramme anpassen"

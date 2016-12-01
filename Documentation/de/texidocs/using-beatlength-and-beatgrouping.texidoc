@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Die Eigenschaft @code{measureLength} bestimmt, wo Taktstriche eingefügt
+werden sollen und, zusammen mit @code{beatLength} und
+@code{beatGrouping}, wie automatische Balken für Notenlängen und
+Taktarten, für die keine definierten Regeln gefunden werden, gesetzt
+werden sollen.  Dieses Beispiel zeigt verschiedene Möglichkeiten,
+die Balken zu kontrollieren, indem man diese Eigenschaften
+beeinflusst.  Die Erklärungen werden als Kommentare im Quellcode
+gegeben.
+"
+  doctitlede = "beatLength und beatGrouping benutzen"
+

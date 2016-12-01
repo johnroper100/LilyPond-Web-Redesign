@@ -1,0 +1,2463 @@
+#!/usr/bin/env perl
+# -*- coding: utf-8; -*-
+
+### texi2html customization script for LilyPond
+### Author: Reinhold Kainhofer <reinhold@kainhofer.com>, 2008.
+###         Some code parts copied from texi2html and adapted. These functions
+###         were written mainly by Patrice Dumas
+### License: GPLv3+
+###
+###
+### Features implemented here:
+### -) For split manuals, the main page is index.html.
+### -) All @unnumbered* sections are placed into the same file
+###    (implemented by split_at_numbered_sections)
+### -) Use our custom CSS file, with IE-specific fixes in another CSS file,
+###    implemented by lilypond_css_lines
+### -) TOC (folded, with the current page highlighted) in an overflown <div>
+###    is added to every page; implemented by:
+###           lilypond_print_element_header -- building of the TOC
+###           lilypond_toc_body -- generation of customized TOC output
+###           lilypond_print_page_head -- start <div id="main">
+###           print_lilypond_page_foot -- closing id=main, output of footer & TOC
+### -) External refs are formatted only as "Text of the node" (not as >>see
+###    "NODE" section "SECTION" in "BOOK"<< like with default texi2html). Also,
+###    the leading "(book-name)" is removed.
+###    Implemented by overriding lilypond_external_ref
+### -) Navigation bars on top/bottom of the page and between sections are not
+###    left-aligned, but use a combination of left/center/right aligned table
+###    cells; For this, I heavily extend the texi2html code to allow for
+###    differently aligned cells and for multi-line tables);
+###    Implemented in lilypond_print_navigation
+### -) Different formatting than the default: example uses the same formatting
+###    as quote.
+### -) Allow translated section titles: All section titles can be translated,
+###    the original (English) title is associated with @translationof. This is
+###    needed, because the file name / anchor is generated from the original
+###    English title, since otherwise language-autoselection would break with
+###    posted links.
+###    Since it is then no longer possible to obtain the file name from the
+###    section title, I keep a sectionname<=>filename/anchor around. This way,
+###    xrefs from other manuals can simply load that map and retrieve the
+###    correct file name for the link. Implemented in:
+###           lilypond_unknown (handling of @translationof, in case
+###                             extract_texi_filenames.py messes up...)
+###           lilypond_element_file_name (correct file name: use the map)
+###           lilypond_element_target_name (correct anchor: use the map)
+###           lilypond_init_map (read in the externally created map from disk)
+###           lilypond_external_href (load the map for xrefs, use the correct
+###                                   link target)
+### -) The HTML anchors for all sections are derived from the node name /
+###    section title (pre-generated in the .xref-map file). Implemented by:
+###           lilypond_element_target_name (adjust section anchors)
+### -) Use the standard footnote format "<sup>nr</sup> text" instead of the
+###    ugly format of texi2html (<h3>(nr)</h3><p>text</p>). Implemented in
+###           makeinfo_like_foot_line_and_ref
+###           makeinfo_like_foot_lines
+###           makeinfo_like_paragraph
+### -) In tables, don't wrap <p> around the contents. Implemented in
+###           makeinfo_like_paragraph
+###
+###
+### Useful helper functions:
+### -) texinfo_file_name($node_name): returns a texinfo-compatible file name
+###    for the given string $node_name (whitespace trimmed/replaced by -,
+###    non-standard chars replaced by _xxxx (ascii char code) and forced to
+###    start with a letter by prepending t_g if necessary)
+
+package main;
+$original_normalise_node = \&normalise_node;
+
+sub t2h_default_normalise_node($)
+{
+    my $text = shift;
+    $original_normalise_node->($text);
+}
+
+*normalise_node = sub($)
+{
+    my $text = shift;
+    return &$Texi2HTML::Config::normalise_node($text);
+};
+
+package Texi2HTML::Config;
+##$normalise_node = \&t2h_default_normalise_node;
+$normalise_node = \&lilypond_normalise_node;
+
+
+use utf8;
+use Encode qw(decode);
+
+#############################################################################
+### TRANSLATIONS
+#############################################################################
+
+my $LY_LANGUAGES = {};
+$LY_LANGUAGES->{'ca'} = {
+    'Back to Documentation Index' => 'Torna a l\'índex de la documentació',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Agraïm a ${webdev_link} l\'allotjament de ${lily_site}.',
+};
+
+$LY_LANGUAGES->{'cs'} = {
+    'Back to Documentation Index' => '',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '',
+};
+
+$LY_LANGUAGES->{'de'} = {
+    'Back to Documentation Index' => 'Zur Dokumentationsübersicht',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '',
+};
+
+$LY_LANGUAGES->{'es'} = {
+    'Back to Documentation Index' => 'Volver al índice de la documentación',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Agradecemos a ${webdev_link} el alojamiento de ${lily_site}.',
+};
+
+$LY_LANGUAGES->{'fr'} = {
+    'Back to Documentation Index' => 'Retour à l\'accueil de la documentation',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Remerciements à ${webdev_link} pour l\'hébergement de ${lily_site}.',
+};
+
+
+$LY_LANGUAGES->{'hu'} = {
+    'Back to Documentation Index' => 'Vissza a dokumentációk jegyzékéhez',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Köszönet a ${webdev_link} részére a ${lily_site} tárhelyért.',
+};
+
+$LY_LANGUAGES->{'it'} = {
+    'Back to Documentation Index' => 'Torna all\'indice della documentazione',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => 'Grazie a ${webdev_link} per l\'hosting di ${lily_site}.',
+};
+
+$LY_LANGUAGES->{'ja'} = {
+    'Back to Documentation Index' => 'ドキュメント インデックスに戻る',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>${lily_site} をホスティングしてくれている ${webdev_link} に感謝します。',
+};
+
+
+$LY_LANGUAGES->{'nl'} = {
+    'Back to Documentation Index' => 'Terug naar de Documentatieindex',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Met dank aan ${webdev_link} voor het hosten van ${lily_site}.',
+};
+
+$LY_LANGUAGES->{'zh'} = {
+    'Back to Documentation Index' => '回到文档索引',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>非常感谢 ${webdev_link} 提供 ${lily_site} 的主机空间。',
+};
+
+# FIXME: request the translations below then send them to texi2html/texinfo devs
+
+$LANGUAGES->{'ca'} = {
+                       '  The buttons in the navigation panels have the following meaning:' => '  Els botons als panells de navegació tenen els significats següents:',
+                       '  where the @strong{ Example } assumes that the current position is at @strong{ Subsubsection One-Two-Three } of a document of the following structure:' => '  on l\'@strong{exemple} suposa que la posició actual és a la @strong{ Subsubsecció U-Dos-Tres } d\'un document a l\'estructura següent:',
+                       ' Up ' => ' Amunt ',
+                       '(outside of any element)' => '(fora de qualsevol element)',
+                       '(outside of any node)' => '(fora de qualsevol node)',
+                       '@b{{quotation_arg}:} ' => '@b{{quotation_arg}:} ',
+                       '@cite{{book}}' => '@cite{{book}}',
+                       '@{No value for `{value}\'@}' => '@{Cap valor per a `{value}\'@}',
+                       'About' => 'Quant a',
+                       'About (help)' => 'Quant a (ajuda)',
+                       'About This Document' => 'Quant a aquest document',
+                       'April' => 'Abril',
+                       'August' => 'Agost',
+                       'Back' => 'Enrere',
+                       'Back section in previous file' => 'Secció enrere al fitxer previ',
+                       'Beginning of this chapter or previous chapter' => 'Inici d\'aquest capítol o capítul previ',
+                       'Button' => 'Botó',
+                       'Contents' => 'Continguts',
+                       'Cover (top) of document' => 'Portada (part superior) del document',
+                       'Current' => 'Actual',
+                       'Current Position' => 'Posició actual',
+                       'Current section' => 'Secció actual',
+                       'December' => 'Desembre',
+                       'FastBack' => 'Enrere ràpid',
+                       'FastForward' => 'Endavant ràpid',
+                       'February' => 'Febrer',
+                       'First' => 'Primera',
+                       'First section in reading order' => 'Primera secció en ordre de lectura',
+                       'Following' => 'Següent',
+                       'Following node' => 'Node següent',
+                       'Footnotes' => 'Notes a peu de pàgina',
+                       'Forward' => 'Endavant',
+                       'Forward section in next file' => 'Secció següent al fitxer següent',
+                       'From 1.2.3 go to' => 'De 1.2.3 ves a',
+                       'Go to' => 'Ves a',
+                       'Index' => 'Índex',
+                       'Index Entry' => 'Entrada de l\'índex',
+                       'January' => 'Gener',
+                       'July' => 'Juliol',
+                       'Jump to' => 'Salta a',
+                       'June' => 'June',
+                       'Last' => 'Última',
+                       'Last section in reading order' => 'Última secció en ordre de lectura',
+                       'March' => 'Març',
+                       'May' => 'Maig',
+                       'Menu:' => 'Menú',
+                       'Name' => 'Nom',
+                       'Next' => 'Següent',
+                       'Next chapter' => 'Capítol segúent',
+                       'Next file' => 'Fitxer següent',
+                       'Next node' => 'Node següent',
+                       'Next section in reading order' => 'Secció següent en ordre de lectura',
+                       'Next section on same level' => 'Secció següent al mateix nivell',
+                       'NextFile' => 'Fitxer següent',
+                       'Node following in node reading order' => 'Node següent en ordre de lectura',
+                       'Node up' => 'Node amunt',
+                       'NodeNext' => 'Node següent',
+                       'NodePrev' => 'Node anterior',
+                       'NodeUp' => 'Node superior',
+                       'November' => 'Novembre',
+                       'October' => 'Octubre',
+                       'Overview' => 'Panoràmica',
+                       'Prev' => 'Previ',
+                       'PrevFile' => 'Fitxer previ',
+                       'Previous' => 'Anterior',
+                       'Previous file' => 'Fitxer anterior',
+                       'Previous node' => 'Node anterior',
+                       'Previous section in reading order' => 'Secció anterior en ordre de lectura',
+                       'Previous section on same level' => 'Secció prèvia al mateix nivell',
+                       'Section' => 'Secció',
+                       'Section One' => 'Secció u',
+                       'See ' => 'Vegeu',
+                       'See @cite{{book}}' => 'Vegeu @cite{{book}}',
+                       'See section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'Vegeu la secció  `@asis{}`{section_name}\'@asis{}\' a @cite{{book}}',
+                       'See section `{section}\' in @cite{{book}}' => 'Vegeu la secció `{section}\' a @cite{{book}}',
+                       'See section {reference_name}' => 'Vegeu la secció {reference_name}',
+                       'See {node_file_href}' => 'Vegeu {node_file_href}',
+                       'See {node_file_href} @cite{{book}}' => 'Vegeu {node_file_href} @cite{{book}}',
+                       'See {node_file_href} section `{section}\' in @cite{{book}}' => 'Vegeu {node_file_href} a la secció `{section}\' a @cite{{book}}',
+                       'See {reference_name}' => 'Vegeu {reference_name}',
+                       'See {ref}' => 'Vegeu {ref}',
+                       'See {title_ref}' => 'Vegeu {title_ref}',
+                       'September' => 'Setembre',
+                       'Short Table of Contents' => 'Índex brevu',
+                       'Short table of contents' => 'Índex breu',
+                       'Subsection One-Four' => 'Subsecció U-Quatre',
+                       'Subsection One-One' => 'Subsecció U-U',
+                       'Subsection One-Three' => 'Subsecció U-Tres',
+                       'Subsection One-Two' => 'Subsecció U-Dos',
+                       'Subsubsection One-Two-Four' => 'Subsubseció U-Dos-Quatre',
+                       'Subsubsection One-Two-One' => 'Subsubsecció U-Dos-U',
+                       'Subsubsection One-Two-Three' => 'Subsubsecció U-Dos-Tres',
+                       'Subsubsection One-Two-Two' => 'Subsubsecció U-Dos-Dos',
+                       'T2H_today' => '%s, %d %d',
+                       'Table of Contents' => 'Índex',
+                       'Table of contents' => 'Índex',
+                       'The node you are looking for is at {href}.' => 'El node que esteu buscant és {href}',
+                       'This' => 'Aquest',
+                       'This document was generated on @i{{date}} using @uref{{program_homepage}, @i{{program}}}.' => 'Aquest document s\'ha generat el @i{{date}} amb @uref{{program_homepage}, @i{{program}}}.',
+                       'This document was generated using @uref{{program_homepage}, @emph{{program}}}.' => 'Aquest document sha generat amb @uref{{program_homepage}, @emph{{program}}}.',
+                       'Top' => 'Inici',
+                       'Untitled Document' => 'Document sense títol',
+                       'Up' => 'Amunt',
+                       'Up node' => 'Node superior',
+                       'Up section' => 'Secció supeior',
+                       'current' => 'actual',
+                       'on @emph{{date}}' => 'el @emph{{date}}',
+                       'section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'secció `@asis{}`{section_name}\'@asis{}\' a @cite{{book}}',
+                       'section `{section}\' in @cite{{book}}' => 'secció `{section}\' a @cite{{book}}',
+                       'see ' => 'vegeu ',
+                       'see @cite{{book}}' => 'vegeu @cite{{book}}',
+                       'see section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'vegeu la secció `@asis{}`{section_name}\'@asis{}\' a @cite{{book}}',
+                       'see section `{section}\' in @cite{{book}}' => 'vegeu la secció `{section}\' a @cite{{book}}',
+                       'see section {reference_name}' => 'vegeu la secció {reference_name}',
+                       'see {node_file_href}' => 'vegeu {node_file_href}',
+                       'see {node_file_href} @cite{{book}}' => 'vegeu {node_file_href} @cite{{book}}',
+                       'see {node_file_href} section `{section}\' in @cite{{book}}' => 'vegeu {node_file_href} a la secció `{section}\' a @cite{{book}}',
+                       'see {reference_name}' => 'vegeu {reference_name}',
+                       'see {ref}' => 'vegeu {ref}',
+                       'see {title_ref}' => 'vegeu {title_ref}',
+                       '{acronym_like} ({explanation})' => '{acronym_like} ({explanation})',
+                       '{name} of {class}' => '{name} de {class}',
+                       '{name} on {class}' => '{name} a {class}',
+                       '{node_file_href}' => '{node_file_href}',
+                       '{node_file_href} @cite{{book}}' => '{node_file_href} @cite{{book}}',
+                       '{node_file_href} section `{section}\' in @cite{{book}}' => '{node_file_href} a la secció `{section}\' a @cite{{book}}',
+                       '{reference_name}' => '{reference_name}',
+                       '{ref}' => '{ref}',
+                       '{style} {number}' => '{style} {number}',
+                       '{style}: {caption_first_line}' => '{style}: {caption_first_line}',
+                       '{style}: {shortcaption_first_line}' => '{style}: {shortcaption_first_line}',
+                       '{title_ref}' => '{title_ref}'
+                     };
+
+$LANGUAGES->{'it'} = {
+                       '  The buttons in the navigation panels have the following meaning:' => '  I bottoni nei pannelli di navigazione hanno il seguente significato:',
+                       '  where the @strong{ Example } assumes that the current position is at @strong{ Subsubsection One-Two-Three } of a document of the following structure:' => '  dove @strong{ Esempio } assume che l\'attuale posizione è alla @strong{ Sottosottosezione Uno-Due-Tre } di un documento che ha la seguente struttura:',
+                       ' Up ' => ' Su ',
+                       '(outside of any element)' => '(fuori da qualsiasi elemento)',
+                       '(outside of any node)' => '(fuori da qualsiasi nodo)',
+                       '@b{{quotation_arg}:} ' => '@b{{quotation_arg}:} ',
+                       '@cite{{book}}' => '@cite{{book}}',
+                       '@{No value for `{value}\'@}' => '@{Nessun valore per `{value}\'@}',
+                       'About' => 'Informazioni',
+                       'About (help)' => 'Informazioni (aiuto)',
+                       'About This Document' => 'Informazioni su questo documento',
+                       'April' => 'Aprile',
+                       'August' => 'Agosto',
+                       'Back' => 'Indietro',
+                       'Back section in previous file' => '',
+                       'Beginning of this chapter or previous chapter' => 'Inizio di questo capitolo o capitolo precedente',
+                       'Button' => 'Bottone',
+                       'Contents' => 'Contenuti',
+                       'Cover (top) of document' => 'Copertina (inizio) del documento',
+                       'Current' => 'Attuale',
+                       'Current Position' => 'Posizione Attuale',
+                       'Current section' => 'Sezione attuale',
+                       'December' => 'Dicembre',
+                       'FastBack' => 'Indietro veloce',
+                       'FastForward' => 'Avanti veloce',
+                       'February' => 'Febbraio',
+                       'First' => 'Primo',
+                       'First section in reading order' => 'Prima sezione in ordine di lettura',
+                       'Following' => 'Seguente',
+                       'Following node' => 'Nodo seguente',
+                       'Footnotes' => 'Note a piè di pagina',
+                       'Forward' => 'Avanti',
+                       'Forward section in next file' => 'Sezione successiva nel prossimo file',
+                       'From 1.2.3 go to' => 'Da 1.2.3 vai a',
+                       'Go to' => 'Vai a',
+                       'Index' => 'Indice',
+                       'Index Entry' => 'Voce dell\'indice',
+                       'January' => 'Gennaio',
+                       'July' => 'Luglio',
+                       'Jump to' => 'Salta a',
+                       'June' => 'Giugno',
+                       'Last' => 'Ultimo',
+                       'Last section in reading order' => 'Ultima sezione in ordine di lettura',
+                       'March' => 'Marzo',
+                       'May' => 'Maggio',
+                       'Menu:' => 'Menu',
+                       'Name' => 'Nome',
+                       'Next' => 'Successivo',
+                       'Next chapter' => 'Capitolo successivo',
+                       'Next file' => 'File successivo',
+                       'Next node' => 'Nodo successivo',
+                       'Next section in reading order' => 'Sezione successiva in ordine di lettura',
+                       'Next section on same level' => 'Sezione successiva sullo stesso livello',
+                       'NextFile' => 'File successivo',
+                       'Node following in node reading order' => 'Nodo seguente in ordine di lettura',
+                       'Node up' => 'Nodo superiore',
+                       'NodeNext' => 'Nodo successivo',
+                       'NodePrev' => 'Nodo precedente',
+                       'NodeUp' => 'Nodo superiore',
+                       'November' => 'Novembre',
+                       'October' => 'Ottobre',
+                       'Overview' => 'Panoramica',
+                       'Prev' => 'Prec.',
+                       'PrevFile' => 'File precedente',
+                       'Previous' => 'Precedente',
+                       'Previous file' => 'File precedente',
+                       'Previous node' => 'Nodo precedente',
+                       'Previous section in reading order' => 'Sezione precedente in ordine di lettura',
+                       'Previous section on same level' => 'Sezione precedente sullo stesso livello',
+                       'Section' => 'Sezione',
+                       'Section One' => 'Sezione uno',
+                       'See ' => 'Vedi',
+                       'See @cite{{book}}' => 'Vedi @cite{{book}}',
+                       'See section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'Vedi la sezione `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}',
+                       'See section `{section}\' in @cite{{book}}' => 'Vedi la sezione `{section}\' in @cite{{book}}',
+                       'See section {reference_name}' => 'Vedi la sezione {reference_name}',
+                       'See {node_file_href}' => 'Vedi {node_file_href}',
+                       'See {node_file_href} @cite{{book}}' => 'Vedi {node_file_href} @cite{{book}}',
+                       'See {node_file_href} section `{section}\' in @cite{{book}}' => 'Vedi {node_file_href} nella sezione `{section}\' in @cite{{book}}',
+                       'See {reference_name}' => 'Vedi {reference_name}',
+                       'See {ref}' => 'Vedi {ref}',
+                       'See {title_ref}' => 'Vedi {title_ref}',
+                       'September' => 'Settembre',
+                       'Short Table of Contents' => 'Indice breve',
+                       'Short table of contents' => 'Indice breve',
+                       'Subsection One-Four' => 'Sottosezione Uno-Quattro',
+                       'Subsection One-One' => 'Sottosezione Uno-Uno',
+                       'Subsection One-Three' => 'Sottosezione Uno-Tre',
+                       'Subsection One-Two' => 'Sottosezione Uno-Due',
+                       'Subsubsection One-Two-Four' => 'Sottosottosezione Uno-Due-Quattro',
+                       'Subsubsection One-Two-One' => 'Sottosottosezione Uno-Due-Uno',
+                       'Subsubsection One-Two-Three' => 'Sottosottosezione Uno-Due-Tre',
+                       'Subsubsection One-Two-Two' => 'Sottosottosezione Uno-Due-Due',
+                       'T2H_today' => '%s, %d %d',
+                       'Table of Contents' => 'Indice',
+                       'Table of contents' => 'Indice',
+                       'The node you are looking for is at {href}.' => 'Il nodo che stai cercando è {href}',
+                       'This' => 'Questo',
+                       'This document was generated on @i{{date}} using @uref{{program_homepage}, @i{{program}}}.' => 'Questo documento è stato generato il @i{{date}} con @uref{{program_homepage}, @i{{program}}}.',
+                       'This document was generated using @uref{{program_homepage}, @emph{{program}}}.' => 'Questo documento è stato generato con @uref{{program_homepage}, @emph{{program}}}.',
+                       'Top' => 'Inizio',
+                       'Untitled Document' => 'Documento senza titolo',
+                       'Up' => 'Su',
+                       'Up node' => 'Nodo superiore',
+                       'Up section' => 'Sezione superiore',
+                       'current' => 'attuale',
+                       'on @emph{{date}}' => 'il @emph{{date}}',
+                       'section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'sezione `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}',
+                       'section `{section}\' in @cite{{book}}' => 'sezione `{section}\' in @cite{{book}}',
+                       'see ' => 'vedi ',
+                       'see @cite{{book}}' => 'vedi @cite{{book}}',
+                       'see section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'vedi la sezione `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}',
+                       'see section `{section}\' in @cite{{book}}' => 'vedi la sezione `{section}\' in @cite{{book}}',
+                       'see section {reference_name}' => 'vedi la sezione {reference_name}',
+                       'see {node_file_href}' => 'vedi {node_file_href}',
+                       'see {node_file_href} @cite{{book}}' => 'vedi {node_file_href} @cite{{book}}',
+                       'see {node_file_href} section `{section}\' in @cite{{book}}' => 'vedi {node_file_href} nella sezione `{section}\' in @cite{{book}}',
+                       'see {reference_name}' => 'vedi {reference_name}',
+                       'see {ref}' => 'vedi {ref}',
+                       'see {title_ref}' => 'vedi {title_ref}',
+                       '{acronym_like} ({explanation})' => '{acronym_like} ({explanation})',
+                       '{name} of {class}' => '{name} di {class}',
+                       '{name} on {class}' => '{name} in {class}',
+                       '{node_file_href}' => '{node_file_href}',
+                       '{node_file_href} @cite{{book}}' => '{node_file_href} @cite{{book}}',
+                       '{node_file_href} section `{section}\' in @cite{{book}}' => '{node_file_href} nella sezione `{section}\' in @cite{{book}}',
+                       '{reference_name}' => '{reference_name}',
+                       '{ref}' => '{ref}',
+                       '{style} {number}' => '{style} {number}',
+                       '{style}: {caption_first_line}' => '{style}: {caption_first_line}',
+                       '{style}: {shortcaption_first_line}' => '{style}: {shortcaption_first_line}',
+                       '{title_ref}' => '{title_ref}'
+                     };
+
+$LANGUAGES->{'hu'} = {
+                       '  The buttons in the navigation panels have the following meaning:' => '  A navigációs panelen levő gombok jelentése a következő:',
+                       '  where the @strong{ Example } assumes that the current position is at @strong{ Subsubsection One-Two-Three } of a document of the following structure:' => '  @strong{ Példánkban } az aktuális pozíció az @strong{ 1.2.3 alalszakasz } egy olyan dokumentumban, melynek szerkezete a következő:',
+                       ' Up ' => 'Fel',
+                       '(outside of any element)' => '(bármelyik elemen kívül)',
+                       '(outside of any node)' => '(bármelyik csomóponton kívül)',
+                       '@b{{quotation_arg}:} ' => '@b{{quotation_arg}:} ',
+                       '@cite{{book}}' => '@cite{{book}}',
+                       '@{No value for `{value}\'@}' => '@{Nincs értéke ennek: `{value}\'@}',
+                       'About' => 'Súgó',
+                       'About (help)' => 'Segítség a navigációhoz',
+                       'About This Document' => 'A navigációs panel használata',
+                       'April' => 'április',
+                       'August' => 'augusztus',
+                       'Back' => 'Vissza',
+                       'Back section in previous file' => 'Előző fájl hátsó szakasza',
+                       'Beginning of this chapter or previous chapter' => 'Fejezet eleje vagy előző fejezet',
+                       'Button' => 'Gomb',
+                       'Contents' => 'Tartalom',
+                       'Cover (top) of document' => 'Dokumentum címoldala',
+                       'Current' => 'Aktuális',
+                       'Current Position' => 'Aktuális pozíció',
+                       'Current section' => 'Aktuális szakasz',
+                       'December' => 'december',
+                       'FastBack' => 'Visszaugrás',
+                       'FastForward' => 'Előreugrás',
+                       'February' => 'február',
+                       'First' => 'Első',
+                       'First section in reading order' => 'Első szakasz az olvasási sorrendben',
+                       'Following' => 'Következő',
+                       'Following node' => 'Következő csomópont',
+                       'Footnotes' => 'Lábjegyzet',
+                       'Forward' => 'Előre',
+                       'Forward section in next file' => 'Következő fájl elülső szakasza',
+                       'From 1.2.3 go to' => '1.2.3-ból ide jutunk',
+                       'Go to' => 'Cél',
+                       'Index' => 'Tárgymutató',
+                       'Index Entry' => 'Tárgymutató-bejegyzés',
+                       'January' => 'január',
+                       'July' => 'július',
+                       'Jump to' => 'Ugorj ide',
+                       'June' => 'június',
+                       'Last' => 'Utolsó',
+                       'Last section in reading order' => 'Utolsó szakasz az olvasási sorrendben',
+                       'March' => 'március',
+                       'May' => 'május',
+                       'Menu:' => 'Menü:',
+                       'Name' => 'Név',
+                       'Next' => 'Következő',
+                       'Next chapter' => 'Következő fejezet',
+                       'Next file' => 'Következő fájl',
+                       'Next node' => 'Következő csomópont',
+                       'Next section in reading order' => 'Következő szakasz az olvasási sorrendben',
+                       'Next section on same level' => 'Következő szakasz ugyanazon a szinten',
+                       'NextFile' => 'KövetkezőFájl',
+                       'Node following in node reading order' => 'Következő csomópont az olvasási sorrendben',
+                       'Node up' => 'Szülő csomópont',
+                       'NodeNext' => 'KövetkezőCsomópont',
+                       'NodePrev' => 'ElőzőCsomópont',
+                       'NodeUp' => 'SzülőCsomópont',
+                       'November' => 'november',
+                       'October' => 'október',
+                       'Overview' => 'Áttekintés',
+                       'Prev' => 'Előző',
+                       'PrevFile' => 'ElőzőFájl',
+                       'Previous' => 'Előző',
+                       'Previous file' => 'Előző fájl',
+                       'Previous node' => 'Előző csomópont',
+                       'Previous section in reading order' => 'Előző szakasz az olvasási sorrendben',
+                       'Previous section on same level' => 'Előző szakasz ugyanazon a szinten',
+                       'Section' => 'Szakasz',
+                       'Section One' => 'szakasz',
+                       'See ' => 'Ld. ',
+                       'See @cite{{book}}' => 'Ld. @cite{{book}}',
+                       'See section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'Ld. ezt a szakaszt: `@asis{}`{section_name}\'@asis{}\' itt: @cite{{book}}',
+                       'See section `{section}\' in @cite{{book}}' => 'Ld. ezt a szakaszt: `{section}\' itt: @cite{{book}}',
+                       'See section {reference_name}' => 'Ld. ezt a szakaszt: {reference_name}',
+                       'See {node_file_href}' => 'Ld. {node_file_href}',
+                       'See {node_file_href} @cite{{book}}' => 'See {node_file_href} @cite{{book}}',
+                       'See {node_file_href} section `{section}\' in @cite{{book}}' => 'Ld. {node_file_href} ezt a szakaszt: `{section}\' itt: @cite{{book}}',
+                       'See {reference_name}' => 'Ld. {reference_name}',
+                       'See {ref}' => 'Ld. {ref}',
+                       'See {title_ref}' => 'Ld. {title_ref}',
+                       'September' => 'szeptember',
+                       'Short Table of Contents' => 'Rövid tartalomjegyzék',
+                       'Short table of contents' => 'Rövid tartalomjegyzék',
+                       'Subsection One-Four' => 'alszakasz',
+                       'Subsection One-One' => 'alszakasz',
+                       'Subsection One-Three' => 'alszakasz',
+                       'Subsection One-Two' => 'alszakasz',
+                       'Subsubsection One-Two-Four' => 'alalszakasz',
+                       'Subsubsection One-Two-One' => 'alalszakasz',
+                       'Subsubsection One-Two-Three' => 'alalszakasz',
+                       'Subsubsection One-Two-Two' => 'alalszakasz',
+                       'T2H_today' => '%s, %d %d',
+                       'Table of Contents' => 'Tartalomjegyzék',
+                       'Table of contents' => 'Tartalomjegyzék',
+                       'The node you are looking for is at {href}.' => 'A keresett csomópont itt található: {href}.',
+                       'This' => 'Ez a(z)',
+                       'This document was generated on @i{{date}} using @uref{{program_homepage}, @i{{program}}}.' => 'Ezt a dokumentumot @i{{date}} napon generálta a(z) @uref{{program_homepage}, @i{{program}}}.',
+                       'This document was generated using @uref{{program_homepage}, @emph{{program}}}.' => 'Ezt a dokumentumot a(z) @uref{{program_homepage}, @emph{{program}}} generálta.',
+                       'Top' => 'Címoldal',
+                       'Untitled Document' => 'Névtelen dokumentum',
+                       'Up' => 'Fel',
+                       'Up node' => 'Szülő csomópont',
+                       'Up section' => 'Szülő szakasz',
+                       'current' => 'aktuális',
+                       'on @emph{{date}}' => 'ekkor: @emph{{date}}',
+                       'section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'szakasz: `@asis{}`{section_name}\'@asis{}\' itt: @cite{{book}}',
+                       'section `{section}\' in @cite{{book}}' => 'szakasz: `{section}\' itt: @cite{{book}}',
+                       'see ' => 'ld. ',
+                       'see @cite{{book}}' => 'ld. @cite{{book}}',
+                       'see section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'ld. ezt a szakaszt: `@asis{}`{section_name}\'@asis{}\' itt: @cite{{book}}',
+                       'see section `{section}\' in @cite{{book}}' => 'ld. ezt a szakaszt: `{section}\' itt: @cite{{book}}',
+                       'see section {reference_name}' => 'ld. ezt a szakaszt: {reference_name}',
+                       'see {node_file_href}' => 'ld. {node_file_href}',
+                       'see {node_file_href} @cite{{book}}' => 'ld. {node_file_href} @cite{{book}}',
+                       'see {node_file_href} section `{section}\' in @cite{{book}}' => 'ld. {node_file_href} ezt a szakaszt: `{section}\' itt: @cite{{book}}',
+                       'see {reference_name}' => 'ld. {reference_name}',
+                       'see {ref}' => 'ld. {ref}',
+                       'see {title_ref}' => 'ld. {title_ref}',
+                       '{acronym_like} ({explanation})' => '{acronym_like} ({explanation})',
+                       '{name} of {class}' => '{name} típusa: {class}',
+                       '{name} on {class}' => '{name} ezen: {class}',
+                       '{node_file_href}' => '{node_file_href}',
+                       '{node_file_href} @cite{{book}}' => '{node_file_href} @cite{{book}}',
+                       '{node_file_href} section `{section}\' in @cite{{book}}' => '{node_file_href} szakasz: `{section}\' itt: @cite{{book}}',
+                       '{reference_name}' => '{reference_name}',
+                       '{ref}' => '{ref}',
+                       '{style} {number}' => '{style} {number}',
+                       '{style}: {caption_first_line}' => '{style}: {caption_first_line}',
+                       '{style}: {shortcaption_first_line}' => '{style}: {shortcaption_first_line}',
+                       '{title_ref}' => '{title_ref}'
+                     };
+
+$LANGUAGES->{'ja'} = {
+                       '  The buttons in the navigation panels have the following meaning:' => '  ナビゲーション パネルの中にあるボタンには以下のような意味があります:',
+                       '  where the @strong{ Example } assumes that the current position is at @strong{ Subsubsection One-Two-Three } of a document of the following structure:' => '  この表で、@strong{ 行き先 } は、現在の位置が以下のような構造を持つドキュメントの @strong{ サブサブセクション 1-2-3 } であると仮定しています:',
+                       ' Up ' => ' 上へ ',
+                       '(outside of any element)' => '(outside of any element)',
+                       '(outside of any node)' => '(outside of any node)',
+                       '@b{{quotation_arg}:} ' => '@b{{quotation_arg}:} ',
+                       '@cite{{book}}' => '@cite{{book}}',
+                       '@{No value for `{value}\'@}' => '@{No value for `{value}\'@}',
+                       'About' => '情報',
+                       'About (help)' => '情報 (ヘルプ)',
+                       'About This Document' => 'このドキュメントについて',
+                       'April' => '4 月',
+                       'August' => '8 月',
+                       'Back' => '戻る',
+                       'Back section in previous file' => '前のファイルのセクションに戻る',
+                       'Beginning of this chapter or previous chapter' => 'この章あるいは前の章の先頭',
+                       'Button' => 'ボタン',
+                       'Contents' => '目次',
+                       'Cover (top) of document' => 'ドキュメントの表紙 (先頭)',
+                       'Current' => '現在の',
+                       'Current Position' => '現在の位置',
+                       'Current section' => '現在のセクション',
+                       'December' => '12 月',
+                       'FastBack' => '大きく戻る',
+                       'FastForward' => '大きく進む',
+                       'February' => '2 月',
+                       'First' => '最初',
+                       'First section in reading order' => '最初のセクション',
+                       'Following' => '次',
+                       'Following node' => '次のノード',
+                       'Footnotes' => '脚注',
+                       'Forward' => '進む',
+                       'Forward section in next file' => '次のファイルのセクションに進む',
+                       'From 1.2.3 go to' => '1.2.3 からの行き先',
+                       'Go to' => '行き先',
+                       'Index' => 'インデックス',
+                       'Index Entry' => 'インデックス エントリ',
+                       'January' => '1 月',
+                       'July' => '7 月',
+                       'Jump to' => '行き先',
+                       'June' => '6月',
+                       'Last' => '最後',
+                       'Last section in reading order' => '最後のセクション',
+                       'March' => '3 月',
+                       'May' => '5 月',
+                       'Menu:' => 'メニュー',
+                       'Name' => '名前',
+                       'Next' => '次',
+                       'Next chapter' => '次の章',
+                       'Next file' => '次のファイル',
+                       'Next node' => '次のノード',
+                       'Next section in reading order' => '次のセクション',
+                       'Next section on same level' => '次のセクション',
+                       'NextFile' => '次のファイル',
+                       'Node following in node reading order' => '次のノード',
+                       'Node up' => '上のノード',
+                       'NodeNext' => '次のノード',
+                       'NodePrev' => '前のノード',
+                       'NodeUp' => '上のノード',
+                       'November' => '11 月',
+                       'October' => '10 月',
+                       'Overview' => '概要',
+                       'Prev' => '前',
+                       'PrevFile' => '前のファイル',
+                       'Previous' => '前の',
+                       'Previous file' => '前のファイル',
+                       'Previous node' => '前のノード',
+                       'Previous section in reading order' => '前のセクション',
+                       'Previous section on same level' => '前のセクション',
+                       'Section' => 'セクション',
+                       'Section One' => 'セクション 1',
+                       'See ' => '参照',
+                       'See @cite{{book}}' => '@cite{{book}} を参照してください',
+                       'See section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => '@cite{{book}} のセクション `@asis{}`{section_name}\'@asis{}\' を参照してください',
+                       'See section `{section}\' in @cite{{book}}' => '@cite{{book}} のセクション `{section}\' を参照してください',
+                       'See section {reference_name}' => 'セクション {reference_name} を参照してください',
+                       'See {node_file_href}' => '{node_file_href} を参照してください',
+                       'See {node_file_href} @cite{{book}}' => '@cite{{book}} の {node_file_href} を参照してください',
+                       'See {node_file_href} section `{section}\' in @cite{{book}}' => '@cite{{book}} の {node_file_href} セクション `{section}\' を参照してください',
+                       'See {reference_name}' => '{reference_name} を参照してください',
+                       'See {ref}' => '{ref} を参照してください',
+                       'See {title_ref}' => '{title_ref} を参照してください',
+                       'September' => '9 月',
+                       'Short Table of Contents' => '簡単な目次',
+                       'Short table of contents' => '簡単な目次',
+                       'Subsection One-Four' => 'サブセクション 1-4',
+                       'Subsection One-One' => 'サブセクション 1-1',
+                       'Subsection One-Three' => 'サブセクション 1-3',
+                       'Subsection One-Two' => 'サブセクション 1-2',
+                       'Subsubsection One-Two-Four' => 'サブサブセクション 1-2-4',
+                       'Subsubsection One-Two-One' => 'サブサブセクション 1-2-1',
+                       'Subsubsection One-Two-Three' => 'サブサブセクション 1-2-3',
+                       'Subsubsection One-Two-Two' => 'サブサブセクション 1-2-2',
+                       'T2H_today' => '%s, %d %d',
+                       'Table of Contents' => '目次',
+                       'Table of contents' => '目次',
+                       'The node you are looking for is at {href}.' => 'あなたが探しているノードは {href} にあります。',
+                       'This' => 'この',
+                       'This document was generated on @i{{date}} using @uref{{program_homepage}, @i{{program}}}.' => 'このドキュメントは @i{{date}} に、@uref{{program_homepage}, @i{{program}}} を用いて生成されました。',
+                       'This document was generated using @uref{{program_homepage}, @emph{{program}}}.' => 'このドキュメントは @uref{{program_homepage}, @emph{{program}}} を用いて生成されました。',
+                       'Top' => 'トップ',
+                       'Untitled Document' => '無題のドキュメント',
+                       'Up' => '上',
+                       'Up node' => '上のノード',
+                       'Up section' => '上のセクション',
+                       'current' => '現在の',
+                       'on @emph{{date}}' => '@emph{{date}} に',
+                       'section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => '@cite{{book}} のセクション `@asis{}`{section_name}\'@asis{}\'',
+                       'section `{section}\' in @cite{{book}}' => '@cite{{book}} のセクション `{section}\'',
+                       'see ' => '参照',
+                       'see @cite{{book}}' => '@cite{{book}} を参照してください',
+                       'see section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => '@cite{{book}} のセクション `@asis{}`{section_name}\'@asis{}\' を参照してください',
+                       'see section `{section}\' in @cite{{book}}' => '@cite{{book}} のセクション `{section}\' を参照してください',
+                       'see section {reference_name}' => 'セクション {reference_name} を参照してください',
+                       'see {node_file_href}' => '{node_file_href} を参照してください',
+                       'see {node_file_href} @cite{{book}}' => '{node_file_href} @cite{{book}} を参照してください',
+                       'see {node_file_href} section `{section}\' in @cite{{book}}' => '@cite{{book}} の {node_file_href} section `{section}\' を参照してください',
+                       'see {reference_name}' => '{reference_name} を参照してください',
+                       'see {ref}' => '{ref} を参照してくださ',
+                       'see {title_ref}' => '{title_ref} を参照してくださ',
+                       '{acronym_like} ({explanation})' => '{acronym_like} ({explanation})',
+                       '{name} of {class}' => '{class} の {name}',
+                       '{name} on {class}' => '{class} の {name}',
+                       '{node_file_href}' => '{node_file_href}',
+                       '{node_file_href} @cite{{book}}' => '{node_file_href} @cite{{book}}',
+                       '{node_file_href} section `{section}\' in @cite{{book}}' => '@cite{{book}} の {node_file_href} セクション `{section}\'',
+                       '{reference_name}' => '{reference_name}',
+                       '{ref}' => '{ref}',
+                       '{style} {number}' => '{style} {number}',
+                       '{style}: {caption_first_line}' => '{style}: {caption_first_line}',
+                       '{style}: {shortcaption_first_line}' => '{style}: {shortcaption_first_line}',
+                       '{title_ref}' => '{title_ref}'
+                     };
+
+$LANGUAGES->{'cs'} = {
+                       '  The buttons in the navigation panels have the following meaning:' => '',
+                       '  where the @strong{ Example } assumes that the current position is at @strong{ Subsubsection One-Two-Three } of a document of the following structure:' => '',
+                       ' Up ' => '',
+                       '(outside of any element)' => '',
+                       '(outside of any node)' => '',
+                       '@b{{quotation_arg}:} ' => '',
+                       '@cite{{book}}' => '',
+                       '@{No value for `{value}\'@}' => '',
+                       'About' => '',
+                       'About (help)' => '',
+                       'About This Document' => '',
+                       'April' => '',
+                       'August' => '',
+                       'Back' => '',
+                       'Back section in previous file' => '',
+                       'Beginning of this chapter or previous chapter' => '',
+                       'Button' => '',
+                       'Contents' => '',
+                       'Cover (top) of document' => '',
+                       'Current' => '',
+                       'Current Position' => '',
+                       'Current section' => '',
+                       'December' => '',
+                       'FastBack' => '',
+                       'FastForward' => '',
+                       'February' => '',
+                       'First' => '',
+                       'First section in reading order' => '',
+                       'Following' => '',
+                       'Following node' => '',
+                       'Footnotes' => '',
+                       'Forward' => '',
+                       'Forward section in next file' => '',
+                       'From 1.2.3 go to' => '',
+                       'Go to' => '',
+                       'Index' => '',
+                       'Index Entry' => '',
+                       'January' => '',
+                       'July' => '',
+                       'Jump to' => '',
+                       'June' => '',
+                       'Last' => '',
+                       'Last section in reading order' => '',
+                       'March' => '',
+                       'May' => '',
+                       'Menu:' => '',
+                       'Name' => '',
+                       'Next' => '',
+                       'Next chapter' => '',
+                       'Next file' => '',
+                       'Next node' => '',
+                       'Next section in reading order' => '',
+                       'Next section on same level' => '',
+                       'NextFile' => '',
+                       'Node following in node reading order' => '',
+                       'Node up' => '',
+                       'NodeNext' => '',
+                       'NodePrev' => '',
+                       'NodeUp' => '',
+                       'November' => '',
+                       'October' => '',
+                       'Overview' => '',
+                       'Prev' => '',
+                       'PrevFile' => '',
+                       'Previous' => '',
+                       'Previous file' => '',
+                       'Previous node' => '',
+                       'Previous section in reading order' => '',
+                       'Previous section on same level' => '',
+                       'Section' => '',
+                       'Section One' => '',
+                       'See ' => '',
+                       'See @cite{{book}}' => '',
+                       'See section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => '',
+                       'See section `{section}\' in @cite{{book}}' => '',
+                       'See section {reference_name}' => '',
+                       'See {node_file_href}' => '',
+                       'See {node_file_href} @cite{{book}}' => '',
+                       'See {node_file_href} section `{section}\' in @cite{{book}}' => '',
+                       'See {reference_name}' => '',
+                       'See {ref}' => '',
+                       'See {title_ref}' => '',
+                       'September' => '',
+                       'Short Table of Contents' => '',
+                       'Short table of contents' => '',
+                       'Subsection One-Four' => '',
+                       'Subsection One-One' => '',
+                       'Subsection One-Three' => '',
+                       'Subsection One-Two' => '',
+                       'Subsubsection One-Two-Four' => '',
+                       'Subsubsection One-Two-One' => '',
+                       'Subsubsection One-Two-Three' => '',
+                       'Subsubsection One-Two-Two' => '',
+                       'T2H_today' => '',
+                       'Table of Contents' => '',
+                       'Table of contents' => '',
+                       'The node you are looking for is at {href}.' => '',
+                       'This' => '',
+                       'This document was generated on @i{{date}} using @uref{{program_homepage}, @i{{program}}}.' => '',
+                       'This document was generated using @uref{{program_homepage}, @emph{{program}}}.' => '',
+                       'Top' => '',
+                       'Untitled Document' => '',
+                       'Up' => '',
+                       'Up node' => '',
+                       'Up section' => '',
+                       'current' => '',
+                       'on @emph{{date}}' => '',
+                       'section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => '',
+                       'section `{section}\' in @cite{{book}}' => '',
+                       'see ' => '',
+                       'see @cite{{book}}' => '',
+                       'see section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => '',
+                       'see section `{section}\' in @cite{{book}}' => '',
+                       'see section {reference_name}' => '',
+                       'see {node_file_href}' => '',
+                       'see {node_file_href} @cite{{book}}' => '',
+                       'see {node_file_href} section `{section}\' in @cite{{book}}' => '',
+                       'see {reference_name}' => '',
+                       'see {ref}' => '',
+                       'see {title_ref}' => '',
+                       '{acronym_like} ({explanation})' => '',
+                       '{name} of {class}' => '',
+                       '{name} on {class}' => '',
+                       '{node_file_href}' => '',
+                       '{node_file_href} @cite{{book}}' => '',
+                       '{node_file_href} section `{section}\' in @cite{{book}}' => '',
+                       '{reference_name}' => '',
+                       '{ref}' => '',
+                       '{style} {number}' => '',
+                       '{style}: {caption_first_line}' => '',
+                       '{style}: {shortcaption_first_line}' => '',
+                       '{title_ref}' => '{title_ref}'
+                     };
+
+$LANGUAGES->{'ca'} = {
+                       '  The buttons in the navigation panels have the following meaning:' => '  Els botons dels plafons de navegació tenen els significat següent:',
+                       '  where the @strong{ Example } assumes that the current position is at @strong{ Subsubsection One-Two-Three } of a document of the following structure:' => '  on l\'@strong{ Exemple } suposa que la posició actual està a @strong{ Subsubsecció U-Dos-tres } d\'un document a l\'estructura següent:',
+                       ' Up ' => ' Amunt ',
+                       '(outside of any element)' => '(fora de qualsevol element)',
+                       '(outside of any node)' => '(fora de qualsevol node)',
+                       '@b{{quotation_arg}:} ' => '@{{quotation_arg}:}',
+                       '@cite{{book}}' => '@cite{{book}}',
+                       '@{No value for `{value}\'@}' => '@{No hi ha cap valor per a `{value}\'@}',
+                       'About' => 'Quant a',
+                       'About (help)' => 'Quant a (ajuda)',
+                       'About This Document' => 'Quant a aquest document',
+                       'April' => 'Abril',
+                       'August' => 'Agost',
+                       'Back' => 'Endarrere',
+                       'Back section in previous file' => 'Endarrere una secció al fitxer previ',
+                       'Beginning of this chapter or previous chapter' => 'Inici d\'aquest capítol o capítol previ',
+                       'Button' => 'Botó',
+                       'Contents' => 'Continguts',
+                       'Cover (top) of document' => 'Portada (inici) del document',
+                       'Current' => 'Actual',
+                       'Current Position' => 'Posició actual',
+                       'Current section' => 'Secció actual',
+                       'December' => 'Desembre',
+                       'FastBack' => 'Endarrere ràpid',
+                       'FastForward' => 'Endavant ràpid',
+                       'February' => 'Febrer',
+                       'First' => 'Primera',
+                       'First section in reading order' => 'Primera secció a l\'orde de lectura',
+                       'Following' => 'Següent',
+                       'Following node' => 'Node següent',
+                       'Footnotes' => 'Notes a peu de pàgina',
+                       'Forward' => 'Endavant',
+                       'Forward section in next file' => 'Endavant una secció al fitxer següent',
+                       'From 1.2.3 go to' => 'De 1.2.3 ves a',
+                       'Go to' => 'Ves a',
+                       'Index' => 'Índex',
+                       'Index Entry' => 'Entrada d\'índex',
+                       'January' => 'Gener',
+                       'July' => 'Juliol',
+                       'Jump to' => 'Salta a',
+                       'June' => 'Juny',
+                       'Last' => 'Últim',
+                       'Last section in reading order' => 'Última secció en ordre de lectura',
+                       'March' => 'Març',
+                       'May' => 'Maig',
+                       'Menu:' => 'Menú',
+                       'Name' => 'Nom',
+                       'Next' => 'Següent',
+                       'Next chapter' => 'Capítol següent',
+                       'Next file' => 'Fitxer següent',
+                       'Next node' => 'Node següent',
+                       'Next section in reading order' => 'Secció següent en ordre de lectura',
+                       'Next section on same level' => 'Secció següent al mateix nivell',
+                       'NextFile' => 'Fitxer següent',
+                       'Node following in node reading order' => 'Node següent en ordre de lectura de nodes',
+                       'Node up' => 'Node amunt',
+                       'NodeNext' => 'Node següent',
+                       'NodePrev' => 'Node previ',
+                       'NodeUp' => 'Node Amunt',
+                       'November' => 'Novembre',
+                       'October' => 'Octobre',
+                       'Overview' => 'Panoràmica',
+                       'Prev' => 'Previ',
+                       'PrevFile' => 'Fitxer previ',
+                       'Previous' => 'Previ',
+                       'Previous file' => 'Fitxer previ',
+                       'Previous node' => 'Node previ',
+                       'Previous section in reading order' => 'Secció prèvia en ordre de lectura',
+                       'Previous section on same level' => 'Secció prèvia al mateix nivell',
+                       'Section' => 'Secció',
+                       'Section One' => 'Secció u',
+                       'See ' => 'Vegeu ',
+                       'See @cite{{book}}' => 'Vegeu @cite{{book}}',
+                       'See section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'Vegeu secció @asis{}`{section_name}\'@asis{}\' a @cite{{book}}',
+                       'See section `{section}\' in @cite{{book}}' => 'Vegeu la secció `{section}\' a @cite{{book}}',
+                       'See section {reference_name}' => 'Vegeu la secció {reference_name}',
+                       'See {node_file_href}' => 'Vegeu {node_file_href}',
+                       'See {node_file_href} @cite{{book}}' => 'Vegeu {node_file_href} @cite{{book}}',
+                       'See {node_file_href} section `{section}\' in @cite{{book}}' => 'Vegeu {node_file_href} secció `{secion}\' a @cite{{book}}',
+                       'See {reference_name}' => 'Vegeu {reference_name}',
+                       'See {ref}' => 'Vegeu {ref}',
+                       'See {title_ref}' => 'Vegeu {title_ref}',
+                       'September' => 'Septembre',
+                       'Short Table of Contents' => 'Taula de continguts breu',
+                       'Short table of contents' => 'Taula de continguts breu',
+                       'Subsection One-Four' => 'Subsecció U-Quatre',
+                       'Subsection One-One' => 'Subsecció U-U',
+                       'Subsection One-Three' => 'Subsecció U-Tres',
+                       'Subsection One-Two' => 'Subsecció U-Dos',
+                       'Subsubsection One-Two-Four' => 'Subsubsecció U-Dos-Quatre',
+                       'Subsubsection One-Two-One' => 'Subsubsecció U-Dos-U',
+                       'Subsubsection One-Two-Three' => 'Subsubsecció U-Dos-Tres',
+                       'Subsubsection One-Two-Two' => 'Subsubsecció U-Dos-Dos',
+                       'T2H_today' => 'T2H_today',
+                       'Table of Contents' => 'Taula de contingus',
+                       'Table of contents' => 'Taula de continguts',
+                       'The node you are looking for is at {href}.' => 'El node que esteu buscant està a {href}.',
+                       'This' => 'Aquest',
+                       'This document was generated on @i{{date}} using @uref{{program_homepage}, @i{{program}}}.' => 'Aquest document es va generar a @i{{date}} usant @uref{{program_homepage}, @i{{program}}}',
+                       'This document was generated using @uref{{program_homepage}, @emph{{program}}}.' => 'Aquest document es va generar usant @uref{{program_homepage}, @empf{{program}}}.',
+                       'Top' => 'Part superior',
+                       'Untitled Document' => 'Document sense títol',
+                       'Up' => 'Amunt',
+                       'Up node' => 'Amunt node',
+                       'Up section' => 'Amunt secció',
+                       'current' => 'actual',
+                       'on @emph{{date}}' => 'el @empf{{date}}',
+                       'section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'secció `@asis{}`{secion_name}\'@asis{}\' a @cite{{book}}',
+                       'section `{section}\' in @cite{{book}}' => 'secció `{section}\' a @cite{{book}}',
+                       'see ' => 'vegeu ',
+                       'see @cite{{book}}' => 'vegeu @cite{{book}}',
+                       'see section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => 'vegeu secció `@asis{}`{secion_name}\'@asis{}\' a @cite{{book}}',
+                       'see section `{section}\' in @cite{{book}}' => 'vegeu secció `{section}\' a @cite{{book}}',
+                       'see section {reference_name}' => 'vegeu secció {reference_name}',
+                       'see {node_file_href}' => 'vegeu {node_file_href}',
+                       'see {node_file_href} @cite{{book}}' => 'vegeu {node_file_href} @cite{{book}}',
+                       'see {node_file_href} section `{section}\' in @cite{{book}}' => 'vegeu {node_file_href} secció `{seciont}\' a @cite{{book}}',
+                       'see {reference_name}' => 'vegeu {reference_name}',
+                       'see {ref}' => 'vegeu {ref}',
+                       'see {title_ref}' => 'vegeu {title_ref}',
+                       '{acronym_like} ({explanation})' => '{acronym_lie} ({explanation})',
+                       '{name} of {class}' => '{name} de {class}',
+                       '{name} on {class}' => '{name} a {class}',
+                       '{node_file_href}' => '{node_file_href}',
+                       '{node_file_href} @cite{{book}}' => '{node_file_href} @cite{{book}}',
+                       '{node_file_href} section `{section}\' in @cite{{book}}' => '{node_file_href} secció `{secció}\' a @cite{{book}}',
+                       '{reference_name}' => '{reference_name}',
+                       '{ref}' => '{ref}',
+                       '{style} {number}' => '{style} {number}',
+                       '{style}: {caption_first_line}' => '{style}: {caption_first_line}',
+                       '{style}: {shortcaption_first_line}' => '{style}: {shortcaption_first_line}',
+                       '{title_ref}' => '{title_ref}'
+                     };
+
+$LANGUAGES->{'zh'} = {
+                       '  The buttons in the navigation panels have the following meaning:' => '  在导航面板上按钮有以下含意：',
+                       '  where the @strong{ Example } assumes that the current position is at @strong{ Subsubsection One-Two-Three } of a document of the following structure:' => ' 这里的@strong{ 例子 } 假设当前的位置是在紧接着的结构的文档中的 @strong{ 小分段 1-2-3 }：',
+                       ' Up ' => ' 上 ',
+                       '(outside of any element)' => '(任何元素外面)',
+                       '(outside of any node)' => '(任何节点外面)',
+                       '@b{{quotation_arg}:} ' => '@b{{quotation_arg}:} ',
+                       '@cite{{book}}' => '@cite{{book}}',
+                       '@{No value for `{value}\'@}' => '@{没有值 `{value}\'@}',
+                       'About' => '关于',
+                       'About (help)' => '关于 (帮助)',
+                       'About This Document' => '关于本文档',
+                       'April' => '4 月',
+                       'August' => '8 月',
+                       'Back' => '返回',
+                       'Back section in previous file' => '返回到前一个文件',
+                       'Beginning of this chapter or previous chapter' => '本章开头或前一章',
+                       'Button' => '按钮',
+                       'Contents' => '目录',
+                       'Cover (top) of document' => '文档的封面(首页)',
+                       'Current' => '当前',
+                       'Current Position' => '当前的位置',
+                       'Current section' => '当前的段',
+                       'December' => '12 月',
+                       'FastBack' => '快速返回',
+                       'FastForward' => '快速向前',
+                       'February' => '2 月',
+                       'First' => '第一个',
+                       'First section in reading order' => '看的第一段',
+                       'Following' => '紧接着的',
+                       'Following node' => '紧接着的节点',
+                       'Footnotes' => '脚注',
+                       'Forward' => '向前',
+                       'Forward section in next file' => '向前到下一个文件的段',
+                       'From 1.2.3 go to' => '从1.2.3 到',
+                       'Go to' => '到',
+                       'Index' => '索引',
+                       'Index Entry' => '索引条目',
+                       'January' => '1 月',
+                       'July' => '7 月',
+                       'Jump to' => '跳转到',
+                       'June' => '6 月',
+                       'Last' => '最后',
+                       'Last section in reading order' => '看的最后一段',
+                       'March' => '3 月',
+                       'May' => '5 月',
+                       'Menu:' => '菜单',
+                       'Name' => '名字',
+                       'Next' => '下一个',
+                       'Next chapter' => '下一章',
+                       'Next file' => '下一个文件',
+                       'Next node' => '下一个节点',
+                       'Next section in reading order' => '看的下一段',
+                       'Next section on same level' => '同级的下一段',
+                       'NextFile' => '下一个文件',
+                       'Node following in node reading order' => '看的下一个节点',
+                       'Node up' => '向上一个节点',
+                       'NodeNext' => '下一个节点',
+                       'NodePrev' => '前一个节点',
+                       'NodeUp' => '向上一个节点',
+                       'November' => '11 月',
+                       'October' => '10 月',
+                       'Overview' => '综述',
+                       'Prev' => '前一个',
+                       'PrevFile' => '前一个文件',
+                       'Previous' => '前一个',
+                       'Previous file' => '前一个文件',
+                       'Previous node' => '前一个节点',
+                       'Previous section in reading order' => '看的前一段',
+                       'Previous section on same level' => '同级的前一段',
+                       'Section' => '段',
+                       'Section One' => '段 1',
+                       'See ' => '见',
+                       'See @cite{{book}}' => '见 @cite{{book}}',
+                       'See section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => '',
+                       'See section `{section}\' in @cite{{book}}' => '',
+                       'See section {reference_name}' => '见段 {reference_name}',
+                       'See {node_file_href}' => '见 {node_file_href}',
+                       'See {node_file_href} @cite{{book}}' => '见 {node_file_href} @cite{{book}}',
+                       'See {node_file_href} section `{section}\' in @cite{{book}}' => '见在@cite{{book}} 中的 {node_file_href} 段 `{section}\' ',
+                       'See {reference_name}' => '见 {reference_name}',
+                       'See {ref}' => '见 {ref}',
+                       'See {title_ref}' => '见 {title_ref}',
+                       'September' => '9 月',
+                       'Short Table of Contents' => '短目录',
+                       'Short table of contents' => '短目录',
+                       'Subsection One-Four' => '分段 1-4',
+                       'Subsection One-One' => '分段 1-1',
+                       'Subsection One-Three' => '分段 1-3',
+                       'Subsection One-Two' => '分段 1-2',
+                       'Subsubsection One-Two-Four' => '小分段 1-2-4',
+                       'Subsubsection One-Two-One' => '小分段 1-2-1',
+                       'Subsubsection One-Two-Three' => '小分段 1-2-3',
+                       'Subsubsection One-Two-Two' => '小分段 1-2-2',
+                       'T2H_today' => '',
+                       'Table of Contents' => '目录',
+                       'Table of contents' => '目录',
+                       'The node you are looking for is at {href}.' => '你查找的节点在{href}。',
+                       'This' => '这个',
+                       'This document was generated on @i{{date}} using @uref{{program_homepage}, @i{{program}}}.' => '本文档在 @i{{date}} 上用 @uref{{program_homepage}, @i{{program}}} 生成的。',
+                       'This document was generated using @uref{{program_homepage}, @emph{{program}}}.' => '本文档用 @uref{{program_homepage}, @emph{{program}}} 生成的。',
+                       'Top' => '首页',
+                       'Untitled Document' => '没有标题的文档',
+                       'Up' => '上',
+                       'Up node' => '上一节点',
+                       'Up section' => '上一段',
+                       'current' => '目前',
+                       'on @emph{{date}}' => '@emph{{date}} 上',
+                       'section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => '',
+                       'section `{section}\' in @cite{{book}}' => '',
+                       'see ' => '见',
+                       'see @cite{{book}}' => '见 @cite{{book}}',
+                       'see section `@asis{}`{section_name}\'@asis{}\' in @cite{{book}}' => '见在@cite{{book}}里的段`@asis{}`{section_name}\'@asis{}\'',
+                       'see section `{section}\' in @cite{{book}}' => '见在@cite{{book}}里的段`{section}\'',
+                       'see section {reference_name}' => '见段 {reference_name}',
+                       'see {node_file_href}' => '见 {node_file_href}',
+                       'see {node_file_href} @cite{{book}}' => '见 {node_file_href} @cite{{book}}',
+                       'see {node_file_href} section `{section}\' in @cite{{book}}' => '见在@cite{{book}}里的{node_file_href} 段`{section}\'',
+                       'see {reference_name}' => '见 {reference_name}',
+                       'see {ref}' => '见 {ref}',
+                       'see {title_ref}' => '见 {title_ref}',
+                       '{acronym_like} ({explanation})' => '{acronym_like} ({explanation})',
+                       '{name} of {class}' => '{class} 的 {name}',
+                       '{name} on {class}' => '在{class} 上的 {name}',
+                       '{node_file_href}' => '',
+                       '{node_file_href} @cite{{book}}' => '',
+                       '{node_file_href} section `{section}\' in @cite{{book}}' => '{node_file_href} 段 `{section}\' 在 @cite{{book}}里',
+                       '{reference_name}' => '',
+                       '{ref}' => '{ref}',
+                       '{style} {number}' => '{style} {number}',
+                       '{style}: {caption_first_line}' => '{style}: {caption_first_line}',
+                       '{style}: {shortcaption_first_line}' => '{style}: {shortcaption_first_line}',
+                       '{title_ref}' => '{title_ref}'
+                     };
+
+
+sub ly_get_string () {
+    my $lang = $Texi2HTML::THISDOC{current_lang};
+    my $string = shift;
+    if ($lang and $lang ne "en" and $LY_LANGUAGES->{$lang}->{$string}) {
+	return $LY_LANGUAGES->{$lang}->{$string};
+    } else {
+	return $string;
+    }
+}
+
+
+#############################################################################
+### FUNCTIONALITY FOR MAIN WEB PAGES
+#############################################################################
+
+our $web_manual;
+
+#############################################################################
+###  SETTINGS FOR TEXI2HTML
+#############################################################################
+
+# Validation fix for texi2html<=1.82
+$Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
+
+@Texi2HTML::Config::CSS_REFS = (
+    {FILENAME => "lilypond-manuals.css", TITLE => "Default style"}
+    );
+@Texi2HTML::Config::ALT_CSS_REFS      = (
+    );
+
+sub web_settings() {
+  print STDERR "Processing web site: [$Texi2HTML::THISDOC{current_lang}]\n";
+  $Texi2HTML::Config::BODYTEXT = "";
+  @Texi2HTML::Config::CSS_REFS      = (
+      {FILENAME => "lilypond-website.css", TITLE => "Default style"}
+      );
+  @Texi2HTML::Config::ALT_CSS_REFS      = (
+      );
+}
+
+$Texi2HTML::Config::USE_ACCESSKEY = 1;
+$Texi2HTML::Config::USE_LINKS     = 1;
+$Texi2HTML::Config::USE_REL_REV   = 1;
+$Texi2HTML::Config::SPLIT_INDEX   = 0;
+$Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
+
+my $bigpage = 0;
+my $have_index_entries = 0;
+if ($Texi2HTML::Config::SPLIT eq 'section' or
+    $Texi2HTML::Config::SPLIT eq 'node') {
+  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
+  $bigpage = 0;
+} else {
+  $bigpage = 1;
+}
+
+$Texi2HTML::Config::anchor  = \&lilypond_anchor;
+$Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
+$default_print_element_header = $Texi2HTML::Config::print_element_header;
+$Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
+$Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
+$Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
+$Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
+$default_external_href = $Texi2HTML::Config::external_href;
+$Texi2HTML::Config::external_href        = \&lilypond_external_href;
+$default_toc_body = $Texi2HTML::Config::toc_body;
+$Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
+$Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
+$default_unknown = $Texi2HTML::Config::unknown;
+$Texi2HTML::Config::unknown              = \&lilypond_unknown;
+$default_print_page_head = $Texi2HTML::Config::print_page_head;
+$Texi2HTML::Config::print_page_head      = \&lilypond_print_page_head;
+# $Texi2HTML::Config::foot_line_and_ref    = \&lilypond_foot_line_and_ref;
+$Texi2HTML::Config::foot_line_and_ref  = \&makeinfo_like_foot_line_and_ref;
+$Texi2HTML::Config::foot_lines         = \&makeinfo_like_foot_lines;
+$Texi2HTML::Config::paragraph          = \&makeinfo_like_paragraph;
+
+
+
+# Examples should be formatted similar to quotes:
+$Texi2HTML::Config::complex_format_map->{'example'} = {
+  'begin' => q{"<blockquote>"},
+  'end' => q{"</blockquote>\n"},
+  'style' => 'code',
+ };
+
+%Texi2HTML::config::misc_pages_targets = (
+   'Overview' => 'Overview',
+   'Contents' => 'Contents',
+   'About' => 'About'
+);
+
+
+my @section_to_filename;
+
+
+
+
+#############################################################################
+###  DEBUGGING
+#############################################################################
+
+use Data::Dumper;
+$Data::Dumper::Maxdepth = 2;
+
+sub print_element_info($)
+{
+  my $element = shift;
+  print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+  print "Element: $element\n";
+  print Dumper($element);
+}
+
+
+
+
+
+#############################################################################
+###  HELPER FUNCTIONS
+#############################################################################
+
+# only lc() the last portion of an href
+sub lc_last($)
+{
+  my $href = shift;
+  my @hrefsplit = split('/', $href);
+  # change the last portion (the filename), if it exists;
+  # if it is a plain filename with no path, change the string as a whole
+  if ($#hrefsplit > 0) {
+    @hrefsplit[$#hrefsplit] = lc( @hrefsplit[$#hrefsplit] );
+    $href = join("/", @hrefsplit);
+  } else {
+    $href = lc($href);
+  }
+  return $href;
+}
+
+# Convert a given node name to its proper file name (normalization as explained
+# in the texinfo manual:
+# http://www.gnu.org/software/texinfo/manual/texinfo/html_node/HTML-Xref-Node-Name-Expansion.html
+sub texinfo_file_name($)
+{
+  my $text = shift;
+  my $result = '';
+  # File name normalization by texinfo:
+  # 1/2: letters and numbers are left unchanged
+  # 3/4: multiple, leading and trailing whitespace is removed
+  $text = main::normalise_space($text);
+  # 5/6: all remaining spaces are converted to '-', all other 7- or 8-bit
+  #      chars are replaced by _xxxx (xxxx=ascii character code)
+  while ($text ne '') {
+    if ($text =~ s/^([A-Za-z0-9]+)//o) { # number or letter stay unchanged
+      $result .= $1;
+    } elsif ($text =~ s/^ //o) { # space -> '-'
+      $result .= '-';
+    } elsif ($text =~ s/^(.)//o) { # Otherwise use _xxxx (ascii char code)
+      my $ccode = ord($1);
+      if ( $ccode <= 0xFFFF ) {
+        $result .= sprintf("_%04x", $ccode);
+      } else {
+        $result .= sprintf("__%06x", $ccode);
+      }
+    }
+  }
+  # 7: if name does not begin with a letter, prepend 't_g' (so it starts with a letter)
+  if ($result !~ /^[a-zA-Z]/) {
+    $result = 't_g' . $result;
+  }
+  # DONE
+  return lc_last($result)
+}
+
+# Load a file containing a nodename<=>filename map (tab-sepatared, i.e.
+# NODENAME\tFILENAME\tANCHOR
+# Returns a ref to a hash "Node title" => ["FilenameWithoutExt", "Anchor"]
+sub load_map_file ($)
+{
+  my $mapfile = shift;
+  my $node_map = ();
+
+  # For some unknown reason, Perl on my system (5.10.0 on Fedora 12)
+  # refuses to open map files of translated documents with
+  # '<:encoding(utf8)', but decoding from UTF-8 line by line works. -jm
+  if (open(XREFFILE,'<', $mapfile)) {
+    my $line;
+    # print STDERR "*** PRINTING MAP FILE LINES ***\n";
+    while ( $line = decode ('UTF-8', <XREFFILE>) ) {
+      # parse the tab-separated entries and insert them into the map:
+      chomp($line);
+      my @entries = split(/\t/, $line);
+      if (scalar (@entries) == 3) {
+	$node_map->{$entries[0]} = [$entries[1], $entries[2]];
+	$, = " ";
+	# print STDERR @entries;
+	# print STDERR "\n";
+      } else {
+	print STDERR "Invalid entry in the node file $mapfile: $line\n";
+      }
+    }
+    close (XREFFILE);
+  } else {
+    print STDERR "WARNING: Unable to load the map file $mapfile\n";
+  }
+  return $node_map;
+}
+
+
+# Split the given path into dir and basename (with .texi removed). Used mainly
+# to get the path/basename of the original texi input file
+sub split_texi_filename ($)
+{
+  my $docu = shift;
+  my ($docu_dir, $docu_name);
+  if ($docu =~ /(.*\/)/) {
+    chop($docu_dir = $1);
+    $docu_name = $docu;
+    $docu_name =~ s/.*\///;
+  } else {
+     $docu_dir = '.';
+     $docu_name = $docu;
+  }
+  $docu_name =~ s/\.te?x(i|info)?$//;
+  return ($docu_dir, $docu_name);
+}
+
+
+
+
+
+#############################################################################
+###  CSS HANDLING
+#############################################################################
+
+# Include our standard CSS file, not hard-coded CSS code directly in the HTML!
+# For IE, add a second conditionally included CSS file.
+sub lilypond_css_lines ($$)
+{
+  my $import_lines = shift;
+  my $rule_lines = shift;
+  return if (defined($Texi2HTML::THISDOC{'CSS_LINES'}));
+  if (@$rule_lines or @$import_lines)
+  {
+    $Texi2HTML::THISDOC{'CSS_LINES'} = "<style type=\"text/css\">\n<!--\n";
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$import_lines) . "\n" if (@$import_lines);
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$rule_lines) . "\n" if (@$rule_lines);
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= "-->\n</style>\n";
+  }
+  foreach my $ref (@CSS_REFS)
+  {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .=
+	"<link rel=\"stylesheet\" type=\"text/css\" title=\"$ref->{TITLE}\" href=\"css/$ref->{FILENAME}\">\n";
+  }
+  foreach my $ref (@Texi2HTML::Config::ALT_CSS_REFS)
+  {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .=
+	"<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"css/$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
+  }
+
+  # Add a conditionally included CSS file for IE, for either the docs or the website
+  if ($web_manual) {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .=
+	"<!--[if lte IE 9]>\n<link href=\"css/lilypond-website-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+  } else {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .=
+	"<!--[if lte IE 7]>\n<link href=\"css/lilypond-manuals-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+  }
+
+  if ($ENV{'AJAX_SEARCH'} == 1) {
+    # Add the JavaScript file only if we have an index.
+    # Unfortunately, init_out is called after css_lines, so as a workaround
+    # here we have to check again for the existence of an index...
+    my $ix = main::get_index ("cp");
+    $have_index_entries = (scalar $ix > 0);
+    my $reldir = "";
+    $reldir = "../" unless $bigpage;
+    if ($have_index_entries) {
+      $Texi2HTML::THISDOC{'CSS_LINES'} .= "<script language=\"JavaScript\" src=\"${reldir}lily_search.js\"></script>\n";
+    }
+  }
+
+  ## This section makes the manual name visible to CSS through the body tag
+  ## so that styles can be applied per manual. It will add the manual
+  ## directory name (e.g., 'notation' or 'learning') as a CSS class, as well
+  ## as a development status.
+
+  # Parse the input file name to determine the manual we're dealing with.
+  my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+
+  # Hard-coded value to indicate if this is a development version
+  # ('devStatus') or stable version ('stableStatus')
+  # TODO: Figure out how to automatically set this value based on the even/odd minor revision number or some other mechanism.
+  $documentstatus = 'devStatus';
+
+  # Create the extra information for the <body> tag.
+  # For example, the development Notation reference in English
+  # will output in HTML as <body lang='en' class='notation devStatus'>
+  $Texi2HTML::Config::BODYTEXT = 'lang="' . $Texi2HTML::THISDOC{current_lang} . '" class="' . $docu_name . ' ' . $documentstatus . '"';
+
+}
+
+
+
+
+
+#############################################################################
+###  SPLITTING BASED ON NUMBERED SECTIONS
+#############################################################################
+
+my $lastfilename;
+my $docnr = 0;
+my $node_to_filename_map = ();
+$source_to_translationof_map = ();
+
+
+# This function makes sure that files are only generated for numbered sections,
+# but not for unnumbered ones. It is called after texi2html has done its own
+# splitting and simply returns the filename for the node given as first argument
+# Nodes with the same filename will be printed out to the same filename, so
+# this really all we need. Also, make sure that the file names for sections
+# are derived from the section title. We also might want to name the anchors
+# according to node titles, which works by simply overriding the id element of
+# the $element hash.
+# If an external nodename<=>filename/anchor map file is found (loaded in
+# the command handler, use the externally created values, otherwise use the
+# same logic here.
+sub lilypond_element_file_name($$$)
+{
+  my $element = shift;
+  my $type = shift;
+  my $docu_name = shift;
+  my $docu_ext = $Texi2HTML::Config::EXTENSION;
+
+  my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
+  # the snippets page does not use nodes for the snippets, so in this case
+  # we'll have to use the section name!
+  if ($node_name eq '') {
+    $node_name = main::remove_texi($element->{'texi'});
+  }
+
+  # If we have an entry in the section<=>filename map, use that one, otherwise
+  # generate the filename/anchor here. In the latter case, external manuals
+  # will not be able to retrieve the file name for xrefs!!! Still, I already
+  # had that code, so I'll leave it in in case something goes wrong with the
+  # extract_texi_filenames.py script in the lilypond build process!
+  if (exists ($node_to_filename_map->{$node_name})) {
+    (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
+    $filename .= ".$docu_ext" if (defined($docu_ext));
+    # don't do lc_last here, otherwise the colors are messed up!
+    $filename = lc($filename);
+
+    # unnumbered sections (except those at top-level!) always go to the same
+    # file as the previous numbered section
+    if (not ($web_manual) and not ($element->{number})
+	and not ($lastfilename eq '') and ($element->{level} > 1)) {
+      $filename = $lastfilename;
+    }
+    if (($filename eq $lastfilename)) {
+      $$element{doc_nr} = $docnr;
+    } else {
+      $docnr += 1;
+      $$element{doc_nr} = $docnr;
+      $lastfilename = $filename;
+    }
+    #print STDERR "Output file name: $filename\n";
+    $filename = lc_last($filename);
+    return $filename;
+
+  } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or
+	   $type eq "stoc" or $type eq "foot" or $type eq "about") {
+    return;
+  } else {
+    print STDERR "WARNING: Node '$node_name' was NOT found in the map\n"
+        unless ($node_name eq '') or ($element->{'tag'} eq 'unnumberedsec')
+               or ($node_name =~ /NOT REALLY USED/);
+
+    # Numbered sections will get a filename Node_title, unnumbered sections will use
+    # the file name of the previous numbered section:
+    if (($element->{number}) or ($lastfilename eq '') or ($element->{level} == 1)) {
+      # normalize to the same file name as texinfo
+      if ($element->{translationof}) {
+        $node_name = main::remove_texi($element->{translationof});
+      }
+      my $filename = texinfo_file_name($node_name);
+      $filename .= ".$docu_ext" if (defined($docu_ext));
+      $filename = lc_last($filename);
+      $docnr += 1;
+      $$element{doc_nr} = $docnr;
+      $lastfilename = $filename;
+      print STDERR "File name: $filename\n";
+      return $filename;
+    } else {
+      $$element{doc_nr} = $docnr;
+      $filename = lc_last($filename);
+      print STDERR "File name: $filename\n";
+      return $filename;
+    }
+  }
+
+  return;
+}
+
+sub lilypond_normalise_node($)
+{
+    my $text = shift;
+    my $norm = main::t2h_default_normalise_node($text);
+    if (exists ($source_to_translationof_map->{$text})) {
+	my $original = $source_to_translationof_map->{$text};
+	$norm = main::t2h_default_normalise_node($original);
+    }
+
+    return $norm;
+}
+
+# This function produces an anchor.
+#
+# arguments:
+# $name           :   anchor name
+# $href           :   anchor href
+# text            :   text displayed
+# extra_attribs   :   added to anchor attributes list
+sub lilypond_anchor($;$$$)
+{
+    my $name = shift;
+    my $href = shift;
+    my $text = shift;
+    my $attributes = shift;
+    $href = remove_unneeded_anchor($href);
+    if (!defined($attributes) or ($attributes !~ /\S/))
+    {
+        $attributes = '';
+    }
+    else
+    {
+        $attributes = ' ' . $attributes;
+    }
+    $name = '' if (!defined($name) or ($name !~ /\S/));
+    $href = '' if (!defined($href) or ($href !~ /\S/));
+    $text = '' if (!defined($text));
+    return $text if (($name eq '') and ($href eq ''));
+    $name = "name=\"$name\"" if ($name ne '');
+    $href = "href=\"$href\"" if ($href ne '');
+    $href = ' ' . $href if (($name ne '') and ($href ne ''));
+    return "<a ${name}${href}${attributes}>$text</a>";
+}
+
+
+sub lilypond_element_target_name($$$)
+{
+  my $element = shift;
+  my $target = shift;
+  my $id = shift;
+  # Target is based on node name (or sec name for secs without node attached)
+  my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
+  if ($node_name eq '') {
+    $node_name = main::remove_texi($element->{'texi'});
+  }
+
+  # If we have an entry in the section<=>filename map, use that one, otherwise
+  # generate the anchor here.
+  if (exists ($node_to_filename_map->{$node_name})) {
+    (my $filename, $target) = @{$node_to_filename_map->{$node_name}};
+  } else {
+    my $anchor = $node_name;
+    if ($element->{translationof}) {
+      $anchor = main::remove_texi($element->{translationof});
+    }
+    # normalize to the same file name as texinfo
+    $target = texinfo_file_name($anchor);
+  }
+  # TODO: Once texi2html correctly prints out the target and not the id for
+  #       the sections, change this back to ($id, $target)
+  # I don't understand this comment, so I'm reluctant to delete it -gp
+  $target = lc_last($target);
+  $id = lc($target);
+# $id =~ s/-1$//i; # remove any trailing "-1"
+  return ($target, $id);
+}
+
+
+## Load the map file for the corrently processed texi file. We do this
+#  using a command init handler, since texi2html does not have any
+#  other hooks that are called after THISDOC is filled but before phase 2
+#  of the texi2html conversion.
+sub lilypond_init_map ()
+{
+    my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+    my $map_filename = main::locate_include_file ("${docu_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
+	|| main::locate_include_file ("${docu_name}.xref-map");
+    #print STDERR "Map filename is: $map_filename\nDocu name is $docu_name\n";
+    if ($docu_name eq 'web') {
+	$web_manual = 1;
+	web_settings();
+    }
+    $node_to_filename_map = load_map_file ($map_filename);
+}
+push @Texi2HTML::Config::command_handler_init, \&lilypond_init_map;
+
+
+
+#############################################################################
+###  CLEANER LINK TITLE FOR EXTERNAL REFS
+#############################################################################
+
+# The default formatting of external refs returns e.g.
+# "(lilypond-internals)Timing_translator", so we remove all (...) from the
+# file_and_node argument. Also, we want only a very simple format, so we don't
+# even call the default handler!
+sub lilypond_external_ref($$$$$$)
+{
+  my $type = shift;
+  my $section = shift;
+  my $book = shift;
+  my $file_node = shift;
+  my $href = shift;
+
+  $href = lc_last($href);
+
+  my $cross_ref = shift;
+
+  my $displaytext = '';
+
+  # 1) if we have a cross ref name, that's the text to be displayed:
+  # 2) For the top node, use the (printable) name of the manual, unless we
+  #    have an explicit cross ref name
+  # 3) In all other cases use the section name
+  if ($cross_ref ne '') {
+    $displaytext = $cross_ref;
+  } elsif (($section eq '') or ($section eq 'Top')) {
+    $displaytext = $book;
+  } else {
+    $displaytext = $section;
+  }
+
+  $displaytext = &$anchor('', $href, $displaytext) if ($displaytext ne '');
+  return &$I('%{node_file_href}', { 'node_file_href' => $displaytext });
+}
+
+
+
+
+
+#############################################################################
+###  HANDLING TRANSLATED SECTIONS: handle @translationof, secname<->filename
+###                  map stored on disk, xrefs in other manuals load that map
+#############################################################################
+
+
+# Try to make use of @translationof to generate files according to the original
+# English section title...
+sub lilypond_unknown($$$$$)
+{
+    my $macro = shift;
+    my $line = shift;
+    my $pass = shift;
+    my $stack = shift;
+    my $state = shift;
+
+    # the @translationof macro provides the original English section title,
+    # which should be used for file/anchor naming, while the title will be
+    # translated to each language
+    # It is already used by extract_texi_filenames.py, so this should not be
+    # necessary here at all. Still, I'll leave the code in just in case the
+    # python script messed up ;-)
+    if ($pass == 1 and $macro eq "translationof") {
+      if (ref($state->{'element'}) eq 'HASH') {
+	  $state->{'element'}->{'translationof'} = main::normalise_space($line);
+	  my $source = main::normalise_space ($line);
+	  if (ref($state->{'node_ref'}) eq 'HASH') {
+	      my $translationof = $state->{'node_ref'}->{'texi'};
+	      our %source_to_translationof_map;
+	      $source_to_translationof_map->{$source} = $translationof;
+	  }
+      }
+      return ('', 1, undef, undef);
+    } else {
+      return &$default_unknown($macro, $line, $pass, $stack, $state);
+    }
+}
+
+
+my %translated_books = ();
+# Construct a href to an external source of information.
+# node is the node with texinfo @-commands
+# node_id is the node transliterated and transformed as explained in the
+#         texinfo manual
+# node_xhtml_id is the node transformed such that it is unique and can
+#     be used to make an html cross ref as explained in the texinfo manual
+# file is the file in '(file)node'
+sub lilypond_external_href($$$)
+{
+  my $node = shift;
+  my $node_id = shift;
+  my $node_xhtml_id = shift;
+  my $file = shift;
+
+  # 1) Keep a hash of book->section_map
+  # 2) if not file in keys hash => try to load the map (assign empty map if
+  #    non-existent => will load only once!)
+  # 3) if node in the section=>(file, anchor) map, replace node_id and
+  #    node_xhtml_id by the map's values
+  # 4) call the default_external_href with these values (or the old ones if not found)
+
+  if (($node_id ne '') and defined($file) and ($node_id ne 'Top')) {
+    my $map_name = $file;
+    $map_name =~ s/-big-page//;
+
+    # Load the map if we haven't done so already
+    if (!exists($translated_books{$map_name})) {
+      my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+      my $map_filename = main::locate_include_file ("${map_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
+	  || main::locate_include_file ("${map_name}.xref-map");
+      $translated_books{$map_name} = load_map_file ($map_filename);
+    }
+
+    # look up translation. use these values instead of the old filename/anchor
+    my $section_name_map = $translated_books{$map_name};
+    my $node_text = main::remove_texi($node);
+    if (defined($section_name_map->{$node_text})) {
+      ($node_id, $node_xhtml_id) = @{$section_name_map->{$node_text}};
+    } else {
+      print STDERR "WARNING: Unable to find node '$node_text' in book $map_name.\n";
+    }
+  }
+
+  if (defined $file) {
+    $href = &$default_external_href($node, $node_id, $node_xhtml_id, lc_last($file));
+    $href = remove_unneeded_anchor($href);
+
+    if ($web_manual) {
+      my $only_web_version = $ENV{ONLY_WEB_VERSION};
+      if ($only_web_version) {
+        $href = "../../doc/".$only_web_version."/Documentation/web/".$href;
+      }
+    }
+
+    return $href;
+  } else {
+    $href = &$default_external_href($node, $node_id, $node_xhtml_id);
+    $href = remove_unneeded_anchor($href);
+    return $href;
+  }
+}
+
+sub remove_unneeded_anchor($)
+{
+  my $href = shift;
+  my @hrefsplit = split("/", $href);
+  for ($i = 0; $i < @hrefsplit; $i++) {
+    $item = @hrefsplit[$i];
+    if ($item =~ /#/) {
+      @split = split(".html#", $item);
+      if (@split[0] eq @split[1]) {
+        @hrefsplit[$i] = @split[0] . ".html";
+      }
+    }
+  }
+  $href = join("/", @hrefsplit);
+  return $href
+}
+
+
+
+#############################################################################
+###  CUSTOM TOC FOR EACH PAGE (in a frame on the left)
+#############################################################################
+
+my $page_toc_depth = 2;
+my @default_toc = [];
+
+# Initialize the toc_depth to 1 if the command-line option -D=short_toc is given
+sub lilypond_init_toc_depth ()
+{
+  if (exists($main::value{'short_toc'}) and not exists($main::value{'bigpage'})
+      and not $web_manual) {
+    $page_toc_depth = 1;
+  }
+}
+# Set the TOC-depth (depending on a texinfo variable short_toc) in a
+# command-handler, so we have them available when creating the pages
+push @Texi2HTML::Config::command_handler_process, \&lilypond_init_toc_depth;
+
+
+
+# recursively generate the TOC entries for the element and its children (which
+# are only shown up to maxlevel. All ancestors of the current element are also
+# shown with their immediate children, irrespective of their level.
+# Unnumbered entries are only printed out if they are at top-level or 2nd level
+# or their parent element is an ancestor of the currently viewed node.
+# The conditions to call this method to print the entry for a child node is:
+# -) the parent is an ancestor of the current page node
+# -) the parent is a numbered element at top-level toplevel (i.e. show numbered
+#    and unnumbered 2nd-level children of numbered nodes)
+# -) the child element is a numbered node below level maxlevel
+sub generate_ly_toc_entries($$$$$)
+{
+  my $element = shift;
+  my $element_path = shift;
+  my $maxlevel = shift;
+  if ($web_manual) {
+    $maxlevel = 1;
+  }
+  my $child_count = shift;
+  my $current_element = shift;
+  # Skip undefined sections, plus all sections generated by index splitting
+  return() if (not defined($element) or exists($element->{'index_page'}));
+  my @result = ();
+  my $level = $element->{'toc_level'};
+  my $is_parent_of_current = $element->{'id'} && $element_path->{$element->{'id'}};
+  my $ind = '  ' x $level;
+  my $this_css_class = " class=\"";
+  $this_css_class .= $is_parent_of_current ? ' toc_current"' : '"';
+  my $entry = "$ind<li$this_css_class>" .
+      &$anchor ($element->{'tocid'},
+		"$element->{'file'}#$element->{'target'}",
+		$element->{'text'});
+
+  push (@result, $entry);
+  my $children = $element->{'section_childs'};
+  if (defined($children) and (ref($children) eq "ARRAY")) {
+    my $force_children = $is_parent_of_current or ($level == 1 and $element->{'number'});
+    my @child_result = ();
+    my $sub_child_count = 0;
+    foreach my $c (@$children) {
+      my $is_numbered_child = defined ($c->{'number'});
+      my $below_maxlevel = $c->{'toc_level'} le $maxlevel;
+      if ($force_children or ($is_numbered_child and $below_maxlevel)) {
+        my @child_res =
+	    generate_ly_toc_entries($c, $element_path, $maxlevel, $sub_child_count, $current_element);
+        push (@child_result, @child_res);
+	$sub_child_count += 1;
+      }
+    }
+    # if no child nodes were generated, e.g. for the index, where expanded pages
+    # are ignored, don't generate a list at all...
+    if (@child_result) {
+      push (@result, "\n$ind<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
+      if ($web_manual) {
+        push (@result, "$ind<li class=\"colorDefault" .
+	      ($element->{'text'} eq $current_element->{'text'} ?
+	       ' toc_current">' : '">') .
+	      &$anchor ($element->{'tocid'},
+			"$element->{'file'}#$element->{'target'}",
+			$element->{'text'}) . "</li>\n");
+      }
+      push (@result, @child_result);
+      push (@result, "$ind</ul>\n");
+    }
+  }
+  push (@result, "$ind</li>\n");
+  return @result;
+}
+
+
+# Print a customized TOC, containing only the first two levels plus the whole
+# path to the current page
+sub lilypond_generate_page_toc_body($)
+{
+    my $element = shift;
+    my $current_element = $element;
+    my %parentelements;
+    $parentelements{$element->{'id'}} = 1;
+    # Find the path to the current element
+    while ( defined($current_element->{'sectionup'}) and
+           ($current_element->{'sectionup'} ne $current_element) )
+    {
+      $parentelements{$current_element->{'sectionup'}->{'id'}} = 1
+              if ($current_element->{'sectionup'}->{'id'} ne '');
+      $current_element = $current_element->{'sectionup'};
+      if ($web_manual) {
+        if (exists($main::value{'shallow_toc'})) {
+          last;
+        }
+      }
+    }
+    return () if not defined($current_element);
+    # Create the toc entries recursively
+    my @toc_entries = "";
+    if ($web_manual) {
+        @toc_entries = "<ul$NO_BULLET_LIST_ATTRIBUTE>\n";
+        # FIXME: add link to main page, really hackily.
+        if ($element->{'sectionup'}) {
+            # it's not the top element
+            push (@toc_entries, "<li><a href=\"index.html\"><span>LilyPond</span></a></li>\n");
+        } else {
+            push (@toc_entries,
+		  "<li class=\"toc_current\"><a href=\"index.html\"><span>LilyPond</span></a></li>\n");
+        }
+    } else {
+        push (@toc_entries, "<div class=\"contents\">\n");
+        push (@toc_entries, "<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
+    }
+    my $children = $current_element->{'section_childs'};
+    foreach ( @$children ) {
+      push (@toc_entries, generate_ly_toc_entries($_, \%parentelements, $page_toc_depth, 0, $element));
+    }
+    # search box
+    #  I'm assuming that we wouldn't keep the google search box? -gp
+    if (!($ENV{AJAX_SEARCH} == 1)) {
+      local $/=undef;
+      my $name = "search-box";
+      $lang = $Texi2HTML::THISDOC{current_lang};
+      open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$lang/$name.ihtml" or
+	open FILE, "$ENV{TOP_SRC_DIR}/Documentation/$name.ihtml"  or
+	die "no such file: $name.ihtml: $!";
+      my $search_string = decode ('UTF-8', <FILE>);
+      $search_string = "<li>\n" . $search_string . "</li>\n";
+      push (@toc_entries, $search_string);
+      close FILE;
+    }
+
+    push (@toc_entries, "</ul>\n");
+    if ($web_manual) {
+	push (@toc_entries, "\n");
+    } else {
+	push (@toc_entries, "</div>\n");
+    }
+    return @toc_entries;
+}
+
+sub lilypond_print_toc_div ($$)
+{
+  my $fh = shift;
+  my $tocref = shift;
+  my @lines = @$tocref;
+  # use default TOC if no custom lines have been generated
+  @lines = @default_toc if (not @lines);
+  if (@lines) {
+
+    print $fh "\n\n<div id=\"tocframe\">\n";
+
+    # Remove the leading "GNU LilyPond --- " from the manual title
+    my $topname = $Texi2HTML::NAME{'Top'};
+    $topname =~ s/^GNU LilyPond(:| &[mn]dash;) //;
+
+    # construct the top-level Docs index (relative path and including language!)
+    my $lang = $Texi2HTML::THISDOC{current_lang};
+    if ($lang and $lang ne "en") {
+      $lang .= ".";
+    } else {
+      $lang = "";
+    }
+    my $reldir = $ENV{DEPTH};
+    # strip one depth level for translations
+    if ($lang and $lang ne "en" and substr ($reldir, 0, 3) eq '../') {
+	$reldir = substr ($reldir, 3);
+    }
+    # add a / at the end if there isn't one.
+    if (substr ($reldir, -1) ne '/') {
+        $reldir .= '/';
+    }
+    my $uplink = $reldir."Documentation/web/manuals.${lang}html";
+
+    if (not $web_manual) {
+      print $fh "<p class=\"toc_uplink\"><a href=\"$uplink\"
+         title=\"Documentation Index\">&lt;&lt; " .
+	 &ly_get_string ('Back to Documentation Index') .
+	 "</a></p>\n";
+
+      # AJAX search box, written in JavaScript
+      if ($ENV{'AJAX_SEARCH'} == 1) {
+        if ($have_index_entries) {
+          my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+          print $fh '<script language="JavaScript">print_search_field ("' .
+             $Texi2HTML::THISDOC{current_lang} . '", "' .
+             $docu_name . "\", " . $bigpage . ")</script>\n";
+        }
+      }
+
+      print $fh '<h4 class="toc_header"> ' . &$anchor('',
+                                    $Texi2HTML::HREF{'Top'},
+                                    $topname . " <!-- Sidebar Version Tag  --> ",
+                                    'title="Start of the manual"'
+                                   ) . "</h4>\n";
+    }
+
+    foreach my $line (@lines) {
+      print $fh $line;
+    }
+    print $fh "</div>\n\n";
+  }
+}
+
+# Create the custom TOC for this page (partially folded, current page is
+# highlighted) and store it in a global variable. The TOC is written out after
+# the html contents (but positioned correctly using CSS), so that browsers with
+# css turned off still show the contents first.
+our @this_page_toc = ();
+sub lilypond_print_element_header
+{
+  my $first_in_page = shift;
+  my $previous_is_top = shift;
+  if ($first_in_page and not @this_page_toc) {
+    if (defined($Texi2HTML::THIS_ELEMENT)) {
+      # Create the TOC for this page
+      @this_page_toc = lilypond_generate_page_toc_body($Texi2HTML::THIS_ELEMENT);
+    }
+  }
+  return &$default_print_element_header( $first_in_page, $previous_is_top);
+}
+
+# Generate the HTML output for the TOC
+sub lilypond_toc_body($)
+{
+    my $elements_list = shift;
+    # Generate a default TOC for pages without THIS_ELEMENT
+    @default_toc = lilypond_generate_page_toc_body(@$elements_list[0]);
+    return &$default_toc_body($elements_list);
+}
+
+# Print out the TOC in a <div> at the beginning of the page
+sub lilypond_print_page_head($)
+{
+    my $fh = shift;
+    &$default_print_page_head($fh);
+    print $fh "<div id=\"main\">\n";
+}
+
+# Print out the TOC in a <div> at the end of th page, which will be formatted as a
+# sidebar mimicking a TOC frame
+sub print_lilypond_page_foot($)
+{
+  my $fh = shift;
+  my $program_string = &$program_string();
+#   print $fh "<p><font size='-1'>$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
+  print $fh "<!-- FOOTER -->\n\n";
+  print $fh "<!-- end div#main here -->\n</div>\n\n";
+  if ($web_manual) {
+    # FIXME: This div and p#languages need to be in div#footer.
+    #        Should we move this div to postprocess_html.py ?
+    print $fh "<div id=\"verifier_texinfo\">\n";
+    print $fh "<h3>Validation</h3>\n";
+    # FIXME: inlined text substitution, move to ly_get_string as soon as another case is needed
+    my $webdev_link = "<a href=\"http://www.webdev.nl/\">webdev.nl</a>";
+    my $lily_site = "<code>lilypond.org</code>";
+    my $hosting_thanks = &ly_get_string ('<p>Thanks to ${webdev_link} for hosting ${lily_site}.');
+    # this does the variable substitution ("quoting" in Perlish) after the localization
+    $hosting_thanks =~ s/(\$\{\w+\})/$1/eeg;
+    print $fh $hosting_thanks . "\n";
+    print $fh "<a href=\"http://validator.w3.org/check?uri=referer\">\n";
+    print $fh "<img src=\"http://www.w3.org/Icons/valid-html401\"\n";
+    print $fh "     alt=\"Valid HTML 4.01 Transitional\"\n";
+    print $fh "     height=\"31\" width=\"88\"></a></p>\n";
+    print $fh "</div>";
+  }
+
+  # Print the TOC frame and reset the TOC:
+  lilypond_print_toc_div ($fh, \@this_page_toc);
+  @this_page_toc = ();
+
+  # Close the page:
+  print $fh "</body>\n</html>\n";
+}
+
+
+
+
+
+#############################################################################
+###  NICER / MORE FLEXIBLE NAVIGATION PANELS
+#############################################################################
+
+sub get_navigation_text
+{
+  my $button = shift;
+  my $text = $NAVIGATION_TEXT{$button};
+  if ( ($button eq 'Back') or ($button eq 'FastBack') ) {
+    $text = $text . $Texi2HTML::NODE{$button} . "&nbsp;";
+  } elsif ( ($button eq 'Forward') or ($button eq 'FastForward') ) {
+    $text = "&nbsp;" . $Texi2HTML::NODE{$button} . $text;
+  } elsif ( $button eq 'Up' ) {
+    $text = "&nbsp;".$text.":&nbsp;" . $Texi2HTML::NODE{$button} . "&nbsp;";
+  }
+  return $text;
+}
+
+
+# Don't automatically create left-aligned table cells for every link, but
+# instead create a <td> only on an appropriate '(left|right|center)-aligned-cell-n'
+# button text. It's alignment as well as the colspan will be taken from the
+# name of the button. Also, add 'newline' button text to create a new table
+# row. The texts of the buttons are generated by get_navigation_text and
+# will contain the name of the next/previous section/chapter.
+sub lilypond_print_navigation
+{
+    my $buttons = shift;
+    my $vertical = shift;
+    my $spacing = 1;
+    my $result = "<table class=\"nav_table\">\n";
+
+    $result .= "<tr>" unless $vertical;
+    my $beginofline = 1;
+    foreach my $button (@$buttons)
+    {
+        $result .= qq{<tr valign="top" align="left">\n} if $vertical;
+        # Allow (left|right|center)-aligned-cell and newline as buttons!
+        if ( $button =~ /^(.*)-aligned-cell-(.*)$/ )
+        {
+          $result .= qq{</td>} unless $beginofline;
+          $result .= qq{<td valign="middle" align="$1" colspan="$2">};
+          $beginofline = 0;
+        }
+        elsif ( $button eq 'newline' )
+        {
+          $result .= qq{</td>} unless $beginofline;
+          $result .= qq{</tr>};
+          $result .= qq{<tr>};
+          $beginofline = 1;
+
+        }
+        elsif (ref($button) eq 'CODE')
+        {
+            $result .= &$button($vertical);
+        }
+        elsif (ref($button) eq 'SCALAR')
+        {
+            $result .= "$$button" if defined($$button);
+        }
+        elsif (ref($button) eq 'ARRAY')
+        {
+            my $text = $button->[1];
+            my $button_href = $button->[0];
+            # verify that $button_href is simple text and text is a reference
+            if (defined($button_href) and !ref($button_href)
+               and defined($text) and (ref($text) eq 'SCALAR') and defined($$text))
+            {             # use given text
+                if ($Texi2HTML::HREF{$button_href})
+                {
+                  my $anchor_attributes = '';
+                  if ($USE_ACCESSKEY and (defined($BUTTONS_ACCESSKEY{$button_href})) and
+		      ($BUTTONS_ACCESSKEY{$button_href} ne ''))
+                  {
+                      $anchor_attributes = "accesskey=\"$BUTTONS_ACCESSKEY{$button_href}\"";
+                  }
+                  if ($USE_REL_REV and (defined($BUTTONS_REL{$button_href})) and
+		      ($BUTTONS_REL{$button_href} ne ''))
+                  {
+                      $anchor_attributes .= " rel=\"$BUTTONS_REL{$button_href}\"";
+                  }
+                  $result .=  "" .
+                        &$anchor('',
+                                    $Texi2HTML::HREF{$button_href},
+                                    get_navigation_text($$text),
+                                    $anchor_attributes
+                                   );
+                }
+                else
+                {
+                  $result .=  get_navigation_text($$text);
+                }
+            }
+        }
+        elsif ($button eq ' ')
+        {                       # handle space button
+            $result .=
+                ($ICONS && $ACTIVE_ICONS{' '}) ?
+                    &$button_icon_img($BUTTONS_NAME{$button}, $ACTIVE_ICONS{' '}) :
+                        $NAVIGATION_TEXT{' '};
+            #next;
+        }
+        elsif ($Texi2HTML::HREF{$button})
+        {                       # button is active
+            my $btitle = $BUTTONS_GOTO{$button} ?
+                'title="' . $BUTTONS_GOTO{$button} . '"' : '';
+            if ($USE_ACCESSKEY and (defined($BUTTONS_ACCESSKEY{$button})) and
+		($BUTTONS_ACCESSKEY{$button} ne ''))
+            {
+                $btitle .= " accesskey=\"$BUTTONS_ACCESSKEY{$button}\"";
+            }
+            if ($USE_REL_REV and (defined($BUTTONS_REL{$button})) and
+		($BUTTONS_REL{$button} ne ''))
+            {
+                $btitle .= " rel=\"$BUTTONS_REL{$button}\"";
+            }
+            if ($ICONS && $ACTIVE_ICONS{$button})
+            {                   # use icon
+                $result .= '' .
+                    &$anchor('',
+                        $Texi2HTML::HREF{$button},
+                        &$button_icon_img($BUTTONS_NAME{$button},
+                                   $ACTIVE_ICONS{$button},
+                                   $Texi2HTML::SIMPLE_TEXT{$button}),
+                        $btitle
+                      );
+            }
+            else
+            {                   # use text
+                $result .=
+                    '[' .
+                        &$anchor('',
+                                    $Texi2HTML::HREF{$button},
+                                    get_navigation_text($button),
+                                    $btitle
+                                   ) .
+                                       ']';
+            }
+        }
+        else
+        {                       # button is passive
+            $result .=
+                $ICONS && $PASSIVE_ICONS{$button} ?
+                    &$button_icon_img($BUTTONS_NAME{$button},
+                                          $PASSIVE_ICONS{$button},
+                                          $Texi2HTML::SIMPLE_TEXT{$button}) :
+
+                                              "[" . get_navigation_text($button) . "]";
+        }
+        $result .= "</td>\n" if $vertical;
+        $result .= "</tr>\n" if $vertical;
+    }
+    $result .= "</td>" unless $beginofline;
+    $result .= "</tr>" unless $vertical;
+    $result .= "</table>\n";
+    if ($web_manual) {
+      return "\n";
+    } else {
+      return $result;
+    }
+}
+
+
+@Texi2HTML::Config::SECTION_BUTTONS =
+    ('left-aligned-cell-1', 'FastBack',
+     'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
+     'right-aligned-cell-1', 'FastForward',
+     'newline',
+     'left-aligned-cell-2', 'Back',
+     'center-aligned-cell-1', 'Up',
+     'right-aligned-cell-2', 'Forward'
+    );
+
+# buttons for misc stuff
+@Texi2HTML::Config::MISC_BUTTONS = ('center-aligned-cell-3',
+				    'Top', 'Contents', 'Index', 'About');
+
+# buttons for chapter file footers
+# (and headers but only if SECTION_NAVIGATION is false)
+@Texi2HTML::Config::CHAPTER_BUTTONS =
+    ('left-aligned-cell-1', 'FastBack',
+     'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
+     'right-aligned-cell-1', 'FastForward',
+    );
+
+# buttons for section file footers
+@Texi2HTML::Config::SECTION_FOOTER_BUTTONS =
+    ('left-aligned-cell-1', 'FastBack',
+     'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
+     'right-aligned-cell-1', 'FastForward',
+     'newline',
+     'left-aligned-cell-2', 'Back',
+     'center-aligned-cell-1', 'Up',
+     'right-aligned-cell-2', 'Forward'
+    );
+
+@Texi2HTML::Config::NODE_FOOTER_BUTTONS =
+    ('left-aligned-cell-1', 'FastBack',
+     'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
+     'right-aligned-cell-1', 'FastForward',
+     'newline',
+     'left-aligned-cell-2', 'Back',
+     'center-aligned-cell-1', 'Up',
+     'right-aligned-cell-2', 'Forward'
+    );
+
+
+
+
+
+#############################################################################
+###  FOOTNOTE FORMATTING
+#############################################################################
+
+# Format footnotes in a nicer way: Instead of printing the number in a separate
+# (nr) heading line, use the standard way of prepending <sup>nr</sup> immediately
+# before the fn text.
+
+
+# The following code is copied from texi2html's examples/makeinfo.init and
+# should be updated when texi2html makes some changes there!
+
+my $makekinfo_like_footnote_absolute_number = 0;
+
+sub makeinfo_like_foot_line_and_ref($$$$$$$$)
+{
+    my $foot_num = shift;
+    my $relative_num = shift;
+    my $footid = shift;
+    my $docid = shift;
+    my $from_file = shift;
+    my $footnote_file = shift;
+    my $lines = shift;
+    my $state = shift;
+
+    $makekinfo_like_footnote_absolute_number++;
+
+    # this is a bit obscure, this allows to add an anchor only if formatted
+    # as part of the document.
+    $docid = '' if ($state->{'outside_document'} or $state->{'multiple_pass'});
+
+    if ($from_file eq $footnote_file)
+    {
+        $from_file = $footnote_file = '';
+    }
+
+    my $foot_anchor = "<sup>" .
+	&$anchor($docid, "$footnote_file#$footid", $relative_num) . "</sup>";
+    $foot_anchor = &$anchor($docid,
+			    "$footnote_file#$footid",
+			    "($relative_num)") if ($state->{'preformatted'});
+
+#    unshift @$lines, "<li>";
+#    push @$lines, "</li>\n";
+    return ($lines, $foot_anchor);
+}
+
+sub makeinfo_like_foot_lines($)
+{
+    my $lines = shift;
+    unshift @$lines, "<hr>\n<h4>$Texi2HTML::I18n::WORDS->{'Footnotes_Title'}</h4>\n";
+#<ol type=\"1\">\n";
+#    push @$lines, "</ol>";
+    return $lines;
+}
+
+my %makekinfo_like_paragraph_in_footnote_nr;
+
+sub makeinfo_like_paragraph ($$$$$$$$$$$$$)
+{
+    my $text = shift;
+    my $align = shift;
+    my $indent = shift;
+    my $paragraph_command = shift;
+    my $paragraph_command_formatted = shift;
+    my $paragraph_number = shift;
+    my $format = shift;
+    my $item_nr = shift;
+    my $enumerate_style = shift;
+    my $number = shift;
+    my $command_stack_at_end = shift;
+    my $command_stack_at_begin = shift;
+    my $state = shift;
+#print STDERR "format: $format\n" if (defined($format));
+#print STDERR "paragraph @$command_stack_at_end; @$command_stack_at_begin\n";
+    $paragraph_command_formatted = '' if (!defined($paragraph_command_formatted) or
+          exists($special_list_commands{$format}->{$paragraph_command}));
+    return '' if ($text =~ /^\s*$/);
+    foreach my $style(t2h_collect_styles($command_stack_at_begin))
+    {
+       $text = t2h_begin_style($style, $text);
+    }
+    foreach my $style(t2h_collect_styles($command_stack_at_end))
+    {
+       $text = t2h_end_style($style, $text);
+    }
+    if (defined($paragraph_number) and defined($$paragraph_number))
+    {
+         $$paragraph_number++;
+         return $text  if (($format eq 'itemize' or $format eq 'enumerate') and
+            ($$paragraph_number == 1));
+    }
+    # The cells of a table should not be wrapped in a <p> tag, so just return the text
+    if (defined($command_stack_at_begin->[0]) and $command_stack_at_begin->[0] eq 'multitable')
+    {
+        return $text;
+    }
+
+    # Adjust all footnotes so that they look like good old makeinfo
+    my $open = '<p';
+    if ($align)
+    {
+        $open .= " align=\"$paragraph_style{$align}\"";
+    }
+    my $footnote_text = '';
+    if (defined($command_stack_at_begin->[0]) and $command_stack_at_begin->[0] eq 'footnote')
+    {
+        my $state = $Texi2HTML::THISDOC{'state'};
+        $makekinfo_like_paragraph_in_footnote_nr{$makekinfo_like_footnote_absolute_number}++;
+        if ($makekinfo_like_paragraph_in_footnote_nr{$makekinfo_like_footnote_absolute_number} <= 1)
+        {
+           $open.=' class="footnote"';
+           my $document_file = $state->{'footnote_document_file'};
+           if ($document_file eq $state->{'footnote_footnote_file'})
+           {
+               $document_file = '';
+           }
+           my $docid = $state->{'footnote_place_id'};
+           my $doc_state = $state->{'footnote_document_state'};
+           $docid = '' if ($doc_state->{'outside_document'} or $doc_state->{'multiple_pass'});
+           my $foot_label = &$anchor($state->{'footnote_footnote_id'},
+                 $document_file . "#$state->{'footnote_place_id'}",
+                 "$state->{'footnote_number_in_page'}");
+           $footnote_text = "<small>[${foot_label}]</small> ";
+        }
+    }
+    return $open.'>'.$footnote_text.$text.'</p>';
+}
+
+
+#############################################################################
+###  WRITING OUT THE INDEX FOR THE AJAX SEARCH FIELD
+#############################################################################
+
+$Texi2HTML::Config::IDX_SUMMARY   = 1;
+$Texi2HTML::Config::init_out                  = \&lilypond_init_out;
+$Texi2HTML::Config::finish_out                = \&lilypond_finish_out;
+$Texi2HTML::Config::index_summary_file_entry  = \&lilypond_index_summary_file_entry;
+
+my @index_entries;
+
+sub lilypond_init_out ()
+{
+  t2h_default_init_out ();
+  # Check whether we have an index at all! If not -> don't print out a search box!
+  my $ix = main::get_index ("cp");
+  $have_index_entries = (scalar $ix > 0);
+}
+
+sub lilypond_index_summary_file_entry ($$$$$$$$$)
+{
+  my $index_name = shift;
+  my $entry_text = shift;
+  my $entry_reference = shift;
+  my $formatted_entry = shift;
+  my $texi_entry = shift;
+  my $entry_element_reference = shift;
+  my $entry_element_header = shift;
+  my $is_printed = shift;
+  my $manual_name = shift;
+
+  if ($ENV{'AJAX_SEARCH'}==1) {
+    if ($index_name eq "cp")
+    {
+      # The entries in the index file have the form:
+      # SearchText \t FormattedText \t EntryURL \t SectionText \t SectionURL
+      push @index_entries, "$entry_text\t$formatted_entry\t$entry_reference\t$entry_element_header\t$entry_element_reference\n";
+    }
+  }
+}
+
+sub lilypond_finish_out ()
+{
+  if ($ENV{'AJAX_SEARCH'}==1) {
+    if (((scalar @index_entries) > 0) and $have_index_entries) {
+      my $lang = $Texi2HTML::THISDOC{current_lang};
+      my $big = "";
+      $big = "-big-page" if $bigpage;
+      my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+      my $idx_file = "$docu_dir/$docu_name$big.$lang.idx";
+      open IDXOUTFILE, ">:utf8", $idx_file;
+      print IDXOUTFILE @index_entries;
+      close IDXOUTFILE;
+    }
+  }
+}
+
+
+
+#############################################################################
+###  OTHER SETTINGS
+#############################################################################
+
+# For split pages, use index.html as start page!
+if ($Texi2HTML::Config::SPLIT eq 'section' or
+    $Texi2HTML::Config::SPLIT eq 'node') {
+  $Texi2HTML::Config::TOP_FILE = 'index.html';
+}
+
+
+return 1;

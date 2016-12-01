@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die
+@code{outside-staff-priority}-Eigenschaft auf falsch gesetzt wird.
+
+"
+  doctitlede = "Textbeschriftung innerhalb von Bögen positionieren"

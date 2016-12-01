@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+texidocde = "
+Bunddiagramme können definiert werden, sodass sie nur angezeigt werden,
+wenn der Akkord sich ändert oder eine neue Zeile anfängt.
+
+"
+
+  doctitlede = "Akkordänderungen für Bunddiagramme"

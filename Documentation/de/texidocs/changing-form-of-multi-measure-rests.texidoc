@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Wenn zehn oder weniger Pausentakte vorkommen, wird eine Reihe von Longa-
+und Brevispausen (auch Kirchenpausen genannt) gesetzt, bei mehr Takten
+wird eine Line mit der Taktanzahl ausgegeben.  Der vorgegebene Wert von
+zehn kann geändert werden, indem man die @code{expand-limit}-Eigenschaft
+setzt:
+"
+  doctitlede = "Die Erscheinung von Pausentakten ändern"
+
+

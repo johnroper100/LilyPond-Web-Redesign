@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+  texidocde = "
+Das erste Beispiel zeigt ein Notensystem mit Noten, passend für ein
+Soloinstrument oder ein Melodiefragment. Kopieren Sie es und fügen
+Sie es in Ihre Datei ein, schreiben Sie die Noten hinzu, und Sie haben
+eine vollständige Notationsdatei.
+"
+
+  doctitlede = "Vorlage für ein Notensystem"
+

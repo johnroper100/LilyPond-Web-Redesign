@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
+texidocde = "
+Balkengruppen können mit der @code{beatGrouping}-Eigenschaft geändert
+werden:
+
+"
+  doctitlede = "Notengruppen"
+
+
