@@ -133,20 +133,20 @@ h1, h2, h3, h4, h5, h6 {
 .img-header {
     width: 100% !important;
     height: 400px;
-    background-image: url(../img/slbocnlwnha-larisa-birta.jpg);
+    background-image: url(../img/slbocnlwnha-larisa-birta_compressed.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .img-header .content {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .img-header-sm {
     width: 100% !important;
     height: 200px;
-    background-image: url(../img/slbocnlwnha-larisa-birta.jpg);
+    background-image: url(../img/slbocnlwnha-larisa-birta_compressed.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -157,11 +157,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header-logo {
-    width: 17em;
+    width: 30em;
 }
 
 .header-logo-sm {
-    width: 12em;
+    width: 20em;
+}
+
+.header-buttons {
+    margin-left: 1.7em;
 }
 
 footer {
