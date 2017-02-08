@@ -17,7 +17,7 @@
                 return xhttp.responseXML;
             }
 
-            var xmlDoc = loadXMLDoc("tweets.xml");
+            var xmlDoc = loadXMLDoc("assets/tweets.xml");
             var tweets = xmlDoc.getElementsByTagName("tweet");
             var index = Math.floor(Math.random() * tweets.length);
             var tweet = tweets[index];
