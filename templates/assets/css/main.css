@@ -217,3 +217,11 @@ p {
 .gallery-item {
     margin-top: 25px;
 }
+
+.card {
+    margin-bottom: 25px;
+}
+
+.card-img-top{
+    padding: 10px;
+}
