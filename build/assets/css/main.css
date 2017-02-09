@@ -132,7 +132,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .img-header {
     width: 100% !important;
-    height: 400px;
+    height: 325px;
     background-image: url(../img/pexels-photo-164821.jpeg);
     background-position: center;
     background-repeat: no-repeat;
@@ -140,7 +140,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .img-header .content {
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .img-header-sm {
