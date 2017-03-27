@@ -1,0 +1,20 @@
+body * {
+    border-radius: 0px !important;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif;
+}
+p, div {
+    font-family: 'Montserrat', sans-serif;
+}
+.home-header {
+    width: 100vw;
+    height: 100vh;
+    display: table-cell;
+    vertical-align: middle;
+    background-image: url(../img/providence-doucet-81314_compressed.jpg);
+    background-size: cover;
+}
+.home-header, h1 {
+    font-size: 2em;
+}
