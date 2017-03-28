@@ -20,4 +20,4 @@ ftp_password = "pass"
 ftp_port = 21
 ftp_upload_path = "public_html/myWebsite"
 
-google_fonts = [["Merriweather"],["Montserrat"]]
+google_fonts = [["Merriweather"],["Open Sans", "300,600"]]
